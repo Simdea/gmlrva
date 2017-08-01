@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
 apply plugin: 'pt.simdea.verifier'
 apply from: "$project.rootDir/tools/script-check.gradle"
 
@@ -53,4 +54,55 @@ dependencies {
 
     /* Lombok */
     provided "org.projectlombok:lombok:$project.lombokVersion"
+}
+
+project.ext {
+    plugin = 'pt.simdea.gmlrva.lib'
+    name = 'gmlrva'
+    description = 'Generic RecyclerView Adapter that supports multiple layouts.'
+    groupId = 'pt.simdea.gmlrva.lib'
+    artifactId = 'gmlrva.lib'
+    version = "1.0"
+    website = 'https://github.com/simdea/gmlrva'
+    scm = 'https://github.com/simdea/gmlrva'
+    tags = ['android', 'recyclerview', 'adapter', 'generic', 'multiple', 'layout']
+    pom = {
+        licenses {
+            license {
+                name 'The MIT License (MIT)'
+                url 'https://opensource.org/licenses/MIT'
+                distribution 'repo'
+            }
+        }
+        scm {
+            url project.ext.scm
+            connection 'scm:git@github.com:simdea/gmlrva.git'
+            developerConnection 'scm:git@github.com:simdea/gmlrva.git'
+        }
+        issueManagement {
+            system 'GitHub'
+            url "${project.ext.scm}/issues"
+        }
+        developers {
+            developer {
+                name 'Simdea'
+                url 'https://www.simdea.pt'
+                roles {
+                    role 'developer'
+                }
+            }
+        }
+    }
+}
+
+publish {
+    userOrg = 'simdea'
+    groupId = project.ext.groupId
+    artifactId = project.ext.artifactId
+    publishVersion = project.ext.version
+    repoName = 'GMLRVA'
+    repository = project.ext.scm
+    issueTracker = "${project.ext.scm}/issues"
+    website = project.ext.website
+    licences = ['MIT']
 }
