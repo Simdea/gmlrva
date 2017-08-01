@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Generic View Dimensions -->
+    <dimen name="gmlrva_five_dps">5dp</dimen>
+    <dimen name="gmlrva_four_zero_dps">40dp</dimen>
+    <dimen name="gmlrva_one_five_zero_dps">150dp</dimen>
+    <dimen name="gmlrva_two_zero_zero_dps">200dp</dimen>
+
+    <!-- Generic Text Dimensions -->
+</resources>

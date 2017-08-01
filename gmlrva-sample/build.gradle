@@ -1,0 +1,66 @@
+apply plugin: 'com.android.application'
+apply plugin: 'pt.simdea.verifier'
+apply from: "$project.rootDir/tools/script-check.gradle"
+
+android {
+    resourcePrefix project.RESOURCE_PREFIX
+
+    compileSdkVersion project.COMPILE_SDK_VERSION.toInteger()
+    buildToolsVersion project.BUILD_TOOLS_VERSION
+
+    defaultConfig {
+        applicationId project.APP_ID
+        minSdkVersion project.MIN_SDK_VERSION.toInteger()
+        targetSdkVersion project.TARGET_SDK_VERSION.toInteger()
+    }
+
+    packagingOptions {
+        exclude 'LICENSE.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/ASL2.0'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+    }
+
+    buildTypes {
+        dev {
+            initWith debug
+            debuggable true
+            zipAlignEnabled true
+            minifyEnabled true
+            shrinkResources true
+            versionNameSuffix project.DEV_VERSION_NAME_SUFFIX
+            proguardFiles getDefaultProguardFile('proguard-android.txt'),
+                    "$project.rootDir/tools/rules-proguard-debug.pro"
+        }
+
+        prod {
+            initWith release
+            debuggable false
+            zipAlignEnabled true
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), "$project.rootDir/tools/rules-proguard.pro"
+        }
+    }
+}
+
+android.variantFilter { variant ->
+    if (variant.buildType.name.endsWith('release') || variant.buildType.name.endsWith('debug')) {
+        variant.setIgnore(true);
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    /* Google */
+    compile "com.android.support:design:$project.supportLibraryVersion"
+
+    /* Lombok */
+    provided "org.projectlombok:lombok:$project.lombokVersion"
+
+    /* GMLRVA Library */
+    compile project(':gmlrva-lib')
+}

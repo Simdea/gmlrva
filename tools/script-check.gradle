@@ -1,0 +1,33 @@
+check {
+    abortOnError false
+
+    checkstyle {
+        abortOnError false
+        reportHTML new File(project.buildDir, 'reports/checkstyle/checkstyle.html')
+        reportXML new File(project.buildDir, 'reports/checkstyle/checkstyle.xml')
+    }
+
+    findbugs {
+        abortOnError false
+        reportHTML new File(project.buildDir, 'reports/findbugs/findbugs.html')
+        reportXML new File(project.buildDir, 'reports/findbugs/findbugs.xml')
+    }
+
+    pmd {
+        abortOnError false
+        reportHTML new File(project.buildDir, 'reports/pmd/pmd.html')
+        reportXML new File(project.buildDir, 'reports/pmd/pmd.xml')
+    }
+
+    lint {
+        abortOnError false
+        reportHTML file("$project.buildDir/reports/lint/lint-result.html")
+        reportXML file("$project.buildDir/reports/lint/lint-result.xml")
+    }
+
+    cpd {
+        abortOnError false
+        reportHTML new File(project.buildDir, 'reports/cpd/cpd.html')
+        reportXML new File(project.buildDir, 'reports/cpd/cpd.xml')
+    }
+}
