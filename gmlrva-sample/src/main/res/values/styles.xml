@@ -1,0 +1,23 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="GmlrvaAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/gmlrvaColorPrimary</item>
+        <item name="colorPrimaryDark">@color/gmlrvaColorPrimaryDark</item>
+        <item name="colorAccent">@color/gmlrvaColorAccent</item>
+    </style>
+
+    <!-- Splash Screen theme. -->
+    <style name="GmlrvaSplashTheme" parent="GmlrvaAppTheme">
+        <item name="android:windowBackground">@drawable/gmlrva_splash_background</item>
+    </style>
+
+    <!-- Custom No Status Bar theme. -->
+    <style name="GmlrvaNoStatusBarTheme" parent="GmlrvaAppTheme">
+        <!-- Customize your theme here. -->
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+    </style>
+
+</resources>
