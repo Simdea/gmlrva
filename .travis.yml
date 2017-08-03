@@ -120,9 +120,7 @@ before_script:
     - adb shell settings put global window_animation_scale 0 &
     - adb shell settings put global transition_animation_scale 0 &
     - adb shell settings put global animator_duration_scale 0 &
-    - sleep 30
     - adb shell input keyevent 82 &
-    - sleep 15
     - |
         if [ "$TRAVIS_PULL_REQUEST" != "false" ] && [ "$TRAVIS_BRANCH" = "master" ]; then
           echo "Do not open PRs against master; merge dev into master locally and push instead."
