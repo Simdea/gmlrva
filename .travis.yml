@@ -26,10 +26,6 @@ env:
       - ABI=armeabi-v7a # ARM ABI v7a by default
       - ANDROID_HOME=$HOME/android-sdk
 
-before_install:
-  - export EMULATOR="system-images;android-${API};${TAG};${ABI}" # Used to install/create emulator
-  - echo 'count=0' > /home/travis/.android/repositories.cfg # Avoid warning
-
 install:
   # Download and unzip the Android SDK tools (if not already there thanks to the cache mechanism)
   - if test ! -e $HOME/android-sdk-dl/tools_r25.2.5-linux.zip ; then curl https://dl.google.com/android/repository/tools_r25.2.5-linux.zip > $HOME/android-sdk-dl/tools_r25.2.5-linux.zip ; fi
@@ -56,7 +52,7 @@ licenses:
   - 'google-gdk-license-.+'
 
 before_script:
-  - echo no | android create avd -n test -k "$EMULATOR" -f --abi "$ABI" --tag "$TAG"
+  - echo no | android create avd --force -n test -t "android-25" --abi "$ABI" --tag "$TAG"
   - emulator -avd test -no-audio -no-window &
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
