@@ -92,7 +92,7 @@ install:
   - echo no | avdmanager create avd -n acib -k "$EMULATOR" -f --abi "$ABI" --tag "$TAG"
   - emulator -avd acib -engine classic -no-window -camera-back none -camera-front none -selinux permissive -verbose -qemu -m 512 &
   # Start adbd, wait for device connected and show android serial to avoid heavy tasks in parallel
-  - travis-wait adb wait-for-device get-serialno
+  - travis_wait adb wait-for-device get-serialno
   # Show version and download Gradle Wrapper if it's not already cached
   - ./gradlew --version
   # Clean project and download missing dependencies and components
