@@ -1,5 +1,6 @@
 language: android
 jdk: oraclejdk8
+sudo: required # false for Container-Based Infrastructure, required for Sudo-enabled Infrastructure
 
 before_cache:
   # Do not cache a few Gradle files/directories (see https://docs.travis-ci.com/user/languages/java/#Caching)
@@ -22,9 +23,6 @@ cache:
     # Android build cache (see http://tools.android.com/tech-docs/build-cache)
     - $HOME/.android/build-cache
 
-    - ${TRAVIS_BUILD_DIR}/gradle/caches/
-    - ${TRAVIS_BUILD_DIR}/gradle/wrapper/dists/
-
 android:
   components:
     - tools # Update preinstalled tools from revision 24.0.2 to 24.4.1
@@ -38,7 +36,7 @@ env:
     - TAG=google_apis # Google APIs by default, alternatively use default
     - ABI=armeabi-v7a # ARM ABI v7a by default
     - QEMU_AUDIO_DRV=none # Disable emulator audio to avoid warning
-    - GRADLE_USER_HOME="${TRAVIS_BUILD_DIR}/gradle" # Change location for Gradle Wrapper and cache
+    - GRADLE_USER_HOME=$HOME/.gradle # Change location for Gradle Wrapper and cache
     - ANDROID_HOME=$HOME/android-sdk
     - TOOLS=${ANDROID_HOME}/tools # PATH order matters, exists more than one emulator script
     - PATH=${ANDROID_HOME}:${ANDROID_HOME}/emulator:${TOOLS}:${TOOLS}/bin:${ANDROID_HOME}/platform-tools:${PATH}
@@ -60,6 +58,9 @@ before_install:
   - echo 'count=0' > /home/travis/.android/repositories.cfg # Avoid warning
 
 install:
+  # Download and unzip the Android SDK tools (if not already there thanks to the cache mechanism)
+  - if test ! -e $HOME/android-sdk-dl/sdk-tools-linux-3859397.zip ; then curl https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip > $HOME/android-sdk-dl/sdk-tools-linux-3859397.zip ; fi
+  - unzip -n $HOME/android-sdk-dl/sdk-tools-linux-3859397.zip -d $HOME/android-sdk
   # List and delete unnecessary components to free space
   - sdkmanager --list || true
   - sdkmanager --uninstall "system-images;android-15;default;armeabi-v7a"
