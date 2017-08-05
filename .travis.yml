@@ -1,6 +1,5 @@
 language: android
 jdk: oraclejdk8
-sudo: required # false for Container-Based Infrastructure, required for Sudo-enabled Infrastructure
 
 before_cache:
   # Do not cache a few Gradle files/directories (see https://docs.travis-ci.com/user/languages/java/#Caching)
@@ -89,14 +88,7 @@ install:
   - echo no | avdmanager create avd -n acib -k "$EMULATOR" -f --abi "$ABI" --tag "$TAG"
   - emulator -avd acib -engine classic -no-window -camera-back none -camera-front none -selinux permissive -verbose -qemu -m 512 &
   # Start adbd, wait for device connected and show android serial to avoid heavy tasks in parallel
-  - travis_wait adb wait-for-device get-serialno
-  # Show version and download Gradle Wrapper if it's not already cached
-  - ./gradlew --version
-  # Clean project and download missing dependencies and components
-  - ./gradlew clean
-  # Check components status
-  - sdkmanager --list || true
-
+  - adb wait-for-device get-serialno
 
 branches:
   only:
@@ -124,7 +116,7 @@ before_script:
 
 script:
     # Run all device checks
-    - ./gradlew build connectedCheck -x library:signArchives -PdisablePreDex
+    - ./gradlew clean build connectedCheck -x library:signArchives -PdisablePreDex
 
 after_success:
   - |
