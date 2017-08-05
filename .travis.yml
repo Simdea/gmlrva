@@ -89,8 +89,7 @@ install:
   - echo yes | sdkmanager "$EMULATOR" # Install emulator system image
   # Create and start emulator
   - echo no | avdmanager create avd -n acib -k "$EMULATOR" -f --abi "$ABI" --tag "$TAG"
-  - emulator -avd acib -engine classic -no-window -camera-back none -camera-front none -selinux permissive -verbose -qemu -m
-  512 &
+  - emulator -avd acib -engine classic -no-window -camera-back none -camera-front none -selinux permissive -verbose -qemu -m 512 &
   # Start adbd, wait for device connected and show android serial to avoid heavy tasks in parallel
   - adb wait-for-device get-serialno
   # Show version and download Gradle Wrapper if it's not already cached
