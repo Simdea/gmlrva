@@ -22,6 +22,7 @@ licenses:
   - 'google-gdk-license-.+'
 
 before_script:
+  - android list targets
   - echo no | android create avd --force -n test -t android-18 --abi armeabi-v7a
   - emulator -avd test -no-audio -no-window &
   - android-wait-for-emulator
@@ -40,6 +41,6 @@ after_success:
       if [ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_BRANCH" = "master" ]; then
         echo "CI on master succeded. Executing release tasks..."
         git fetch --unshallow
-        ./gradlew bintrayUpload publishPlugins -PbintrayUser="$BINTRAY_USER" -PbintrayKey="$BINTRAY_KEY" -PdryRun=false
+        ./gradlew bintrayUpload -PbintrayUser="$BINTRAY_USER" -PbintrayKey="$BINTRAY_KEY" -PdryRun=false
         ./plugin/ci/tag_release.sh
       fi
