@@ -36,7 +36,7 @@ before_script:
       fi
 
 script:
-  - ./gradlew clean build connectedCheck -x library:signArchives -PdisablePreDex
+  - ./gradlew clean build connectedCheck -PdisablePreDex
 
 after_success:
   - |
