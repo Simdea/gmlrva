@@ -1,0 +1,48 @@
+language: android
+jdk: oraclejdk8
+sudo: required # false for Container-Based Infrastructure, required for Sudo-enabled Infrastructure
+
+branches:
+  only:
+  - master
+  - develop
+  - feature/configure_travis
+
+android:
+  components:
+    - tools
+    - platform-tools
+    - build-tools-25.0.3
+    - android-22
+    - android-25
+    - sys-img-armeabi-v7a-android-22
+    - extra-android-m2repository
+
+licenses:
+  - 'android-sdk-preview-license-.+'
+  - 'android-sdk-license-.+'
+  - 'google-gdk-license-.+'
+
+before_script:
+  - android list targets
+  - echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a
+  - emulator -avd test -no-audio -no-window &
+  - android-wait-for-emulator
+  - adb shell input keyevent 82 &
+  - |
+      if [ "$TRAVIS_PULL_REQUEST" != "false" ] && [ "$TRAVIS_BRANCH" = "master" ]; then
+        echo "Do not open PRs against master; merge dev into master locally and push instead."
+        exit 1
+      fi
+
+script:
+  - ./gradlew clean build connectedCheck -PdisablePreDex
+
+after_success:
+  - |
+      if [ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_BRANCH" = "master" ]; then
+        echo "CI on master succeded. Executing release tasks..."
+        git fetch --unshallow
+        ./gradlew bintrayUpload -PbintrayUser="$BINTRAY_USER" -PbintrayKey="$BINTRAY_KEY" -PdryRun=false
+        ./plugin/ci/tag_release.sh
+      fi
