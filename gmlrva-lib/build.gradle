@@ -4,6 +4,7 @@ apply plugin: 'pt.simdea.verifier'
 apply from: "$project.rootDir/tools/script-check.gradle"
 
 android {
+
     defaultPublishConfig 'release'
     publishNonDefault true
     resourcePrefix project.RESOURCE_PREFIX
@@ -21,7 +22,7 @@ android {
             debuggable true
             zipAlignEnabled true
             minifyEnabled true
-            shrinkResources true
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'),
                     "$project.rootDir/tools/rules-proguard-debug.pro"
         }
@@ -60,7 +61,7 @@ project.ext {
     plugin = 'pt.simdea.gmlrva.lib'
     name = 'gmlrva'
     description = 'Generic RecyclerView Adapter that supports multiple layouts.'
-    groupId = 'pt.simdea.gmlrva.lib'
+    groupId = 'pt.simdea'
     artifactId = 'gmlrva.lib'
     version = "1.0"
     website = 'https://github.com/simdea/gmlrva'
