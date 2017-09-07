@@ -116,7 +116,8 @@ public class GenericMultipleLayoutAdapter<T extends GenericRecyclerViewLayout>
     public void swap(@NonNull final List<T> items) {
         if (!items.isEmpty()) {
             mDataSet.clear();
-            add(items);
+            mDataSet.addAll(items);
+            notifyDataSetChanged();
         }
     }
 
