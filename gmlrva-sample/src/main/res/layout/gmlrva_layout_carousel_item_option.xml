@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/gmlrva_two_zero_zero_dps"
+    android:layout_height="@dimen/gmlrva_two_zero_zero_dps"
+    android:layout_margin="@dimen/gmlrva_five_dps">
+
+    <ImageView
+        android:id="@+id/ivCarouselItemCover"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_toStartOf="@+id/ivCarouselItemOption">
+
+            <TextView
+                android:id="@+id/tvCarouselItemTitle"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/gmlrva_four_zero_dps"/>
+
+            <TextView
+                android:id="@+id/tvCarouselItemDescription"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/gmlrva_four_zero_dps"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/ivCarouselItemOption"
+            android:layout_width="@dimen/gmlrva_eight_zero_dps"
+            android:layout_height="@dimen/gmlrva_eight_zero_dps"
+            android:background="@mipmap/gmlrva_ic_launcher"
+            android:contentDescription="@null"
+            android:layout_alignParentEnd="true"/>
+
+    </RelativeLayout>
+
+    <include
+        layout="@layout/gmlrva_layout_carousel_item_option_section"
+        android:id="@+id/rlOptionSection"/>
+
+</FrameLayout>

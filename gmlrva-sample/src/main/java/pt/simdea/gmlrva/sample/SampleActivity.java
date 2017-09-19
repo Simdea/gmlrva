@@ -19,7 +19,9 @@ import java.util.List;
 import pt.simdea.gmlrva.lib.GenericMultipleLayoutAdapter;
 import pt.simdea.gmlrva.lib.GenericRecyclerViewLayout;
 import pt.simdea.gmlrva.sample.layouts.CarouselCategoryItemLayout;
+import pt.simdea.gmlrva.sample.layouts.CarouselCategoryItemWithOptionLayout;
 import pt.simdea.gmlrva.sample.layouts.CarouselItemLayout;
+import pt.simdea.gmlrva.sample.layouts.CarouselItemWithOptionLayout;
 import pt.simdea.gmlrva.sample.layouts.SingleImageItemLayout;
 import pt.simdea.gmlrva.sample.utilities.GenericUtils;
 
@@ -86,11 +88,17 @@ public class SampleActivity extends AppCompatActivity {
                 = new CarouselCategoryItemLayout("Carousel Title", buildCarouselItemData(10), this);
         exampleHolders.add(carouselCategoryItemLayout);
 
+        /* Add a Carousel (Category + List with options) Item Example */
+        final CarouselCategoryItemWithOptionLayout carouselCategoryItemWithOptionsLayout
+                = new CarouselCategoryItemWithOptionLayout("Carousel Title With Option",
+                buildCarouselItemWithOptionsData(10), this);
+        exampleHolders.add(carouselCategoryItemWithOptionsLayout);
+
         return exampleHolders;
     }
 
     /**
-     * Auxiliary procedure meant to build the Carousel item lsit sample for the Carousel example present in this
+     * Auxiliary procedure meant to build the Carousel item list sample for the Carousel example present in this
      * activity's Sample List.
      * @param maxItemNumber the maximum number of carousel items.
      * @return the intended Carousel item list.
@@ -104,6 +112,26 @@ public class SampleActivity extends AppCompatActivity {
             title = "Title " + i;
             description = "Description " + i;
             carouselItemData.add(new CarouselItemLayout(title, description, resource));
+        }
+
+        return carouselItemData;
+    }
+
+    /**
+     * Auxiliary procedure meant to build the Carousel item list with options sample for the Carousel example present
+     * in this activity's Sample List.
+     * @param maxItemNumber the maximum number of carousel items.
+     * @return the intended Carousel item list.
+     */
+    private List<CarouselItemWithOptionLayout> buildCarouselItemWithOptionsData(final int maxItemNumber) {
+        final List<CarouselItemWithOptionLayout> carouselItemData = new ArrayList<>();
+
+        String title, description;
+        final int resource = R.mipmap.gmlrva_ic_launcher_round;
+        for (int i = 0; i < maxItemNumber; i++) {
+            title = "Title " + i;
+            description = "Description " + i;
+            carouselItemData.add(new CarouselItemWithOptionLayout(title, description, resource));
         }
 
         return carouselItemData;
