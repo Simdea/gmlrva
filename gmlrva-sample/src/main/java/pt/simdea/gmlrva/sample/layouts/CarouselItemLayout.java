@@ -47,6 +47,10 @@ import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERRO
         holder.getCover().setImageResource(mCoverResource);
     }
 
+    @Override public Object getTag() {
+        return mTitle;
+    }
+
     /** Class meant to define the {@link RecyclerView.ViewHolder} for a Carousel Item Layout instance. */
     class CarouselItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @Getter private TextView mTitle;

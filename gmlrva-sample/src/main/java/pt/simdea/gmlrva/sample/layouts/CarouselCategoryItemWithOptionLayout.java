@@ -47,6 +47,10 @@ import pt.simdea.gmlrva.sample.utilities.GenericUtils;
         loadItems(holder.getItems());
     }
 
+    @Override public Object getTag() {
+        return mCategoryTitle;
+    }
+
     /**
      * Procedure meant to load the Carousel Item Layout items, bound by this Carousel Category Layout.
      * @param items the {@link RecyclerView} which will hold the Carousel Item Layout items.

@@ -4,13 +4,17 @@
 
 package pt.simdea.gmlrva.lib;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
 import java.util.List;
 
 import lombok.AllArgsConstructor;
+
+import static pt.simdea.gmlrva.lib.GenericPayload.UPDATE_ITEM;
 
 /**
  * Generic {@link RecyclerView.Adapter} base class reponsible for binding "all intents and purposes" layout
@@ -36,6 +40,21 @@ public class GenericMultipleLayoutAdapter<T extends GenericRecyclerViewLayout>
     @SuppressWarnings("unchecked") @Override public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder,
                                                                           final int position) {
         mDataSet.get(position).setElements(holder);
+    }
+
+    @SuppressWarnings("unchecked") @Override public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder,
+                                                                          final int position,
+                                                                          @NonNull final List<Object> payloads) {
+        if (payloads.isEmpty()) {
+            onBindViewHolder(holder, position);
+        } else {
+            final Bundle o = (Bundle) payloads.get(0);
+            for (final String key : o.keySet()) {
+                if ("CENAS".equals(key)) {
+                    mDataSet.get(position).setElements(holder);
+                }
+            }
+        }
     }
 
     @Override public int getItemCount() {
@@ -107,6 +126,15 @@ public class GenericMultipleLayoutAdapter<T extends GenericRecyclerViewLayout>
      */
     public void update(@NonNull final T item) {
         add(item);
+    }
+
+    /**
+     * Procedure meant to update this adapter's entire data set.
+     * @param items the list of Generic Layout Implementation items to be added.
+     */
+    public void updateList(@NonNull final List<T> items) {
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new GmlrvaDiffCallback<>(this.mDataSet, items));
+        diffResult.dispatchUpdatesTo(this);
     }
 
     /**

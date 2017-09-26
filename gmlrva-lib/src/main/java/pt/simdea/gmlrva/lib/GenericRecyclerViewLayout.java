@@ -32,4 +32,7 @@ import android.view.ViewGroup;
      * @param holder the {@link RecyclerView.ViewHolder} instance.
      */
     void setElements(@NonNull final T holder);
+
+    Object getTag();
+
 }

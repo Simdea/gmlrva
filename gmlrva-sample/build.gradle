@@ -61,6 +61,11 @@ dependencies {
     /* Lombok */
     provided "org.projectlombok:lombok:$project.lombokVersion"
 
+    /* Retrofit & OkHttp */
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
+
     /* GMLRVA Library */
-    compile project(':gmlrva-lib')
+    devCompile project(path: ':gmlrva-lib', configuration: 'debug')
+    prodCompile project(path: ':gmlrva-lib', configuration: 'release')
 }
