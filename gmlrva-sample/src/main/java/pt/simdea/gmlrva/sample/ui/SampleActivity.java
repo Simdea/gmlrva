@@ -2,7 +2,7 @@
  * Copyright (c) 2017. Simdea.
  */
 
-package pt.simdea.gmlrva.sample;
+package pt.simdea.gmlrva.sample.ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,13 +12,14 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import pt.simdea.gmlrva.lib.GenericMultipleLayoutAdapter;
 import pt.simdea.gmlrva.lib.GenericRecyclerViewLayout;
+import pt.simdea.gmlrva.sample.R;
+import pt.simdea.gmlrva.sample.data.ClickListener;
 import pt.simdea.gmlrva.sample.data.FakeDataObject;
 import pt.simdea.gmlrva.sample.data.FakeDataProvider;
 import pt.simdea.gmlrva.sample.layouts.CarouselCategoryItemLayout;
@@ -26,9 +27,7 @@ import pt.simdea.gmlrva.sample.layouts.CarouselCategoryItemWithOptionLayout;
 import pt.simdea.gmlrva.sample.layouts.CarouselItemLayout;
 import pt.simdea.gmlrva.sample.layouts.CarouselItemWithOptionLayout;
 import pt.simdea.gmlrva.sample.layouts.SingleImageItemLayout;
-import pt.simdea.gmlrva.sample.utilities.ClickListener;
 import pt.simdea.gmlrva.sample.utilities.GenericUtils;
-
 
 /**
  * Class responsible for the Sample Screen for the (GMLRVA) library.
@@ -37,11 +36,11 @@ import pt.simdea.gmlrva.sample.utilities.GenericUtils;
  * Simdea © All Rights Reserved.
  * paulo.ribeiro@simdea.pt
  */
+@SuppressWarnings("unchecked")
 public class SampleActivity extends AppCompatActivity implements ClickListener {
 
     private RecyclerView mGenericTest;
     private FakeDataProvider dataProvider = new FakeDataProvider();
-
     private List<CarouselItemLayout> carouselItemData = new ArrayList<>();
     private List<CarouselItemWithOptionLayout> carouselItemDataWithOptions = new ArrayList<>();
 
@@ -93,13 +92,15 @@ public class SampleActivity extends AppCompatActivity implements ClickListener {
         exampleHolders.add(singleItemLayout);
 
         /* Add a Carousel (Category + List) Item Example */
+        carouselItemData = buildCarouselItemData(20);
         final CarouselCategoryItemLayout carouselCategoryItemLayout
-                = new CarouselCategoryItemLayout("Carousel sadsadsadf", carouselItemData, this);
+                = new CarouselCategoryItemLayout("Carousel Title", carouselItemData, this);
         exampleHolders.add(carouselCategoryItemLayout);
 
         /* Add a Carousel (Category + List with options) Item Example */
+        carouselItemDataWithOptions = buildCarouselItemWithOptionsData(20);
         final CarouselCategoryItemWithOptionLayout carouselCategoryItemWithOptionsLayout
-                = new CarouselCategoryItemWithOptionLayout("Carousel Title With Option dasdasdasdas",
+                = new CarouselCategoryItemWithOptionLayout("Carousel Title With Option",
                 carouselItemDataWithOptions, this);
         exampleHolders.add(carouselCategoryItemWithOptionsLayout);
 

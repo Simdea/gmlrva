@@ -17,7 +17,7 @@ import lombok.Getter;
 import pt.simdea.gmlrva.lib.GenericMultipleLayoutAdapter;
 import pt.simdea.gmlrva.lib.GenericRecyclerViewLayout;
 import pt.simdea.gmlrva.sample.R;
-import pt.simdea.gmlrva.sample.utilities.ClickListener;
+import pt.simdea.gmlrva.sample.data.ClickListener;
 
 import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERROR;
 
@@ -34,7 +34,7 @@ import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERRO
     private final int mCoverResource;
     private final ClickListener listener;
 
-    @Override public SingleImageItemViewHolder createViewHolder(@NonNull final ViewGroup parent) {
+    @NonNull @Override public SingleImageItemViewHolder createViewHolder(@NonNull final ViewGroup parent) {
         final View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.gmlrva_layout_generic_single_image_item, parent, false);
         return new SingleImageItemViewHolder(view);
@@ -44,7 +44,7 @@ import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERRO
         holder.getCover().setImageResource(mCoverResource);
     }
 
-    @Override public Object getTag() {
+    @NonNull @Override public Object getTag() {
         return mCoverResource;
     }
 
@@ -88,5 +88,7 @@ import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERRO
         private void bindViews(@NonNull final View view) {
             mCover = (ImageView) view.findViewById(R.id.ivSingleImageItemLayoutCover);
         }
+
     }
+
 }

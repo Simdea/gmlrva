@@ -1,8 +1,13 @@
+/*
+ * Copyright (c) 2017. Simdea.
+ */
+
 package pt.simdea.gmlrva.lib;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.util.DiffUtil;
+import android.support.v7.widget.RecyclerView;
 
 import java.util.List;
 
@@ -11,12 +16,17 @@ import lombok.AllArgsConstructor;
 import static pt.simdea.gmlrva.lib.GenericPayload.UPDATE_ITEM;
 
 /**
- * TODO...
- * Created by Paulo on 9/26/2017.
+ * Generic {@link DiffUtil.Callback} base class responsible for parsing changes to the
+ * {@link GenericMultipleLayoutAdapter} implementation applied to {@link RecyclerView} instances.
+ *
+ * Created by Paulo Ribeiro on 9/26/2017.
+ * Simdea © All Rights Reserved.
+ * paulo.ribeiro@simdea.pt
  */
-@AllArgsConstructor public class GmlrvaDiffCallback<T extends GenericRecyclerViewLayout> extends DiffUtil.Callback {
+@SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
+@AllArgsConstructor class GmlrvaDiffCallback<T extends GenericRecyclerViewLayout> extends DiffUtil.Callback {
 
-    private List<T> mOldList;
+    private final List<T> mOldList;
     private final List<T> mNewList;
 
     @Override public int getOldListSize() {
@@ -40,9 +50,8 @@ import static pt.simdea.gmlrva.lib.GenericPayload.UPDATE_ITEM;
         final T newItem = mNewList.get(oldItemPosition);
         final Bundle diffBundle = new Bundle();
         if (!newItem.getTag().equals(oldItem.getTag())) {
-            diffBundle.putString("CENAS", (String) newItem.getTag());
+            diffBundle.putSerializable(UPDATE_ITEM, newItem);
         }
-
         if (diffBundle.size() == 0) {
             return null;
         }

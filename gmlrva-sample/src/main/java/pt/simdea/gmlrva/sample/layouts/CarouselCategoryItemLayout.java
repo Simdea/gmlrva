@@ -36,7 +36,7 @@ import pt.simdea.gmlrva.sample.utilities.GenericUtils;
     private final List<CarouselItemLayout> mCategoryData;
     private final Context mContext;
 
-    @Override public CarouselCategoryViewHolder createViewHolder(@NonNull final ViewGroup parent) {
+    @NonNull @Override public CarouselCategoryViewHolder createViewHolder(@NonNull final ViewGroup parent) {
         final View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.gmlrva_layout_carousel_category_item, parent, false);
         return new CarouselCategoryViewHolder(view);
@@ -47,7 +47,7 @@ import pt.simdea.gmlrva.sample.utilities.GenericUtils;
         loadItems(holder.getItems());
     }
 
-    @Override public Object getTag() {
+    @NonNull @Override public Object getTag() {
         return mCategoryTitle;
     }
 
@@ -80,5 +80,7 @@ import pt.simdea.gmlrva.sample.utilities.GenericUtils;
             mTitle = (TextView) view.findViewById(R.id.tvCarouselCategoryItemTitle);
             mItems = (RecyclerView) view.findViewById(R.id.rvCarouselCategoryItemData);
         }
+
     }
+
 }

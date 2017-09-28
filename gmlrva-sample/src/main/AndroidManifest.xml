@@ -14,7 +14,7 @@
 
         <!-- Splash Activity -->
         <activity
-            android:name=".SplashActivity"
+            android:name=".ui.SplashActivity"
             android:theme="@style/GmlrvaSplashTheme">
             <intent-filter>
                 <action
@@ -27,7 +27,7 @@
         </activity>
 
         <!-- Demo Activity -->
-        <activity android:name=".SampleActivity" />
+        <activity android:name=".ui.SampleActivity" />
 
     </application>
 
