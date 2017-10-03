@@ -75,7 +75,10 @@ import pt.simdea.gmlrva.sample.utilities.GenericUtils;
             bindViews(view);
         }
 
-        /** Procedure meant to bind this {@link RecyclerView.ViewHolder}'s views. */
+        /**
+         * Procedure meant to bind this {@link RecyclerView.ViewHolder}'s views.
+         * @param view this {@link CarouselCategoryViewHolder}'s root view.
+         */
         private void bindViews(@NonNull final View view) {
             mTitle = (TextView) view.findViewById(R.id.tvCarouselCategoryItemTitle);
             mItems = (RecyclerView) view.findViewById(R.id.rvCarouselCategoryItemData);

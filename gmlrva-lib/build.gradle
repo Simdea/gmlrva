@@ -22,7 +22,7 @@ android {
             debuggable true
             zipAlignEnabled true
             minifyEnabled true
-            shrinkResources false
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'),
                     "$project.rootDir/tools/rules-proguard-debug.pro"
         }

@@ -40,9 +40,9 @@ import pt.simdea.gmlrva.sample.utilities.GenericUtils;
 public class SampleActivity extends AppCompatActivity implements ClickListener {
 
     private RecyclerView mGenericTest;
-    private FakeDataProvider dataProvider = new FakeDataProvider();
-    private List<CarouselItemLayout> carouselItemData = new ArrayList<>();
-    private List<CarouselItemWithOptionLayout> carouselItemDataWithOptions = new ArrayList<>();
+    private final FakeDataProvider mDataProvider = new FakeDataProvider();
+    private List<CarouselItemLayout> mCarouselItemData = new ArrayList<>();
+    private List<CarouselItemWithOptionLayout> mCarouselItemDataWithOptions = new ArrayList<>();
 
     /**
      * Starter procedure for SampleActivity.
@@ -84,6 +84,7 @@ public class SampleActivity extends AppCompatActivity implements ClickListener {
         }
     }
 
+    /** Procedure meant to rebuild the existing data list. */
     private void rebuildGenericListExample() {
         final List<GenericRecyclerViewLayout> exampleHolders = new ArrayList<>();
 
@@ -92,16 +93,16 @@ public class SampleActivity extends AppCompatActivity implements ClickListener {
         exampleHolders.add(singleItemLayout);
 
         /* Add a Carousel (Category + List) Item Example */
-        carouselItemData = buildCarouselItemData(20);
+        mCarouselItemData = buildCarouselItemData(20);
         final CarouselCategoryItemLayout carouselCategoryItemLayout
-                = new CarouselCategoryItemLayout("Carousel Title", carouselItemData, this);
+                = new CarouselCategoryItemLayout("Carousel Title", mCarouselItemData, this);
         exampleHolders.add(carouselCategoryItemLayout);
 
         /* Add a Carousel (Category + List with options) Item Example */
-        carouselItemDataWithOptions = buildCarouselItemWithOptionsData(20);
+        mCarouselItemDataWithOptions = buildCarouselItemWithOptionsData(20);
         final CarouselCategoryItemWithOptionLayout carouselCategoryItemWithOptionsLayout
                 = new CarouselCategoryItemWithOptionLayout("Carousel Title With Option",
-                carouselItemDataWithOptions, this);
+                mCarouselItemDataWithOptions, this);
         exampleHolders.add(carouselCategoryItemWithOptionsLayout);
 
         final GenericMultipleLayoutAdapter adapter = (GenericMultipleLayoutAdapter) mGenericTest.getAdapter();
@@ -121,16 +122,16 @@ public class SampleActivity extends AppCompatActivity implements ClickListener {
         exampleHolders.add(singleItemLayout);
 
         /* Add a Carousel (Category + List) Item Example */
-        carouselItemData = buildCarouselItemData(10);
+        mCarouselItemData = buildCarouselItemData(10);
         final CarouselCategoryItemLayout carouselCategoryItemLayout
-                = new CarouselCategoryItemLayout("Carousel Title", carouselItemData, this);
+                = new CarouselCategoryItemLayout("Carousel Title", mCarouselItemData, this);
         exampleHolders.add(carouselCategoryItemLayout);
 
         /* Add a Carousel (Category + List with options) Item Example */
-        carouselItemDataWithOptions = buildCarouselItemWithOptionsData(10);
+        mCarouselItemDataWithOptions = buildCarouselItemWithOptionsData(10);
         final CarouselCategoryItemWithOptionLayout carouselCategoryItemWithOptionsLayout
                 = new CarouselCategoryItemWithOptionLayout("Carousel Title With Option",
-                carouselItemDataWithOptions, this);
+                mCarouselItemDataWithOptions, this);
         exampleHolders.add(carouselCategoryItemWithOptionsLayout);
 
         return exampleHolders;
@@ -145,11 +146,12 @@ public class SampleActivity extends AppCompatActivity implements ClickListener {
     private List<CarouselItemLayout> buildCarouselItemData(final int maxItemNumber) {
         final List<CarouselItemLayout> carouselItemData = new ArrayList<>();
 
-        String title, description;
+        String title;
+        String description;
         final int resource = R.mipmap.gmlrva_ic_launcher_round;
         FakeDataObject item;
         for (int i = 0; i < maxItemNumber; i++) {
-            item = dataProvider.provideFakeData();
+            item = mDataProvider.provideFakeData();
             title = item.getTitle();
             description = item.getDescription();
             carouselItemData.add(new CarouselItemLayout(title, description, resource));
@@ -167,11 +169,12 @@ public class SampleActivity extends AppCompatActivity implements ClickListener {
     private List<CarouselItemWithOptionLayout> buildCarouselItemWithOptionsData(final int maxItemNumber) {
         final List<CarouselItemWithOptionLayout> carouselItemData = new ArrayList<>();
 
-        String title, description;
+        String title;
+        String description;
         final int resource = R.mipmap.gmlrva_ic_launcher_round;
         FakeDataObject item;
         for (int i = 0; i < maxItemNumber; i++) {
-            item = dataProvider.provideFakeData();
+            item = mDataProvider.provideFakeData();
             title = item.getTitle();
             description = item.getDescription();
             carouselItemData.add(new CarouselItemWithOptionLayout(title, description, resource));

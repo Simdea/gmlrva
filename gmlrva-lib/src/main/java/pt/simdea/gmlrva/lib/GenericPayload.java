@@ -18,12 +18,12 @@ import lombok.AllArgsConstructor;
  * Simdea © All Rights Reserved.
  * paulo.ribeiro@simdea.pt
  */
-@AllArgsConstructor class GenericPayload {
+@SuppressWarnings("WeakerAccess") @AllArgsConstructor public class GenericPayload {
 
     /* Constants */
 
     /** UPDATE_ITEM representing an item that needs to be updated. */
-    static final String UPDATE_ITEM = "UPDATE_ITEM";
+    public static final String UPDATE_ITEM = "UPDATE_ITEM";
 
     // Declare the @StringDef for these constants
     @StringDef({ UPDATE_ITEM })

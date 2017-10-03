@@ -31,8 +31,8 @@ import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERRO
 @AllArgsConstructor public class SingleImageItemLayout
         implements GenericRecyclerViewLayout<SingleImageItemLayout.SingleImageItemViewHolder> {
 
-    private final int mCoverResource;
-    private final ClickListener listener;
+    protected final int mCoverResource;
+    protected final ClickListener mListener;
 
     @NonNull @Override public SingleImageItemViewHolder createViewHolder(@NonNull final ViewGroup parent) {
         final View view = LayoutInflater.from(parent.getContext())
@@ -49,7 +49,8 @@ import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERRO
     }
 
     /** Class meant to define the {@link RecyclerView.ViewHolder} for a Single Image Layout instance. */
-    class SingleImageItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    final class SingleImageItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
         @Getter private ImageView mCover;
 
         /**
@@ -74,8 +75,8 @@ import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERRO
         /** Procedure meant to handle a Single Image Layout click action. */
         private void handleCoverClick() {
             Toast.makeText(itemView.getContext(), "Cover Click!", Toast.LENGTH_SHORT).show();
-            if (listener != null) {
-                listener.onClick();
+            if (mListener != null) {
+                mListener.onClick();
             }
         }
 
@@ -84,7 +85,10 @@ import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERRO
             mCover.setOnClickListener(this);
         }
 
-        /** Procedure meant to bind this {@link RecyclerView.ViewHolder}'s views. */
+        /**
+         * Procedure meant to bind this {@link RecyclerView.ViewHolder}'s views.
+         * @param view this {@link SingleImageItemViewHolder}'s root view.
+         */
         private void bindViews(@NonNull final View view) {
             mCover = (ImageView) view.findViewById(R.id.ivSingleImageItemLayoutCover);
         }

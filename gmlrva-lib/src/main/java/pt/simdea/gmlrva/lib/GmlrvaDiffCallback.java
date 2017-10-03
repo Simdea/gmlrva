@@ -19,6 +19,8 @@ import static pt.simdea.gmlrva.lib.GenericPayload.UPDATE_ITEM;
  * Generic {@link DiffUtil.Callback} base class responsible for parsing changes to the
  * {@link GenericMultipleLayoutAdapter} implementation applied to {@link RecyclerView} instances.
  *
+ * @param <T> an instance of {@link GenericRecyclerViewLayout}.
+ *
  * Created by Paulo Ribeiro on 9/26/2017.
  * Simdea © All Rights Reserved.
  * paulo.ribeiro@simdea.pt

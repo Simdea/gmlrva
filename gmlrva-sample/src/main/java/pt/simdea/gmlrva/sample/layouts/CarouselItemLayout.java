@@ -97,13 +97,16 @@ import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERRO
 
         /** Procedure meant to bind this {@link RecyclerView.ViewHolder}'s listeners. */
         private void bindListeners() {
-            final View[] clickableViews = { mTitle, mCover, mDescription };
+            final View[] clickableViews = {mTitle, mCover, mDescription};
             for (final View view : clickableViews) {
                 view.setOnClickListener(this);
             }
         }
 
-        /** Procedure meant to bind this {@link RecyclerView.ViewHolder}'s views. */
+        /**
+         * Procedure meant to bind this {@link RecyclerView.ViewHolder}'s views.
+         * @param view this {@link CarouselItemViewHolder}'s root view.
+         */
         private void bindViews(@NonNull final View view) {
             mTitle = (TextView) view.findViewById(R.id.tvCarouselItemTitle);
             mDescription = (TextView) view.findViewById(R.id.tvCarouselItemDescription);
