@@ -23,8 +23,7 @@ public final class GenericUtils {
      * Private to prevent instantiation.
      */
     private GenericUtils() {
-        // Throw an exception if this *is* ever called
-        throw new AssertionError("Instantiating utility class.");
+        throw new AssertionError("Instantiating utility class."); // Throw an exception if this *is* ever called
     }
 
     /**
@@ -38,4 +37,5 @@ public final class GenericUtils {
         recyclerView.setHasFixedSize(true);
         recyclerView.setNestedScrollingEnabled(true);
     }
+
 }

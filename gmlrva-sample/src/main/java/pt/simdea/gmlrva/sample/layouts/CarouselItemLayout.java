@@ -35,7 +35,7 @@ import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERRO
     private final String mDescription;
     private final int mCoverResource;
 
-    @Override public CarouselItemViewHolder createViewHolder(@NonNull final ViewGroup parent) {
+    @NonNull @Override public CarouselItemViewHolder createViewHolder(@NonNull final ViewGroup parent) {
         final View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.gmlrva_layout_carousel_item, parent, false);
         return new CarouselItemViewHolder(view);
@@ -45,6 +45,10 @@ import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERRO
         holder.getTitle().setText(mTitle);
         holder.getDescription().setText(mDescription);
         holder.getCover().setImageResource(mCoverResource);
+    }
+
+    @NonNull @Override public Object getTag() {
+        return mTitle;
     }
 
     /** Class meant to define the {@link RecyclerView.ViewHolder} for a Carousel Item Layout instance. */
@@ -105,5 +109,7 @@ import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERRO
             mDescription = (TextView) view.findViewById(R.id.tvCarouselItemDescription);
             mCover = (ImageView) view.findViewById(R.id.ivCarouselItemCover);
         }
+
     }
+
 }

@@ -1,4 +1,8 @@
-package pt.simdea.gmlrva.sample;
+/*
+ * Copyright (c) 2017. Simdea.
+ */
+
+package pt.simdea.gmlrva.sample.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -22,4 +26,5 @@ public class SplashActivity extends AppCompatActivity {
         SampleActivity.start(this); // Start home activity
         finish(); // close splash activity
     }
+
 }

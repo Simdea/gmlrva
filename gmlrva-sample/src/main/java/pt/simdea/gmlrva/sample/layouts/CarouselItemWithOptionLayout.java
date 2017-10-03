@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,7 +36,7 @@ import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERRO
     private final String mDescription;
     private final int mCoverResource;
 
-    @Override public CarouselItemViewHolder createViewHolder(@NonNull final ViewGroup parent) {
+    @NonNull @Override public CarouselItemViewHolder createViewHolder(@NonNull final ViewGroup parent) {
         final View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.gmlrva_layout_carousel_item_option, parent, false);
         return new CarouselItemViewHolder(view);
@@ -47,6 +46,10 @@ import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERRO
         holder.getTitle().setText(mTitle);
         holder.getDescription().setText(mDescription);
         holder.getCover().setImageResource(mCoverResource);
+    }
+
+    @NonNull @Override public Object getTag() {
+        return mTitle;
     }
 
     /** Class meant to define the {@link RecyclerView.ViewHolder} for a Carousel Item Layout instance. */
@@ -142,6 +145,7 @@ import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERRO
             mLeftOption = view.findViewById(R.id.vOptionsSectionLeft);
             mRightOption = view.findViewById(R.id.vOptionsSectionRight);
         }
+
     }
 
 }

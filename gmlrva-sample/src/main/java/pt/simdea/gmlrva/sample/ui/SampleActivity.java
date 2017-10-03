@@ -2,7 +2,7 @@
  * Copyright (c) 2017. Simdea.
  */
 
-package pt.simdea.gmlrva.sample;
+package pt.simdea.gmlrva.sample.ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -18,13 +18,16 @@ import java.util.List;
 
 import pt.simdea.gmlrva.lib.GenericMultipleLayoutAdapter;
 import pt.simdea.gmlrva.lib.GenericRecyclerViewLayout;
+import pt.simdea.gmlrva.sample.R;
+import pt.simdea.gmlrva.sample.data.ClickListener;
+import pt.simdea.gmlrva.sample.data.FakeDataObject;
+import pt.simdea.gmlrva.sample.data.FakeDataProvider;
 import pt.simdea.gmlrva.sample.layouts.CarouselCategoryItemLayout;
 import pt.simdea.gmlrva.sample.layouts.CarouselCategoryItemWithOptionLayout;
 import pt.simdea.gmlrva.sample.layouts.CarouselItemLayout;
 import pt.simdea.gmlrva.sample.layouts.CarouselItemWithOptionLayout;
 import pt.simdea.gmlrva.sample.layouts.SingleImageItemLayout;
 import pt.simdea.gmlrva.sample.utilities.GenericUtils;
-
 
 /**
  * Class responsible for the Sample Screen for the (GMLRVA) library.
@@ -33,9 +36,13 @@ import pt.simdea.gmlrva.sample.utilities.GenericUtils;
  * Simdea © All Rights Reserved.
  * paulo.ribeiro@simdea.pt
  */
-public class SampleActivity extends AppCompatActivity {
+@SuppressWarnings("unchecked")
+public class SampleActivity extends AppCompatActivity implements ClickListener {
 
     private RecyclerView mGenericTest;
+    private FakeDataProvider dataProvider = new FakeDataProvider();
+    private List<CarouselItemLayout> carouselItemData = new ArrayList<>();
+    private List<CarouselItemWithOptionLayout> carouselItemDataWithOptions = new ArrayList<>();
 
     /**
      * Starter procedure for SampleActivity.
@@ -71,6 +78,36 @@ public class SampleActivity extends AppCompatActivity {
         }
     }
 
+    @Override public void onClick() {
+        if (mGenericTest != null) {
+            rebuildGenericListExample();
+        }
+    }
+
+    private void rebuildGenericListExample() {
+        final List<GenericRecyclerViewLayout> exampleHolders = new ArrayList<>();
+
+        /* Add a Single Image Item Example */
+        final SingleImageItemLayout singleItemLayout = new SingleImageItemLayout(R.mipmap.gmlrva_ic_launcher, this);
+        exampleHolders.add(singleItemLayout);
+
+        /* Add a Carousel (Category + List) Item Example */
+        carouselItemData = buildCarouselItemData(20);
+        final CarouselCategoryItemLayout carouselCategoryItemLayout
+                = new CarouselCategoryItemLayout("Carousel Title", carouselItemData, this);
+        exampleHolders.add(carouselCategoryItemLayout);
+
+        /* Add a Carousel (Category + List with options) Item Example */
+        carouselItemDataWithOptions = buildCarouselItemWithOptionsData(20);
+        final CarouselCategoryItemWithOptionLayout carouselCategoryItemWithOptionsLayout
+                = new CarouselCategoryItemWithOptionLayout("Carousel Title With Option",
+                carouselItemDataWithOptions, this);
+        exampleHolders.add(carouselCategoryItemWithOptionsLayout);
+
+        final GenericMultipleLayoutAdapter adapter = (GenericMultipleLayoutAdapter) mGenericTest.getAdapter();
+        adapter.updateList(exampleHolders);
+    }
+
     /**
      * Procedure meant to build the Sample List, showcasing multiple layout types manage by the same
      * {@link RecyclerView.Adapter} instance.
@@ -80,18 +117,20 @@ public class SampleActivity extends AppCompatActivity {
         final List<GenericRecyclerViewLayout> exampleHolders = new ArrayList<>();
 
         /* Add a Single Image Item Example */
-        final SingleImageItemLayout singleItemLayout = new SingleImageItemLayout(R.mipmap.gmlrva_ic_launcher);
+        final SingleImageItemLayout singleItemLayout = new SingleImageItemLayout(R.mipmap.gmlrva_ic_launcher, this);
         exampleHolders.add(singleItemLayout);
 
         /* Add a Carousel (Category + List) Item Example */
+        carouselItemData = buildCarouselItemData(10);
         final CarouselCategoryItemLayout carouselCategoryItemLayout
-                = new CarouselCategoryItemLayout("Carousel Title", buildCarouselItemData(10), this);
+                = new CarouselCategoryItemLayout("Carousel Title", carouselItemData, this);
         exampleHolders.add(carouselCategoryItemLayout);
 
         /* Add a Carousel (Category + List with options) Item Example */
+        carouselItemDataWithOptions = buildCarouselItemWithOptionsData(10);
         final CarouselCategoryItemWithOptionLayout carouselCategoryItemWithOptionsLayout
                 = new CarouselCategoryItemWithOptionLayout("Carousel Title With Option",
-                buildCarouselItemWithOptionsData(10), this);
+                carouselItemDataWithOptions, this);
         exampleHolders.add(carouselCategoryItemWithOptionsLayout);
 
         return exampleHolders;
@@ -108,9 +147,11 @@ public class SampleActivity extends AppCompatActivity {
 
         String title, description;
         final int resource = R.mipmap.gmlrva_ic_launcher_round;
+        FakeDataObject item;
         for (int i = 0; i < maxItemNumber; i++) {
-            title = "Title " + i;
-            description = "Description " + i;
+            item = dataProvider.provideFakeData();
+            title = item.getTitle();
+            description = item.getDescription();
             carouselItemData.add(new CarouselItemLayout(title, description, resource));
         }
 
@@ -128,9 +169,11 @@ public class SampleActivity extends AppCompatActivity {
 
         String title, description;
         final int resource = R.mipmap.gmlrva_ic_launcher_round;
+        FakeDataObject item;
         for (int i = 0; i < maxItemNumber; i++) {
-            title = "Title " + i;
-            description = "Description " + i;
+            item = dataProvider.provideFakeData();
+            title = item.getTitle();
+            description = item.getDescription();
             carouselItemData.add(new CarouselItemWithOptionLayout(title, description, resource));
         }
 
@@ -141,4 +184,5 @@ public class SampleActivity extends AppCompatActivity {
     private void bindSampleActivityViews() {
         mGenericTest = (RecyclerView) findViewById(R.id.rvGeneric);
     }
+
 }
