@@ -17,6 +17,7 @@ import lombok.Getter;
 import pt.simdea.gmlrva.lib.GenericMultipleLayoutAdapter;
 import pt.simdea.gmlrva.lib.GenericRecyclerViewLayout;
 import pt.simdea.gmlrva.sample.R;
+import pt.simdea.gmlrva.sample.data.ClickListener;
 
 import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERROR;
 
@@ -30,9 +31,10 @@ import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERRO
 @AllArgsConstructor public class SingleImageItemLayout
         implements GenericRecyclerViewLayout<SingleImageItemLayout.SingleImageItemViewHolder> {
 
-    private final int mCoverResource;
+    protected final int mCoverResource;
+    protected final ClickListener mListener;
 
-    @Override public SingleImageItemViewHolder createViewHolder(@NonNull final ViewGroup parent) {
+    @NonNull @Override public SingleImageItemViewHolder createViewHolder(@NonNull final ViewGroup parent) {
         final View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.gmlrva_layout_generic_single_image_item, parent, false);
         return new SingleImageItemViewHolder(view);
@@ -42,8 +44,13 @@ import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERRO
         holder.getCover().setImageResource(mCoverResource);
     }
 
+    @NonNull @Override public Object getTag() {
+        return mCoverResource;
+    }
+
     /** Class meant to define the {@link RecyclerView.ViewHolder} for a Single Image Layout instance. */
-    class SingleImageItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    final class SingleImageItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
         @Getter private ImageView mCover;
 
         /**
@@ -68,6 +75,9 @@ import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERRO
         /** Procedure meant to handle a Single Image Layout click action. */
         private void handleCoverClick() {
             Toast.makeText(itemView.getContext(), "Cover Click!", Toast.LENGTH_SHORT).show();
+            if (mListener != null) {
+                mListener.onClick();
+            }
         }
 
         /** Procedure meant to bind this {@link RecyclerView.ViewHolder}'s listeners. */
@@ -75,9 +85,14 @@ import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERRO
             mCover.setOnClickListener(this);
         }
 
-        /** Procedure meant to bind this {@link RecyclerView.ViewHolder}'s views. */
+        /**
+         * Procedure meant to bind this {@link RecyclerView.ViewHolder}'s views.
+         * @param view this {@link SingleImageItemViewHolder}'s root view.
+         */
         private void bindViews(@NonNull final View view) {
             mCover = (ImageView) view.findViewById(R.id.ivSingleImageItemLayoutCover);
         }
+
     }
+
 }

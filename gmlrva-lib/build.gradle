@@ -44,6 +44,7 @@ android {
         exclude 'META-INF/LICENSE'
         exclude 'META-INF/NOTICE'
     }
+
 }
 
 dependencies {
@@ -63,7 +64,7 @@ project.ext {
     description = 'Generic RecyclerView Adapter that supports multiple layouts.'
     groupId = 'pt.simdea'
     artifactId = 'gmlrva.lib'
-    version = "1.2"
+    version = "1.3"
     website = 'https://github.com/simdea/gmlrva'
     scm = 'https://github.com/simdea/gmlrva'
     tags = ['android', 'recyclerview', 'adapter', 'generic', 'multiple', 'layout']

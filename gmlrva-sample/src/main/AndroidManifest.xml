@@ -4,21 +4,25 @@
     package="pt.simdea.gmlrva.sample">
 
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@mipmap/gmlrva_ic_launcher"
-        android:label="@string/app_name"
+        android:label="@string/gmlrva_app_name"
         android:roundIcon="@mipmap/gmlrva_ic_launcher_round"
-        android:supportsRtl="true"
+        android:supportsRtl="false"
         android:theme="@style/GmlrvaAppTheme"
-        tools:node="replace">
+        tools:node="replace"
+        tools:replace="android:label">
 
         <!-- Splash Activity -->
         <activity
-            android:name=".SplashActivity"
+            android:name=".ui.SplashActivity"
             android:theme="@style/GmlrvaSplashTheme">
-            <intent-filter>
+            <intent-filter
+                tools:ignore="GoogleAppIndexingWarning">
                 <action
                     android:name="android.intent.action.MAIN" />
+                <action
+                    android:name="android.intent.action.VIEW" />
                 <category
                     android:name="android.intent.category.LAUNCHER" />
                 <category
@@ -27,7 +31,7 @@
         </activity>
 
         <!-- Demo Activity -->
-        <activity android:name=".SampleActivity" />
+        <activity android:name=".ui.SampleActivity" />
 
     </application>
 

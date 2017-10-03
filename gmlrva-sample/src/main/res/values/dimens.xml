@@ -3,8 +3,10 @@
     <!-- Generic View Dimensions -->
     <dimen name="gmlrva_five_dps">5dp</dimen>
     <dimen name="gmlrva_four_zero_dps">40dp</dimen>
+    <dimen name="gmlrva_eight_zero_dps">80dp</dimen>
     <dimen name="gmlrva_one_five_zero_dps">150dp</dimen>
     <dimen name="gmlrva_two_zero_zero_dps">200dp</dimen>
 
     <!-- Generic Text Dimensions -->
+    <dimen name="gmlrva_text_size_16">16sp</dimen>
 </resources>

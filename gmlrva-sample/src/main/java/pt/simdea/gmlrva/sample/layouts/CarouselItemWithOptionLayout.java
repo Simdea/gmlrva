@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,12 +25,12 @@ import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERRO
 /**
  * Class representing a Carousel Item Layout meant to be used on a {@link GenericMultipleLayoutAdapter}.
  *
- * Created by Paulo Ribeiro on 7/16/2017.
+ * Created by Paulo Ribeiro on 9/14/2017.
  * Simdea © All Rights Reserved.
  * paulo.ribeiro@simdea.pt
  */
-@AllArgsConstructor public class CarouselItemLayout
-        implements GenericRecyclerViewLayout<CarouselItemLayout.CarouselItemViewHolder> {
+@AllArgsConstructor public class CarouselItemWithOptionLayout
+        implements GenericRecyclerViewLayout<CarouselItemWithOptionLayout.CarouselItemViewHolder> {
 
     private final String mTitle;
     private final String mDescription;
@@ -37,7 +38,7 @@ import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERRO
 
     @NonNull @Override public CarouselItemViewHolder createViewHolder(@NonNull final ViewGroup parent) {
         final View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.gmlrva_layout_carousel_item, parent, false);
+                .inflate(R.layout.gmlrva_layout_carousel_item_option, parent, false);
         return new CarouselItemViewHolder(view);
     }
 
@@ -56,6 +57,10 @@ import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERRO
         @Getter private TextView mTitle;
         @Getter private TextView mDescription;
         @Getter private ImageView mCover;
+        @Getter private ImageView mOption;
+        @Getter private RelativeLayout mOptionSection;
+        @Getter private View mLeftOption;
+        @Getter private View mRightOption;
 
         /**
          * Instantiates a new CarouselItemViewHolder.
@@ -75,8 +80,35 @@ import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERRO
                 handleDescriptionClick();
             } else if (viewId == mCover.getId()) {
                 handleCoverClick();
+            } else if (viewId == mOption.getId()) {
+                handleOptionClick();
+            } else if (viewId == mLeftOption.getId()) {
+                handleLeftOptionClick();
+            } else if (viewId == mRightOption.getId()) {
+                handleRightOptionClick();
             } else {
                 throw new UnsupportedOperationException(UNSUPPORTED_ERROR);
+            }
+        }
+
+        /** Procedure meant to handle a Left Option view Carousel Item Layout click action. */
+        private void handleLeftOptionClick() {
+            Toast.makeText(itemView.getContext(), "Left Option selected!", Toast.LENGTH_SHORT).show();
+            handleOptionClick();
+        }
+
+        /** Procedure meant to handle a Right Option view Carousel Item Layout click action. */
+        private void handleRightOptionClick() {
+            Toast.makeText(itemView.getContext(), "Right Option selected!", Toast.LENGTH_SHORT).show();
+            handleOptionClick();
+        }
+
+        /** Procedure meant to handle an Option view Carousel Item Layout click action. */
+        private void handleOptionClick() {
+            if (mOptionSection.getVisibility() == View.GONE) {
+                mOptionSection.setVisibility(View.VISIBLE);
+            } else {
+                mOptionSection.setVisibility(View.GONE);
             }
         }
 
@@ -97,7 +129,7 @@ import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERRO
 
         /** Procedure meant to bind this {@link RecyclerView.ViewHolder}'s listeners. */
         private void bindListeners() {
-            final View[] clickableViews = {mTitle, mCover, mDescription};
+            final View[] clickableViews = {mTitle, mCover, mDescription, mOption, mLeftOption, mRightOption};
             for (final View view : clickableViews) {
                 view.setOnClickListener(this);
             }
@@ -111,6 +143,10 @@ import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERRO
             mTitle = (TextView) view.findViewById(R.id.tvCarouselItemTitle);
             mDescription = (TextView) view.findViewById(R.id.tvCarouselItemDescription);
             mCover = (ImageView) view.findViewById(R.id.ivCarouselItemCover);
+            mOption = (ImageView) view.findViewById(R.id.ivCarouselItemOption);
+            mOptionSection = (RelativeLayout) view.findViewById(R.id.rlOptionSection);
+            mLeftOption = view.findViewById(R.id.vOptionsSectionLeft);
+            mRightOption = view.findViewById(R.id.vOptionsSectionRight);
         }
 
     }

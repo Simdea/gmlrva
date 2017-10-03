@@ -29,11 +29,11 @@ import pt.simdea.gmlrva.sample.utilities.GenericUtils;
  * Simdea © All Rights Reserved.
  * paulo.ribeiro@simdea.pt
  */
-@AllArgsConstructor public class CarouselCategoryItemLayout
-        implements GenericRecyclerViewLayout<CarouselCategoryItemLayout.CarouselCategoryViewHolder> {
+@AllArgsConstructor public class CarouselCategoryItemWithOptionLayout
+        implements GenericRecyclerViewLayout<CarouselCategoryItemWithOptionLayout.CarouselCategoryViewHolder> {
 
     private final String mCategoryTitle;
-    private final List<CarouselItemLayout> mCategoryData;
+    private final List<CarouselItemWithOptionLayout> mCategoryData;
     private final Context mContext;
 
     @NonNull @Override public CarouselCategoryViewHolder createViewHolder(@NonNull final ViewGroup parent) {
