@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Generic View Dimensions -->
-    <dimen name="gmlrva_zero_dps">0dp</dimen>
     <dimen name="gmlrva_five_dps">5dp</dimen>
     <dimen name="gmlrva_four_zero_dps">40dp</dimen>
     <dimen name="gmlrva_eight_zero_dps">80dp</dimen>

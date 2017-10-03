@@ -7,6 +7,7 @@ package pt.simdea.gmlrva.sample.data;
 import android.support.annotation.NonNull;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 /**
@@ -16,7 +17,8 @@ import lombok.Getter;
  * Simdea © All Rights Reserved.
  * paulo.ribeiro@simdea.pt
  */
-@AllArgsConstructor @Getter public final class FakeDataObject implements Comparable<FakeDataObject> {
+@AllArgsConstructor @Getter @EqualsAndHashCode(exclude = "mDescription") public final class FakeDataObject implements
+        Comparable<FakeDataObject> {
 
     private String mTitle, mDescription;
 

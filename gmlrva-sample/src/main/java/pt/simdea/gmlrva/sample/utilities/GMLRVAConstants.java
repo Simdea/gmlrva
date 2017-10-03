@@ -18,6 +18,7 @@ public final class GMLRVAConstants {
     /** Logs */
     public static final String LOG_TAG = "GMLRVA";
     public static final String ERROR = "Error";
+    public static final String EMPTY_STRING = "";
 
     /** Exception Messages */
     public static final String ASSERTION_ERROR = "Instantiating utility class.";
