@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:id="@+id/rlOptionSection"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:background="@android:color/holo_red_dark"
+    android:clickable="true"
+    android:visibility="gone">
+
+    <LinearLayout
+        android:id="@+id/llOptionsSection"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/gmlrva_four_zero_dps"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:weightSum="10">
+
+        <View
+            android:id="@+id/vOptionsSectionLeft"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/holo_blue_bright"
+            android:layout_weight="5"
+            android:clickable="true"/>
+
+        <View
+            android:id="@+id/vOptionsSectionRight"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/holo_green_light"
+            android:layout_weight="5"
+            android:clickable="true"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/llOptionsSection"
+        android:layout_marginBottom="@dimen/gmlrva_four_zero_dps"
+        android:gravity="center"
+        android:textSize="@dimen/gmlrva_text_size_16"
+        android:textColor="@android:color/white"
+        android:text="@string/gmlrva_option_example"/>
+
+</RelativeLayout>
