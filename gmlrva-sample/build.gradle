@@ -29,7 +29,7 @@ android {
             debuggable true
             zipAlignEnabled true
             minifyEnabled true
-            shrinkResources true
+            shrinkResources false
             versionNameSuffix project.DEV_VERSION_NAME_SUFFIX
             proguardFiles getDefaultProguardFile('proguard-android.txt'),
                     "$project.rootDir/tools/rules-proguard-debug.pro"
@@ -44,6 +44,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), "$project.rootDir/tools/rules-proguard.pro"
         }
     }
+
 }
 
 android.variantFilter { variant ->
