@@ -2,7 +2,7 @@
  * Copyright (c) 2017. Simdea.
  */
 
-package pt.simdea.gmlrva.lib;
+package pt.simdea.gmlrva.lib.diff;
 
 import android.support.annotation.StringDef;
 
@@ -18,7 +18,7 @@ import lombok.AllArgsConstructor;
  * Simdea © All Rights Reserved.
  * paulo.ribeiro@simdea.pt
  */
-@SuppressWarnings("WeakerAccess") @AllArgsConstructor public class GenericPayload {
+@SuppressWarnings({"WeakerAccess", "unused"}) @AllArgsConstructor public class GenericPayload {
 
     /* Constants */
 
