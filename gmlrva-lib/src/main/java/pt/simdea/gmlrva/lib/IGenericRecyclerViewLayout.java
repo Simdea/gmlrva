@@ -21,7 +21,7 @@ import java.io.Serializable;
  * andre.rosa@simdea.pt
  */
 @SuppressWarnings("WeakerAccess")
-public interface GenericRecyclerViewLayout<T extends RecyclerView.ViewHolder> extends Serializable {
+public interface IGenericRecyclerViewLayout<T extends RecyclerView.ViewHolder> extends Serializable {
 
     /**
      * Procedure meant to handle the ViewHolder instance creation.
@@ -41,5 +41,11 @@ public interface GenericRecyclerViewLayout<T extends RecyclerView.ViewHolder> ex
      * @return the {@link Object} representing the ViewHolder item {@link RecyclerView.ViewHolder}'s tag.
      */
     @NonNull Object getTag();
+
+    /**
+     * Procedure meant to define a ViewType for the ViewHolder item {@link RecyclerView.ViewHolder}.
+     * @return the Integer value representing the ViewHolder item {@link RecyclerView.ViewHolder}'s ViewType.
+     */
+    int getViewType();
 
 }

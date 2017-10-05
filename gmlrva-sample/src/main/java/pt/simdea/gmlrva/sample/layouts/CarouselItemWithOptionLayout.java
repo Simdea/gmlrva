@@ -17,7 +17,7 @@ import android.widget.Toast;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import pt.simdea.gmlrva.lib.GenericMultipleLayoutAdapter;
-import pt.simdea.gmlrva.lib.GenericRecyclerViewLayout;
+import pt.simdea.gmlrva.lib.IGenericRecyclerViewLayout;
 import pt.simdea.gmlrva.sample.R;
 
 import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERROR;
@@ -30,19 +30,19 @@ import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERRO
  * paulo.ribeiro@simdea.pt
  */
 @AllArgsConstructor public class CarouselItemWithOptionLayout
-        implements GenericRecyclerViewLayout<CarouselItemWithOptionLayout.CarouselItemViewHolder> {
+        implements IGenericRecyclerViewLayout<CarouselItemWithOptionLayout.CarouselItemWithOptionViewHolder> {
 
     private final String mTitle;
     private final String mDescription;
     private final int mCoverResource;
 
-    @NonNull @Override public CarouselItemViewHolder createViewHolder(@NonNull final ViewGroup parent) {
+    @NonNull @Override public CarouselItemWithOptionViewHolder createViewHolder(@NonNull final ViewGroup parent) {
         final View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.gmlrva_layout_carousel_item_option, parent, false);
-        return new CarouselItemViewHolder(view);
+        return new CarouselItemWithOptionViewHolder(view);
     }
 
-    @Override public void setElements(@NonNull final CarouselItemViewHolder holder) {
+    @Override public void setElements(@NonNull final CarouselItemWithOptionViewHolder holder) {
         holder.getTitle().setText(mTitle);
         holder.getDescription().setText(mDescription);
         holder.getCover().setImageResource(mCoverResource);
@@ -52,8 +52,12 @@ import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERRO
         return mTitle;
     }
 
+    @Override public int getViewType() {
+        return 5;
+    }
+
     /** Class meant to define the {@link RecyclerView.ViewHolder} for a Carousel Item Layout instance. */
-    class CarouselItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class CarouselItemWithOptionViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @Getter private TextView mTitle;
         @Getter private TextView mDescription;
         @Getter private ImageView mCover;
@@ -66,7 +70,7 @@ import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERRO
          * Instantiates a new CarouselItemViewHolder.
          * @param view this {@link RecyclerView.ViewHolder}'s root view.
          */
-        CarouselItemViewHolder(@NonNull final View view) {
+        CarouselItemWithOptionViewHolder(@NonNull final View view) {
             super(view);
             bindViews(view);
             bindListeners();
@@ -137,7 +141,7 @@ import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERRO
 
         /**
          * Procedure meant to bind this {@link RecyclerView.ViewHolder}'s views.
-         * @param view this {@link CarouselItemViewHolder}'s root view.
+         * @param view this {@link CarouselItemWithOptionViewHolder}'s root view.
          */
         private void bindViews(@NonNull final View view) {
             mTitle = (TextView) view.findViewById(R.id.tvCarouselItemTitle);

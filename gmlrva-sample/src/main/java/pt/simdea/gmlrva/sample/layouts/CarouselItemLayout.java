@@ -16,7 +16,7 @@ import android.widget.Toast;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import pt.simdea.gmlrva.lib.GenericMultipleLayoutAdapter;
-import pt.simdea.gmlrva.lib.GenericRecyclerViewLayout;
+import pt.simdea.gmlrva.lib.IGenericRecyclerViewLayout;
 import pt.simdea.gmlrva.sample.R;
 
 import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERROR;
@@ -29,7 +29,7 @@ import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERRO
  * paulo.ribeiro@simdea.pt
  */
 @AllArgsConstructor public class CarouselItemLayout
-        implements GenericRecyclerViewLayout<CarouselItemLayout.CarouselItemViewHolder> {
+        implements IGenericRecyclerViewLayout<CarouselItemLayout.CarouselItemViewHolder> {
 
     private final String mTitle;
     private final String mDescription;
@@ -49,6 +49,10 @@ import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERRO
 
     @NonNull @Override public Object getTag() {
         return mTitle;
+    }
+
+    @Override public int getViewType() {
+        return 4;
     }
 
     /** Class meant to define the {@link RecyclerView.ViewHolder} for a Carousel Item Layout instance. */
