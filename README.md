@@ -24,7 +24,7 @@ Configuration
 ```gradle
 dependencies {
     ...
-    compile 'pt.simdea:gmlrva.lib:1.2'
+    compile 'pt.simdea:gmlrva.lib:1.3'
     ...
 }
 ```
