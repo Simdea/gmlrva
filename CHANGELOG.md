@@ -4,6 +4,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
 
+## [1.4.1] - 2017-10-05
+### Fixed
+- [#5](https://github.com/Simdea/gmlrva/issues/5), Not updating view types when add, remove or update the recycler view elements.
+
 ## [1.4] - 2017-10-05
 ### Added
 - CHANGELOG.md file
