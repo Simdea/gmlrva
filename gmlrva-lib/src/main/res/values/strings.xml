@@ -1,3 +1,5 @@
 <resources>
-
+    <string name="gmlrva_unsupported_remove_position" translatable="false">
+        Unsupported operation because the position value is likely to be wrong if there is a pending update.
+    </string>
 </resources>

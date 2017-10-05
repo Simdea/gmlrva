@@ -18,7 +18,7 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import pt.simdea.gmlrva.lib.GenericMultipleLayoutAdapter;
-import pt.simdea.gmlrva.lib.GenericRecyclerViewLayout;
+import pt.simdea.gmlrva.lib.IGenericRecyclerViewLayout;
 import pt.simdea.gmlrva.sample.R;
 import pt.simdea.gmlrva.sample.utilities.GenericUtils;
 
@@ -30,10 +30,10 @@ import pt.simdea.gmlrva.sample.utilities.GenericUtils;
  * paulo.ribeiro@simdea.pt
  */
 @AllArgsConstructor public class CarouselCategoryItemWithOptionLayout
-        implements GenericRecyclerViewLayout<CarouselCategoryItemWithOptionLayout.CarouselCategoryViewHolder> {
+        implements IGenericRecyclerViewLayout<CarouselCategoryItemWithOptionLayout.CarouselCategoryViewHolder> {
 
     private final String mCategoryTitle;
-    private final List<CarouselItemWithOptionLayout> mCategoryData;
+    private final List<? extends IGenericRecyclerViewLayout> mCategoryData;
     private final Context mContext;
 
     @NonNull @Override public CarouselCategoryViewHolder createViewHolder(@NonNull final ViewGroup parent) {
@@ -51,12 +51,16 @@ import pt.simdea.gmlrva.sample.utilities.GenericUtils;
         return mCategoryTitle;
     }
 
+    @Override public int getViewType() {
+        return 2;
+    }
+
     /**
      * Procedure meant to load the Carousel Item Layout items, bound by this Carousel Category Layout.
      * @param items the {@link RecyclerView} which will hold the Carousel Item Layout items.
      */
     private void loadItems(@NonNull final RecyclerView items) {
-        items.setAdapter(new GenericMultipleLayoutAdapter<>(mCategoryData));
+        items.setAdapter(new GenericMultipleLayoutAdapter(mCategoryData, mContext, false));
         items.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
         GenericUtils.setOptimalConfigurationForRecyclerView(items);
     }
