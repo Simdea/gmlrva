@@ -9,4 +9,5 @@
 
     <!-- Generic Text Dimensions -->
     <dimen name="gmlrva_text_size_16">16sp</dimen>
+    <dimen name="gmlrva_text_size_21">21sp</dimen>
 </resources>

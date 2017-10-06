@@ -38,11 +38,13 @@ public class GenericMultipleLayoutAdapter extends RecyclerView.Adapter<RecyclerV
     private final Context mContext;
     private final List<IGenericRecyclerViewLayout> mDataSet;
     private final boolean mSkipQueuedUpdates;
+
     /* UI & Worker Thread Variables */
     private final ArrayDeque<List<? extends IGenericRecyclerViewLayout>> mPendingUpdates = new ArrayDeque<>();
     private final Handler mHandler = new Handler();
+
     /* View Type Auxiliary Variable */
-    private SparseArray<IGenericRecyclerViewLayout> mViewTypes;
+    private final SparseArray<IGenericRecyclerViewLayout> mViewTypes = new SparseArray<>();
 
     /**
      * Instantiates a new GenericMultipleLayoutAdapter.
@@ -203,7 +205,6 @@ public class GenericMultipleLayoutAdapter extends RecyclerView.Adapter<RecyclerV
         mPendingUpdates.add(items);
         if (mPendingUpdates.size() == 1) {
             innerUpdateList(items); // no pending update, so execute the update
-            updateViewTypes();
         }
     }
 
@@ -228,6 +229,7 @@ public class GenericMultipleLayoutAdapter extends RecyclerView.Adapter<RecyclerV
         mDataSet.clear();
         mDataSet.addAll(newItems);
         diffResult.dispatchUpdatesTo(this);
+        updateViewTypes();
 
         /* Process the next queued data set if there is any */
         if (!mPendingUpdates.isEmpty()) {
@@ -281,7 +283,7 @@ public class GenericMultipleLayoutAdapter extends RecyclerView.Adapter<RecyclerV
 
     /** Procedure meant to update this Adapter's handled View Types. */
     private void updateViewTypes() {
-        mViewTypes = new SparseArray<>();
+        mViewTypes.clear();
         for (final IGenericRecyclerViewLayout item : mDataSet) {
             if (mViewTypes.get(item.getViewType()) == null) {
                 mViewTypes.put(item.getViewType(), item);
