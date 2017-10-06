@@ -27,6 +27,7 @@ import pt.simdea.gmlrva.sample.layouts.CarouselCategoryItemWithOptionLayout;
 import pt.simdea.gmlrva.sample.layouts.CarouselItemLayout;
 import pt.simdea.gmlrva.sample.layouts.CarouselItemWithOptionLayout;
 import pt.simdea.gmlrva.sample.layouts.SingleImageItemLayout;
+import pt.simdea.gmlrva.sample.layouts.SingleTextItemLayout;
 import pt.simdea.gmlrva.sample.utilities.GenericUtils;
 
 /**
@@ -80,13 +81,7 @@ public class SampleActivity extends AppCompatActivity implements ClickListener {
 
     @Override public void onClick() {
         if (mGenericTest != null) {
-//            rebuildGenericListExample()
-            final GenericMultipleLayoutAdapter adapter = (GenericMultipleLayoutAdapter) mGenericTest.getAdapter();
-            final IGenericRecyclerViewLayout item = adapter.get(1);
-            if (item != null) {
-                adapter.remove(item);
-                adapter.add(item);
-            }
+            rebuildGenericListExample();
         }
     }
 
@@ -104,6 +99,11 @@ public class SampleActivity extends AppCompatActivity implements ClickListener {
                 = new CarouselCategoryItemWithOptionLayout("Carousel Title With Option",
                 mCarouselItemDataWithOptions, this);
         exampleHolders.add(carouselCategoryItemWithOptionsLayout);
+
+        /* Add a Single Text Item Example */
+        final SingleTextItemLayout singleTextItemLayout
+                = new SingleTextItemLayout(getString(R.string.gmlrva_app_name), this);
+        exampleHolders.add(singleTextItemLayout);
 
         final GenericMultipleLayoutAdapter adapter = (GenericMultipleLayoutAdapter) mGenericTest.getAdapter();
         adapter.updateList(exampleHolders);

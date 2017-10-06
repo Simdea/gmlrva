@@ -4,6 +4,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
 
+## [1.4.2] - 2017-10-06
+### Added
+- New carousel item with a single text sample.
+
+### Fixed
+- [#5](https://github.com/Simdea/gmlrva/issues/5), Not updating view types when changes occurred.
+
 ## [1.4.1] - 2017-10-05
 ### Fixed
 - [#5](https://github.com/Simdea/gmlrva/issues/5), Not updating view types when add, remove or update the recycler view elements.
