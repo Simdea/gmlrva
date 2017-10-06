@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/gmlrva_one_five_zero_dps">
+
+    <TextView
+        android:id="@+id/tvSingleTextItemLayoutTitle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textStyle="bold|italic"
+        android:textSize="@dimen/gmlrva_text_size_21"
+        android:text="@string/gmlrva_app_name"/>
+
+</FrameLayout>
