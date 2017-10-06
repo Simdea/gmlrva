@@ -101,7 +101,8 @@ public class SampleActivity extends AppCompatActivity implements ClickListener {
         exampleHolders.add(carouselCategoryItemWithOptionsLayout);
 
         /* Add a Single Text Item Example */
-        final SingleTextItemLayout singleTextItemLayout = new SingleTextItemLayout("TESTE", this);
+        final SingleTextItemLayout singleTextItemLayout
+                = new SingleTextItemLayout(getString(R.string.gmlrva_app_name), this);
         exampleHolders.add(singleTextItemLayout);
 
         final GenericMultipleLayoutAdapter adapter = (GenericMultipleLayoutAdapter) mGenericTest.getAdapter();
