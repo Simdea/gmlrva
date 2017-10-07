@@ -23,12 +23,12 @@ public abstract class GenericViewHolder extends RecyclerView.ViewHolder {
     /**
      * TODO...
      */
-    public abstract void runAddAnimation(@NonNull final GenericItemAnimator.AnimationEndListener listener);
+    public abstract void runAddAnimation(@NonNull final GenericItemAnimator listener);
 
     /**
      * TODO...
      */
-    public abstract void runRemoveAnimation(@NonNull final GenericItemAnimator.AnimationEndListener listener);
+    public abstract void runRemoveAnimation(@NonNull final GenericItemAnimator listener);
 
     // TODO: Add remaining animation stages!
 

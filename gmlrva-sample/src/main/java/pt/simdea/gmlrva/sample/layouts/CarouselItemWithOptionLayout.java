@@ -17,9 +17,13 @@ import android.widget.Toast;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import pt.simdea.gmlrva.lib.GenericMultipleLayoutAdapter;
+import pt.simdea.gmlrva.lib.GenericViewHolder;
 import pt.simdea.gmlrva.lib.IGenericRecyclerViewLayout;
+import pt.simdea.gmlrva.lib.animators.GenericItemAnimator;
 import pt.simdea.gmlrva.sample.R;
 
+import static pt.simdea.gmlrva.lib.animators.GenericAnimationFinishedOperation.ADD_ANIMATION_FINISHED;
+import static pt.simdea.gmlrva.lib.animators.GenericAnimationFinishedOperation.REMOVE_ANIMATION_FINISHED;
 import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERROR;
 
 /**
@@ -57,7 +61,7 @@ import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERRO
     }
 
     /** Class meant to define the {@link RecyclerView.ViewHolder} for a Carousel Item Layout instance. */
-    class CarouselItemWithOptionViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class CarouselItemWithOptionViewHolder extends GenericViewHolder implements View.OnClickListener {
         @Getter private TextView mTitle;
         @Getter private TextView mDescription;
         @Getter private ImageView mCover;
@@ -74,6 +78,14 @@ import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERRO
             super(view);
             bindViews(view);
             bindListeners();
+        }
+
+        @Override public void runAddAnimation(@NonNull final GenericItemAnimator listener) {
+            listener.onAnimationFinished(this, ADD_ANIMATION_FINISHED);
+        }
+
+        @Override public void runRemoveAnimation(@NonNull final GenericItemAnimator listener) {
+            listener.onAnimationFinished(this, REMOVE_ANIMATION_FINISHED);
         }
 
         @Override public void onClick(@NonNull final View v) {

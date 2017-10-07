@@ -4,11 +4,16 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 
+import pt.simdea.gmlrva.lib.GenericViewHolder;
+
+import static pt.simdea.gmlrva.lib.animators.GenericAnimationFinishedOperation.ADD_ANIMATION_FINISHED;
+import static pt.simdea.gmlrva.lib.animators.GenericAnimationFinishedOperation.REMOVE_ANIMATION_FINISHED;
+
 /**
  * TODO...
  * Created by Paulo on 10/7/2017.
  */
-public abstract class GenericItemAnimator extends DefaultItemAnimator {
+public class GenericItemAnimator extends DefaultItemAnimator implements IAnimationFinished {
 
     /**
      * {@inheritDoc}
@@ -36,7 +41,14 @@ public abstract class GenericItemAnimator extends DefaultItemAnimator {
      * @return a boolean value indicating whether the {@link RecyclerView} should use an entry animation
      *         for the {@link RecyclerView.ViewHolder}. TODO: Review this JavaDoc
      */
-    @Override public abstract boolean animateAdd(@NonNull final RecyclerView.ViewHolder holder);
+    @Override public boolean animateAdd(@NonNull final RecyclerView.ViewHolder holder) {
+        if (holder instanceof GenericViewHolder) {
+            ((GenericViewHolder) holder).runAddAnimation(this);
+            return false;
+        }
+        dispatchAddFinished(holder);
+        return false;
+    }
 
     /**
      * {@inheritDoc}
@@ -45,24 +57,32 @@ public abstract class GenericItemAnimator extends DefaultItemAnimator {
      * @return a boolean value indicating whether the {@link RecyclerView} should use an exit animation
      *         for the {@link RecyclerView.ViewHolder}. TODO: Review this JavaDoc
      */
-    @Override public abstract boolean animateRemove(@NonNull final RecyclerView.ViewHolder holder);
+    @Override public boolean animateRemove(@NonNull final RecyclerView.ViewHolder holder) {
+        if (holder instanceof GenericViewHolder) {
+            ((GenericViewHolder) holder).runRemoveAnimation(this);
+            return false;
+        }
+        dispatchRemoveFinished(holder);
+        return false;
+    }
 
     /**
-     * TODO...
+     * TODO!
+     * @param holder the {@link RecyclerView} item's {@link RecyclerView.ViewHolder}.
+     * @param animationFinishedOperation TODO...
      */
-    public interface AnimationEndListener {
-
-        /**
-         * TODO...
-         * @param holder the {@link RecyclerView} item's {@link RecyclerView.ViewHolder}.
-         */
-        void onAddAnimationEnd(@NonNull final RecyclerView.ViewHolder holder);
-
-        /**
-         * TODO...
-         * @param holder the {@link RecyclerView} item's {@link RecyclerView.ViewHolder}.
-         */
-        void onRemoveAnimationEnd(@NonNull final RecyclerView.ViewHolder holder);
+    @Override public void onAnimationFinished(@NonNull final RecyclerView.ViewHolder holder,
+                                              final int animationFinishedOperation) {
+        switch (animationFinishedOperation) {
+            case ADD_ANIMATION_FINISHED:
+                dispatchAddFinished(holder);
+                break;
+            case REMOVE_ANIMATION_FINISHED:
+                dispatchRemoveFinished(holder);
+                break;
+            default:
+                throw new UnsupportedOperationException("Unsupported operation found."); // TODO!
+        }
     }
 
 }

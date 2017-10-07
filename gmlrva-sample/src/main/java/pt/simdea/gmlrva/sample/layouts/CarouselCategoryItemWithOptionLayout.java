@@ -18,9 +18,14 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import pt.simdea.gmlrva.lib.GenericMultipleLayoutAdapter;
+import pt.simdea.gmlrva.lib.GenericViewHolder;
 import pt.simdea.gmlrva.lib.IGenericRecyclerViewLayout;
+import pt.simdea.gmlrva.lib.animators.GenericItemAnimator;
 import pt.simdea.gmlrva.sample.R;
 import pt.simdea.gmlrva.sample.utilities.GenericUtils;
+
+import static pt.simdea.gmlrva.lib.animators.GenericAnimationFinishedOperation.ADD_ANIMATION_FINISHED;
+import static pt.simdea.gmlrva.lib.animators.GenericAnimationFinishedOperation.REMOVE_ANIMATION_FINISHED;
 
 /**
  * Class representing a Carousel Category Layout meant to be used on a {@link GenericMultipleLayoutAdapter}.
@@ -66,7 +71,7 @@ import pt.simdea.gmlrva.sample.utilities.GenericUtils;
     }
 
     /** Class meant to define the {@link RecyclerView.ViewHolder} for a Carousel Category Layout instance. */
-    class CarouselCategoryViewHolder extends RecyclerView.ViewHolder {
+    class CarouselCategoryViewHolder extends GenericViewHolder {
         @Getter private TextView mTitle;
         @Getter private RecyclerView mItems;
 
@@ -77,6 +82,14 @@ import pt.simdea.gmlrva.sample.utilities.GenericUtils;
         CarouselCategoryViewHolder(@NonNull final View view) {
             super(view);
             bindViews(view);
+        }
+
+        @Override public void runAddAnimation(@NonNull final GenericItemAnimator listener) {
+            listener.onAnimationFinished(this, ADD_ANIMATION_FINISHED);
+        }
+
+        @Override public void runRemoveAnimation(@NonNull final GenericItemAnimator listener) {
+            listener.onAnimationFinished(this, REMOVE_ANIMATION_FINISHED);
         }
 
         /**

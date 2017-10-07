@@ -25,6 +25,8 @@ import pt.simdea.gmlrva.lib.utilities.ViewUtils;
 import pt.simdea.gmlrva.sample.R;
 import pt.simdea.gmlrva.sample.data.ClickListener;
 
+import static pt.simdea.gmlrva.lib.animators.GenericAnimationFinishedOperation.ADD_ANIMATION_FINISHED;
+import static pt.simdea.gmlrva.lib.animators.GenericAnimationFinishedOperation.REMOVE_ANIMATION_FINISHED;
 import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERROR;
 
 /**
@@ -59,7 +61,7 @@ import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERRO
     }
 
     /** Class meant to define the {@link RecyclerView.ViewHolder} for a Single Image Layout instance. */
-    public final class SingleImageItemViewHolder extends GenericViewHolder implements View.OnClickListener {
+    final class SingleImageItemViewHolder extends GenericViewHolder implements View.OnClickListener {
 
         @Getter private ImageView mCover;
 
@@ -73,7 +75,7 @@ import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERRO
             bindListeners();
         }
 
-        @Override public void runAddAnimation(@NonNull final GenericItemAnimator.AnimationEndListener listener) {
+        @Override public void runAddAnimation(@NonNull final GenericItemAnimator listener) {
             final int screenHeight = ViewUtils.getDeviceScreenHeight(itemView.getContext());
             itemView.setTranslationY(screenHeight);
             itemView.animate()
@@ -86,7 +88,7 @@ import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERRO
                         }
 
                         @Override public void onAnimationEnd(@NonNull final Animator animation) {
-                            listener.onAddAnimationEnd(SingleImageItemViewHolder.this);
+                            listener.onAnimationFinished(SingleImageItemViewHolder.this, ADD_ANIMATION_FINISHED);
                         }
 
                         @Override public void onAnimationCancel(@NonNull final Animator animation) {
@@ -99,7 +101,7 @@ import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERRO
                     }).start();
         }
 
-        @Override public void runRemoveAnimation(@NonNull final GenericItemAnimator.AnimationEndListener listener) {
+        @Override public void runRemoveAnimation(@NonNull final GenericItemAnimator listener) {
             final int screenHeight = ViewUtils.getDeviceScreenHeight(itemView.getContext());
             itemView.setTranslationY(0);
             itemView.animate()
@@ -112,7 +114,7 @@ import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERRO
                         }
 
                         @Override public void onAnimationEnd(@NonNull final Animator animation) {
-                            listener.onRemoveAnimationEnd(SingleImageItemViewHolder.this);
+                            listener.onAnimationFinished(SingleImageItemViewHolder.this, REMOVE_ANIMATION_FINISHED);
                         }
 
                         @Override public void onAnimationCancel(@NonNull final Animator animation) {

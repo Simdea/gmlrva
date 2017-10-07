@@ -18,8 +18,8 @@ import java.util.List;
 
 import pt.simdea.gmlrva.lib.GenericMultipleLayoutAdapter;
 import pt.simdea.gmlrva.lib.IGenericRecyclerViewLayout;
+import pt.simdea.gmlrva.lib.animators.GenericItemAnimator;
 import pt.simdea.gmlrva.sample.R;
-import pt.simdea.gmlrva.sample.animators.SingleImageItemAnimator;
 import pt.simdea.gmlrva.sample.data.ClickListener;
 import pt.simdea.gmlrva.sample.data.FakeDataObject;
 import pt.simdea.gmlrva.sample.data.FakeDataProvider;
@@ -77,13 +77,19 @@ public class SampleActivity extends AppCompatActivity implements ClickListener {
             mGenericTest.setAdapter(new GenericMultipleLayoutAdapter(buildGenericListExample(), this, false));
             mGenericTest.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
             GenericUtils.setOptimalConfigurationForRecyclerView(mGenericTest);
-            mGenericTest.setItemAnimator(new SingleImageItemAnimator());
+            mGenericTest.setItemAnimator(new GenericItemAnimator());
         }
     }
 
     @Override public void onClick() {
         if (mGenericTest != null) {
-            rebuildGenericListExample();
+//            rebuildGenericListExample()
+            final GenericMultipleLayoutAdapter adapter = (GenericMultipleLayoutAdapter) mGenericTest.getAdapter();
+            final IGenericRecyclerViewLayout item = adapter.get(1);
+            if (item != null) {
+                adapter.remove(item);
+                adapter.add(item);
+            }
         }
     }
 

@@ -32,7 +32,7 @@ import static pt.simdea.gmlrva.lib.diff.GenericPayload.UPDATE_ITEM;
  * andre.rosa@simdea.pt
  */
 @SuppressWarnings({"unused", "unchecked"})
-public class GenericMultipleLayoutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class GenericMultipleLayoutAdapter extends RecyclerView.Adapter<GenericViewHolder> {
 
     /* Adapter Variables */
     private final Context mContext;
@@ -63,17 +63,17 @@ public class GenericMultipleLayoutAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     /** {@inheritDoc} */
-    @Override public RecyclerView.ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, final int viewType) {
+    @Override public GenericViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, final int viewType) {
         return mViewTypes.get(viewType).createViewHolder(parent);
     }
 
     /** {@inheritDoc} */
-    @Override public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
+    @Override public void onBindViewHolder(@NonNull final GenericViewHolder holder, final int position) {
         mDataSet.get(position).setElements(holder);
     }
 
     /** {@inheritDoc} */
-    @Override public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position,
+    @Override public void onBindViewHolder(@NonNull final GenericViewHolder holder, final int position,
                                            @NonNull final List<Object> payloads) {
         if (payloads.isEmpty()) {
             onBindViewHolder(holder, position);
@@ -102,7 +102,6 @@ public class GenericMultipleLayoutAdapter extends RecyclerView.Adapter<RecyclerV
                 = new ArrayList<>(mPendingUpdates.isEmpty() ? mDataSet : mPendingUpdates.peekLast());
         newList.add(item);
         updateList(newList);
-        updateViewTypes();
     }
 
     /**
@@ -115,7 +114,6 @@ public class GenericMultipleLayoutAdapter extends RecyclerView.Adapter<RecyclerV
                 = new ArrayList<>(mPendingUpdates.isEmpty() ? mDataSet : mPendingUpdates.peekLast());
         newList.addAll(items);
         updateList(newList);
-        updateViewTypes();
     }
 
     /**
@@ -131,7 +129,6 @@ public class GenericMultipleLayoutAdapter extends RecyclerView.Adapter<RecyclerV
                 = new ArrayList<>(mPendingUpdates.isEmpty() ? mDataSet : mPendingUpdates.peekLast());
         newList.add(position, item);
         updateList(newList);
-        updateViewTypes();
     }
 
     /**
@@ -145,7 +142,6 @@ public class GenericMultipleLayoutAdapter extends RecyclerView.Adapter<RecyclerV
         if (!newList.isEmpty() && newList.contains(item)) {
             newList.remove(item);
             updateList(newList);
-            updateViewTypes();
         }
     }
 
@@ -154,6 +150,7 @@ public class GenericMultipleLayoutAdapter extends RecyclerView.Adapter<RecyclerV
      * target position.
      * This procedure is unsupported because the position value is likely to be wrong if there is a pending update.
      * @param position the target position for this item to be removed.
+     * @deprecated use {@link #remove} instead.
      */
     @Deprecated public void remove(final int position) {
         throw new UnsupportedOperationException(mContext.getString(R.string.gmlrva_unsupported_remove_position));
@@ -164,13 +161,12 @@ public class GenericMultipleLayoutAdapter extends RecyclerView.Adapter<RecyclerV
      * @param items the list of Generic Layout Implementation items to be removed.
      *              See {@link IGenericRecyclerViewLayout} for more information.
      */
-    @UiThread public void removed(@NonNull final List<IGenericRecyclerViewLayout> items) {
+    @UiThread public void remove(@NonNull final List<IGenericRecyclerViewLayout> items) {
         final List<IGenericRecyclerViewLayout> newList
                 = new ArrayList<>(mPendingUpdates.isEmpty() ? mDataSet : mPendingUpdates.peekLast());
         if (!newList.isEmpty() && !items.isEmpty()) {
             newList.removeAll(items);
             updateList(newList);
-            updateViewTypes();
         }
     }
 
@@ -274,7 +270,7 @@ public class GenericMultipleLayoutAdapter extends RecyclerView.Adapter<RecyclerV
      */
     private void applyPayloadChange(final int position, @NonNull final Bundle payload, @NonNull final String key) {
         if (payload.get(key) instanceof RecyclerView.ViewHolder) {
-            final RecyclerView.ViewHolder newHolder = (RecyclerView.ViewHolder) payload.get(key);
+            final GenericViewHolder newHolder = (GenericViewHolder) payload.get(key);
             if (newHolder != null) {
                 mDataSet.get(position).setElements(newHolder);
             }
