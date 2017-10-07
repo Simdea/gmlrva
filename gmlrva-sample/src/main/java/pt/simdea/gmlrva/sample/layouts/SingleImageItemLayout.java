@@ -4,11 +4,13 @@
 
 package pt.simdea.gmlrva.sample.layouts;
 
+import android.animation.Animator;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -16,6 +18,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import pt.simdea.gmlrva.lib.GenericMultipleLayoutAdapter;
 import pt.simdea.gmlrva.lib.IGenericRecyclerViewLayout;
+import pt.simdea.gmlrva.lib.animators.GenericItemAnimator;
+import pt.simdea.gmlrva.lib.utilities.ViewUtils;
 import pt.simdea.gmlrva.sample.R;
 import pt.simdea.gmlrva.sample.data.ClickListener;
 
@@ -65,6 +69,32 @@ import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERRO
             super(view);
             bindViews(view);
             bindListeners();
+        }
+
+        public void runEnterAnimation(@NonNull final GenericItemAnimator.AnimationEndListener listener) {
+            final int screenHeight = ViewUtils.getDeviceScreenHeight(itemView.getContext());
+            itemView.setTranslationY(screenHeight);
+            itemView.animate()
+                    .translationY(0)
+                    .setInterpolator(new DecelerateInterpolator(3.f))
+                    .setDuration(700)
+                    .setListener(new Animator.AnimatorListener() {
+                        @Override public void onAnimationStart(@NonNull final Animator animation) {
+                            /* Do nothing here */
+                        }
+
+                        @Override public void onAnimationEnd(@NonNull final Animator animation) {
+                            listener.onAnimationEnd(SingleImageItemViewHolder.this);
+                        }
+
+                        @Override public void onAnimationCancel(@NonNull final Animator animation) {
+                            /* Do nothing here */
+                        }
+
+                        @Override public void onAnimationRepeat(@NonNull final Animator animation) {
+                            /* Do nothing here */
+                        }
+                    }).start();
         }
 
         @Override public void onClick(@NonNull final View v) {

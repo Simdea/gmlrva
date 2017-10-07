@@ -38,4 +38,8 @@ public abstract class GenericItemAnimator extends DefaultItemAnimator {
      */
     @Override public abstract boolean animateAdd(@NonNull final RecyclerView.ViewHolder holder);
 
+    public interface AnimationEndListener {
+        void onAnimationEnd(@NonNull final RecyclerView.ViewHolder holder);
+    }
+
 }
