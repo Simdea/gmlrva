@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import pt.simdea.gmlrva.lib.GenericMultipleLayoutAdapter;
+import pt.simdea.gmlrva.lib.GenericViewHolder;
 import pt.simdea.gmlrva.lib.IGenericRecyclerViewLayout;
 import pt.simdea.gmlrva.lib.animators.GenericItemAnimator;
 import pt.simdea.gmlrva.lib.utilities.ViewUtils;
@@ -57,7 +59,7 @@ import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERRO
     }
 
     /** Class meant to define the {@link RecyclerView.ViewHolder} for a Single Image Layout instance. */
-    public final class SingleImageItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public final class SingleImageItemViewHolder extends GenericViewHolder implements View.OnClickListener {
 
         @Getter private ImageView mCover;
 
@@ -71,7 +73,7 @@ import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERRO
             bindListeners();
         }
 
-        public void runEnterAnimation(@NonNull final GenericItemAnimator.AnimationEndListener listener) {
+        @Override public void runAddAnimation(@NonNull final GenericItemAnimator.AnimationEndListener listener) {
             final int screenHeight = ViewUtils.getDeviceScreenHeight(itemView.getContext());
             itemView.setTranslationY(screenHeight);
             itemView.animate()
@@ -84,7 +86,33 @@ import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERRO
                         }
 
                         @Override public void onAnimationEnd(@NonNull final Animator animation) {
-                            listener.onAnimationEnd(SingleImageItemViewHolder.this);
+                            listener.onAddAnimationEnd(SingleImageItemViewHolder.this);
+                        }
+
+                        @Override public void onAnimationCancel(@NonNull final Animator animation) {
+                            /* Do nothing here */
+                        }
+
+                        @Override public void onAnimationRepeat(@NonNull final Animator animation) {
+                            /* Do nothing here */
+                        }
+                    }).start();
+        }
+
+        @Override public void runRemoveAnimation(@NonNull final GenericItemAnimator.AnimationEndListener listener) {
+            final int screenHeight = ViewUtils.getDeviceScreenHeight(itemView.getContext());
+            itemView.setTranslationY(0);
+            itemView.animate()
+                    .translationY(screenHeight)
+                    .setInterpolator(new AccelerateInterpolator(3.f))
+                    .setDuration(700)
+                    .setListener(new Animator.AnimatorListener() {
+                        @Override public void onAnimationStart(@NonNull final Animator animation) {
+                            /* Do nothing here */
+                        }
+
+                        @Override public void onAnimationEnd(@NonNull final Animator animation) {
+                            listener.onRemoveAnimationEnd(SingleImageItemViewHolder.this);
                         }
 
                         @Override public void onAnimationCancel(@NonNull final Animator animation) {

@@ -38,8 +38,31 @@ public abstract class GenericItemAnimator extends DefaultItemAnimator {
      */
     @Override public abstract boolean animateAdd(@NonNull final RecyclerView.ViewHolder holder);
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param holder the {@link RecyclerView} item's {@link RecyclerView.ViewHolder}.
+     * @return a boolean value indicating whether the {@link RecyclerView} should use an exit animation
+     *         for the {@link RecyclerView.ViewHolder}. TODO: Review this JavaDoc
+     */
+    @Override public abstract boolean animateRemove(@NonNull final RecyclerView.ViewHolder holder);
+
+    /**
+     * TODO...
+     */
     public interface AnimationEndListener {
-        void onAnimationEnd(@NonNull final RecyclerView.ViewHolder holder);
+
+        /**
+         * TODO...
+         * @param holder the {@link RecyclerView} item's {@link RecyclerView.ViewHolder}.
+         */
+        void onAddAnimationEnd(@NonNull final RecyclerView.ViewHolder holder);
+
+        /**
+         * TODO...
+         * @param holder the {@link RecyclerView} item's {@link RecyclerView.ViewHolder}.
+         */
+        void onRemoveAnimationEnd(@NonNull final RecyclerView.ViewHolder holder);
     }
 
 }
