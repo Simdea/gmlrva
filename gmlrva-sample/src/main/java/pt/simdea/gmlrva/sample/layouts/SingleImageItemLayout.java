@@ -53,7 +53,7 @@ import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERRO
     }
 
     /** Class meant to define the {@link RecyclerView.ViewHolder} for a Single Image Layout instance. */
-    final class SingleImageItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public final class SingleImageItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @Getter private ImageView mCover;
 
