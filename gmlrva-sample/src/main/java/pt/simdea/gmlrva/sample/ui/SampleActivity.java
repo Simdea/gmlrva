@@ -129,9 +129,10 @@ public class SampleActivity extends AppCompatActivity implements ClickListener {
         final SingleImageItemLayout singleItemLayout = new SingleImageItemLayout(R.mipmap.gmlrva_ic_launcher, this);
         exampleHolders.add(singleItemLayout);
 
-        /* Add a Single Image Item Example */
-        final SingleImageItemLayout singleItemLayout2 = new SingleImageItemLayout(R.mipmap.gmlrva_ic_launcher, this);
-        exampleHolders.add(singleItemLayout2);
+        /* Add a Single Text Item Example */
+        final SingleTextItemLayout singleTextItemLayout
+                = new SingleTextItemLayout(getString(R.string.gmlrva_app_name), this);
+        exampleHolders.add(singleTextItemLayout);
 
         /* Add a Carousel (Category + List) Item Example */
         final List<IGenericRecyclerViewLayout> mCarouselItemData = buildCarouselItemData(10);
