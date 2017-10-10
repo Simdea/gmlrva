@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +19,8 @@ import java.util.List;
 
 import pt.simdea.gmlrva.lib.GenericMultipleLayoutAdapter;
 import pt.simdea.gmlrva.lib.IGenericRecyclerViewLayout;
+import pt.simdea.gmlrva.lib.decorators.DecorationSpec;
+import pt.simdea.gmlrva.lib.decorators.GenericItemDecoration;
 import pt.simdea.gmlrva.sample.R;
 import pt.simdea.gmlrva.sample.data.ClickListener;
 import pt.simdea.gmlrva.sample.data.FakeDataObject;
@@ -75,6 +78,16 @@ public class SampleActivity extends AppCompatActivity implements ClickListener {
         if (mGenericTest != null) {
             mGenericTest.setAdapter(new GenericMultipleLayoutAdapter(buildGenericListExample(), this, false));
             mGenericTest.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+
+            final DecorationSpec spec = new DecorationSpec.DecorationSpecBuilder()
+                    .withTopSpacing(25)
+                    .withBottomSpacing(25)
+                    .withStartSpacing(10)
+                    .withEndSpacing(10)
+                    .withDrawableDivider(ContextCompat.getDrawable(this, R.drawable.gmlrva_red_line_item_divider))
+                    .buildDecorationSpec();
+            mGenericTest.addItemDecoration(new GenericItemDecoration(spec));
+
             GenericUtils.setOptimalConfigurationForRecyclerView(mGenericTest);
         }
     }
