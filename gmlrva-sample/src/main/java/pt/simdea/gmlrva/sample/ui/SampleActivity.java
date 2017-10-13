@@ -6,10 +6,10 @@ package pt.simdea.gmlrva.sample.ui;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -88,7 +88,7 @@ public class SampleActivity extends AppCompatActivity implements ClickListener {
                     .withStartSpacing(10)
                     .withEndSpacing(10)
 //                    .withDrawableDivider(ContextCompat.getDrawable(this, R.drawable.gmlrva_red_line_item_divider))
-                    .withDrawnDivider(Color.RED, 3, thickness)
+                    .withDrawnDivider(ContextCompat.getColor(this, R.color.gmlrvaColorAccent), thickness)
                     .buildDecorationSpec();
             mGenericTest.addItemDecoration(new GenericItemDecoration(spec));
 

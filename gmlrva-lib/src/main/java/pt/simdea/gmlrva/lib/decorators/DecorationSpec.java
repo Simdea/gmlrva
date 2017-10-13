@@ -62,8 +62,8 @@ import lombok.ToString;
     /** DecorationSpec builder class responsible for harboring all the required fields of a {@link DecorationSpec}. */
     @NoArgsConstructor public static class DecorationSpecBuilder {
 
-        private Drawable mDivider;
-        private Paint mDrawnDivider;
+        @Nullable private Drawable mDivider;
+        @Nullable private Paint mDrawnDivider;
 
         private int mTopSpacing;
         private int mBottomSpacing;
@@ -71,14 +71,12 @@ import lombok.ToString;
         private int mEndSpacing;
 
         /**
-         * Procedure meant to set the value for {@link #mTopSpacing} optional parameter.
+         * Procedure meant to TODO...
          * @param color TODO...
-         * @param heightDp TODO...
          * @param thickness TODO...
          * @return TODO...
          */
         public DecorationSpecBuilder withDrawnDivider(@ColorInt int color,
-                                                      @FloatRange(from = 0, fromInclusive = false) float heightDp,
                                                       @FloatRange(from = 0, fromInclusive = false) float thickness) {
             mDrawnDivider = new Paint();
             mDrawnDivider.setColor(color);
@@ -87,7 +85,7 @@ import lombok.ToString;
         }
 
         /**
-         * Procedure meant to set the value for {@link #mTopSpacing} optional parameter.
+         * Procedure meant to TODO...
          * @param divider TODO...
          * @return TODO...
          */
