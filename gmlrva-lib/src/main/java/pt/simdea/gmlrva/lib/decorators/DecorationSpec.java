@@ -1,6 +1,10 @@
 package pt.simdea.gmlrva.lib.decorators;
 
+import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.ColorInt;
+import android.support.annotation.FloatRange;
+import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -42,8 +46,12 @@ import lombok.ToString;
     /** This ItemDecoration's divider resource */
     @Nullable @Getter private Drawable mDivider;
 
+    /** This ItemDecoration's divider {@link Paint} resource */
+    @Nullable @Getter private Paint mDrawnDivider;
+
     private DecorationSpec(@NonNull final DecorationSpecBuilder builder) {
         mDivider = builder.mDivider;
+        mDrawnDivider = builder.mDrawnDivider;
 
         mTopSpacing = builder.mTopSpacing;
         mBottomSpacing = builder.mBottomSpacing;
@@ -55,11 +63,28 @@ import lombok.ToString;
     @NoArgsConstructor public static class DecorationSpecBuilder {
 
         private Drawable mDivider;
+        private Paint mDrawnDivider;
 
         private int mTopSpacing;
         private int mBottomSpacing;
         private int mStartSpacing;
         private int mEndSpacing;
+
+        /**
+         * Procedure meant to set the value for {@link #mTopSpacing} optional parameter.
+         * @param color TODO...
+         * @param heightDp TODO...
+         * @param thickness TODO...
+         * @return TODO...
+         */
+        public DecorationSpecBuilder withDrawnDivider(@ColorInt int color,
+                                                      @FloatRange(from = 0, fromInclusive = false) float heightDp,
+                                                      @FloatRange(from = 0, fromInclusive = false) float thickness) {
+            mDrawnDivider = new Paint();
+            mDrawnDivider.setColor(color);
+            mDrawnDivider.setStrokeWidth(thickness);
+            return this;
+        }
 
         /**
          * Procedure meant to set the value for {@link #mTopSpacing} optional parameter.
@@ -76,7 +101,7 @@ import lombok.ToString;
          * @param topSpacing TODO...
          * @return TODO...
          */
-        public DecorationSpecBuilder withTopSpacing(final int topSpacing) {
+        public DecorationSpecBuilder withTopSpacing(@IntRange(from = 0) final int topSpacing) {
             mTopSpacing = topSpacing;
             return this;
         }
@@ -86,7 +111,7 @@ import lombok.ToString;
          * @param bottomSpacing TODO...
          * @return TODO...
          */
-        public DecorationSpecBuilder withBottomSpacing(final int bottomSpacing) {
+        public DecorationSpecBuilder withBottomSpacing(@IntRange(from = 0) final int bottomSpacing) {
             mBottomSpacing = bottomSpacing;
             return this;
         }
@@ -96,7 +121,7 @@ import lombok.ToString;
          * @param startSpacing TODO...
          * @return TODO...
          */
-        public DecorationSpecBuilder withStartSpacing(final int startSpacing) {
+        public DecorationSpecBuilder withStartSpacing(@IntRange(from = 0) final int startSpacing) {
             mStartSpacing = startSpacing;
             return this;
         }
@@ -106,7 +131,7 @@ import lombok.ToString;
          * @param endSpacing TODO...
          * @return TODO...
          */
-        public DecorationSpecBuilder withEndSpacing(final int endSpacing) {
+        public DecorationSpecBuilder withEndSpacing(@IntRange(from = 0) final int endSpacing) {
             mEndSpacing = endSpacing;
             return this;
         }
