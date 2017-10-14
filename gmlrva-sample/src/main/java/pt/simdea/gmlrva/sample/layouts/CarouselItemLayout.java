@@ -19,7 +19,7 @@ import pt.simdea.gmlrva.lib.GenericMultipleLayoutAdapter;
 import pt.simdea.gmlrva.lib.IGenericRecyclerViewLayout;
 import pt.simdea.gmlrva.sample.R;
 
-import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERROR;
+import static pt.simdea.gmlrva.lib.utilities.GMLRVAConstants.UNSUPPORTED_ERROR;
 
 /**
  * Class representing a Carousel Item Layout meant to be used on a {@link GenericMultipleLayoutAdapter}.

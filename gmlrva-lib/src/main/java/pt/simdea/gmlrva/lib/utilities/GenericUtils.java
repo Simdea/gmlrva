@@ -2,11 +2,13 @@
  * Copyright (c) 2017. Simdea.
  */
 
-package pt.simdea.gmlrva.sample.utilities;
+package pt.simdea.gmlrva.lib.utilities;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
+import static pt.simdea.gmlrva.lib.utilities.GMLRVAConstants.ASSERTION_ERROR;
 
 /**
  * Auxiliary Utils class.
@@ -23,7 +25,7 @@ public final class GenericUtils {
      * Private to prevent instantiation.
      */
     private GenericUtils() {
-        throw new AssertionError("Instantiating utility class."); // Throw an exception if this *is* ever called
+        throw new AssertionError(ASSERTION_ERROR); // Throw an exception if this *is* ever called
     }
 
     /**

@@ -1,6 +1,11 @@
-package pt.simdea.gmlrva.lib.decorators;
+/*
+ * Copyright (c) 2017. Simdea.
+ */
+
+package pt.simdea.gmlrva.lib.decoration.specs;
 
 import android.graphics.Paint;
+import android.graphics.PathEffect;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.FloatRange;
@@ -15,6 +20,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import pt.simdea.gmlrva.lib.decoration.GenericItemDecoration;
+import pt.simdea.gmlrva.lib.decoration.helpers.GenericDecorationDividerPosition;
 
 /**
  * Class responsible for defining a {@link RecyclerView.ItemDecoration}.
@@ -29,7 +36,7 @@ import lombok.ToString;
  * Simdea © All Rights Reserved.
  * paulo.ribeiro@simdea.pt
  */
-@ToString @EqualsAndHashCode public class DecorationSpec implements Serializable {
+@ToString @EqualsAndHashCode public class SimpleDividerItemDecorationSpec implements Serializable {
 
     /** This ItemDecoration's top spacing value */
     @Getter private int mTopSpacing = 0;
@@ -43,13 +50,17 @@ import lombok.ToString;
     /** This ItemDecoration's end spacing value */
     @Getter private int mEndSpacing = 0;
 
+    /** This ItemDecoration's divider position value {@link GenericDecorationDividerPosition} */
+    @Getter private int mDividerPosition = 1; // bottom, by default
+
     /** This ItemDecoration's divider resource */
     @Nullable @Getter private Drawable mDivider;
 
     /** This ItemDecoration's divider {@link Paint} resource */
     @Nullable @Getter private Paint mDrawnDivider;
 
-    private DecorationSpec(@NonNull final DecorationSpecBuilder builder) {
+    private SimpleDividerItemDecorationSpec(@NonNull final DecorationSpecBuilder builder) {
+        mDividerPosition = builder.mDividerPosition;
         mDivider = builder.mDivider;
         mDrawnDivider = builder.mDrawnDivider;
 
@@ -59,8 +70,8 @@ import lombok.ToString;
         mEndSpacing = builder.mEndSpacing;
     }
 
-    /** DecorationSpec builder class responsible for harboring all the required fields of a {@link DecorationSpec}. */
-    @NoArgsConstructor public static class DecorationSpecBuilder {
+    /** SimpleDividerItemDecorationSpec builder class responsible for harboring all the required fields of a {@link SimpleDividerItemDecorationSpec}. */
+    @SuppressWarnings("unused") @NoArgsConstructor public static class DecorationSpecBuilder {
 
         @Nullable private Drawable mDivider;
         @Nullable private Paint mDrawnDivider;
@@ -69,6 +80,7 @@ import lombok.ToString;
         private int mBottomSpacing;
         private int mStartSpacing;
         private int mEndSpacing;
+        private int mDividerPosition;
 
         /**
          * Procedure meant to TODO...
@@ -77,10 +89,18 @@ import lombok.ToString;
          * @return TODO...
          */
         public DecorationSpecBuilder withDrawnDivider(@ColorInt int color,
-                                                      @FloatRange(from = 0, fromInclusive = false) float thickness) {
+                                                      @FloatRange(from = 0, fromInclusive = false) float thickness,
+                                                      @Nullable final Paint.Style style,
+                                                      @Nullable final PathEffect pathEffect) {
             mDrawnDivider = new Paint();
             mDrawnDivider.setColor(color);
             mDrawnDivider.setStrokeWidth(thickness);
+            if (style != null) {
+                mDrawnDivider.setStyle(style);
+            }
+            if (pathEffect != null) {
+                mDrawnDivider.setPathEffect(pathEffect);
+            }
             return this;
         }
 
@@ -91,6 +111,16 @@ import lombok.ToString;
          */
         public DecorationSpecBuilder withDrawableDivider(@Nullable final Drawable divider) {
             mDivider = divider;
+            return this;
+        }
+
+        /**
+         * Procedure meant to set the value for {@link #mDividerPosition} optional parameter.
+         * @param dividerPosition {@link GenericDecorationDividerPosition} TODO...
+         * @return TODO...
+         */
+        public DecorationSpecBuilder withDividerPosition(@IntRange(from = 0, to = 5) final int dividerPosition) {
+            mDividerPosition = dividerPosition;
             return this;
         }
 
@@ -135,15 +165,15 @@ import lombok.ToString;
         }
 
         /**
-         * Procedure meant to return the desired {@link DecorationSpec}
-         * @return the built DecorationSpec instance.
+         * Procedure meant to return the desired {@link SimpleDividerItemDecorationSpec}
+         * @return the built SimpleDividerItemDecorationSpec instance.
          */
-        public DecorationSpec buildDecorationSpec() {
+        public SimpleDividerItemDecorationSpec buildDecorationSpec() {
             isValidDecorationSpecData(); // TODO
-            return new DecorationSpec(this);
+            return new SimpleDividerItemDecorationSpec(this);
         }
 
-        /** Procedure meant to execute basic validation checks on this DecorationSpec's data */
+        /** Procedure meant to execute basic validation checks on this SimpleDividerItemDecorationSpec's data */
         private boolean isValidDecorationSpecData() {
             /* TODO: Do some basic validations to check */
             return true;

@@ -5,7 +5,9 @@
 package pt.simdea.gmlrva.sample.layouts;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,8 +21,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import pt.simdea.gmlrva.lib.GenericMultipleLayoutAdapter;
 import pt.simdea.gmlrva.lib.IGenericRecyclerViewLayout;
+import pt.simdea.gmlrva.lib.decoration.decorators.SimpleDividerItemDecoration;
+import pt.simdea.gmlrva.lib.decoration.helpers.GenericDecorationDividerPosition;
+import pt.simdea.gmlrva.lib.decoration.specs.SimpleDividerItemDecorationSpec;
+import pt.simdea.gmlrva.lib.utilities.GenericUtils;
 import pt.simdea.gmlrva.sample.R;
-import pt.simdea.gmlrva.sample.utilities.GenericUtils;
 
 /**
  * Class representing a Carousel Category Layout meant to be used on a {@link GenericMultipleLayoutAdapter}.
@@ -44,7 +49,8 @@ import pt.simdea.gmlrva.sample.utilities.GenericUtils;
 
     @Override public void setElements(@NonNull final CarouselCategoryViewHolder holder) {
         holder.getTitle().setText(mCategoryTitle);
-        loadItems(holder.getItems());
+        loadItems(holder.getItems(),
+                ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.gmlrva_vertical_red_line_item_divider));
     }
 
     @NonNull @Override public Object getTag() {
@@ -58,10 +64,18 @@ import pt.simdea.gmlrva.sample.utilities.GenericUtils;
     /**
      * Procedure meant to load the Carousel Item Layout items, bound by this Carousel Category Layout.
      * @param items the {@link RecyclerView} which will hold the Carousel Item Layout items.
+     * @param drawable TODO!
      */
-    private void loadItems(@NonNull final RecyclerView items) {
+    private void loadItems(@NonNull final RecyclerView items, @NonNull final Drawable drawable) {
         items.setAdapter(new GenericMultipleLayoutAdapter(mCategoryData, mContext, false));
         items.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
+
+        final SimpleDividerItemDecorationSpec spec = new SimpleDividerItemDecorationSpec.DecorationSpecBuilder()
+                .withDrawableDivider(drawable)
+                .withDividerPosition(GenericDecorationDividerPosition.POSITION_END)
+                .buildDecorationSpec();
+        items.addItemDecoration(new SimpleDividerItemDecoration(spec));
+
         GenericUtils.setOptimalConfigurationForRecyclerView(items);
     }
 
