@@ -17,7 +17,6 @@ import static pt.simdea.gmlrva.lib.utilities.GMLRVAConstants.ASSERTION_ERROR;
  * Simdea © All Rights Reserved.
  * paulo.ribeiro@simdea.pt
  */
-
 public final class GenericUtils {
 
     /**

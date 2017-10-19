@@ -18,7 +18,9 @@ import lombok.AllArgsConstructor;
  * Simdea © All Rights Reserved.
  * paulo.ribeiro@simdea.pt
  */
-@SuppressWarnings({"WeakerAccess", "unused"}) @AllArgsConstructor public class GenericDecorationDividerPosition {
+@SuppressWarnings({"WeakerAccess", "unused"})
+@AllArgsConstructor
+public class GenericDecorationDividerPosition {
 
     /* Constants */
 
@@ -43,6 +45,6 @@ import lombok.AllArgsConstructor;
     // Declare the @StringDef for these constants
     @IntDef({ POSITION_TOP, POSITION_BOTTOM, POSITION_START, POSITION_END })
     @Retention(RetentionPolicy.SOURCE)
-    public @interface GenericDecorationDividerPositioConstants { /* Do nothing here ... */ }
+    public @interface GenericDecorationDividerPositionConstants { /* Do nothing here ... */ }
 
 }

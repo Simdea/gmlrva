@@ -92,8 +92,8 @@ public class SampleActivity extends AppCompatActivity implements ClickListener {
                     .withEndSpacing(10)
 //                    .withDrawableDivider(ContextCompat.getDrawable(this, R.drawable.gmlrva_red_line_item_divider))
                     .withDividerPosition(GenericDecorationDividerPosition.POSITION_TOP_BOTTOM)
-                    .withDrawnDivider(ContextCompat.getColor(this, R.color.gmlrvaColorAccent), thickness, Paint.Style
-                            .STROKE, new DashPathEffect(new float[]{5, 10}, 10))
+                    .withDrawnDivider(ContextCompat.getColor(this, R.color.gmlrvaColorAccent), thickness,
+                            Paint.Style.STROKE, new DashPathEffect(new float[]{5, 10}, 10))
 //                    .withDrawnDivider(ContextCompat.getColor(this, R.color.gmlrvaColorAccent), thickness, null, null)
                     .buildDecorationSpec();
             mGenericTest.addItemDecoration(new SimpleDividerItemDecoration(spec));

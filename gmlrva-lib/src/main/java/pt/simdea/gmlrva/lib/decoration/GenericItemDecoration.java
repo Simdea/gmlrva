@@ -10,19 +10,25 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import pt.simdea.gmlrva.lib.decoration.specs.SimpleDividerItemDecorationSpec;
+import pt.simdea.gmlrva.lib.decoration.specs.ItemDecorationSpec;
 
 /**
- * TODO...
+ * This class is meant to apply any generic implementation of an {@link ItemDecorationSpec} to a {@link RecyclerView}.
+ *
+ * @param <T> an instance of {@link ItemDecorationSpec}.
  *
  * Created by Paulo Ribeiro on 10/7/2017.
  * Simdea © All Rights Reserved.
  * paulo.ribeiro@simdea.pt
  */
-public abstract class GenericItemDecoration extends RecyclerView.ItemDecoration {
+public abstract class GenericItemDecoration<T extends ItemDecorationSpec> extends RecyclerView.ItemDecoration {
 
-    // TODO!
-    protected GenericItemDecoration(@NonNull final SimpleDividerItemDecorationSpec configurationSpec) {
+    /**
+     * Instantiates a new GenericItemDecoration.
+     * @param configurationSpec a valid {@link ItemDecorationSpec} containing this item decoration specification.
+     */
+    protected GenericItemDecoration(@NonNull final T configurationSpec) {
+        super();
         applySpec(configurationSpec);
     }
 
@@ -36,7 +42,10 @@ public abstract class GenericItemDecoration extends RecyclerView.ItemDecoration 
     public abstract void onDrawOver(@NonNull final Canvas canvas, @NonNull final RecyclerView parent,
                                     @NonNull final RecyclerView.State state);
 
-    // TODO!
-    protected abstract void applySpec(@NonNull final SimpleDividerItemDecorationSpec configurationSpec);
+    /**
+     * Procedure meant to apply a given {@link ItemDecorationSpec} to this item decoration.
+     * @param configurationSpec the valid {@link ItemDecorationSpec} containing this item decoration specification.
+     */
+    protected abstract void applySpec(@NonNull final T configurationSpec);
 
 }

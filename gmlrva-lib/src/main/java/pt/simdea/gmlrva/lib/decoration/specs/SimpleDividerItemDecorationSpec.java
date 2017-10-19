@@ -4,6 +4,7 @@
 
 package pt.simdea.gmlrva.lib.decoration.specs;
 
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PathEffect;
 import android.graphics.drawable.Drawable;
@@ -27,8 +28,6 @@ import pt.simdea.gmlrva.lib.decoration.helpers.GenericDecorationDividerPosition;
  * Class responsible for defining a {@link RecyclerView.ItemDecoration}.
  * See {@link GenericItemDecoration} for more information.
  *
- * TODO...
- *
  * This class employs Builder Pattern, meaning this class contains all the required fields.
  * It's constructor receives all the required parameters. All optional parameters can be set via this class.
  *
@@ -36,30 +35,48 @@ import pt.simdea.gmlrva.lib.decoration.helpers.GenericDecorationDividerPosition;
  * Simdea © All Rights Reserved.
  * paulo.ribeiro@simdea.pt
  */
-@ToString @EqualsAndHashCode public class SimpleDividerItemDecorationSpec implements Serializable {
+@SuppressWarnings("WeakerAccess")
+@ToString
+@EqualsAndHashCode
+public final class SimpleDividerItemDecorationSpec implements ItemDecorationSpec, Serializable {
 
     /** This ItemDecoration's top spacing value */
-    @Getter private int mTopSpacing = 0;
+    @Getter
+    private final int mTopSpacing;
 
     /** This ItemDecoration's bottom spacing value */
-    @Getter private int mBottomSpacing = 0;
+    @Getter
+    private final int mBottomSpacing;
 
     /** This ItemDecoration's start spacing value */
-    @Getter private int mStartSpacing = 0;
+    @Getter
+    private final int mStartSpacing;
 
     /** This ItemDecoration's end spacing value */
-    @Getter private int mEndSpacing = 0;
+    @Getter
+    private final int mEndSpacing;
 
     /** This ItemDecoration's divider position value {@link GenericDecorationDividerPosition} */
-    @Getter private int mDividerPosition = 1; // bottom, by default
+    @Getter
+    private final int mDividerPosition;
 
     /** This ItemDecoration's divider resource */
-    @Nullable @Getter private Drawable mDivider;
+    @Nullable
+    @Getter
+    private final Drawable mDivider;
 
     /** This ItemDecoration's divider {@link Paint} resource */
-    @Nullable @Getter private Paint mDrawnDivider;
+    @Nullable
+    @Getter
+    private final Paint mDrawnDivider;
 
-    private SimpleDividerItemDecorationSpec(@NonNull final DecorationSpecBuilder builder) {
+    /**
+     * Instantiates a new SimpleDividerItemDecorationSpec.
+     * Private to prevent instantiation.
+     * @param builder the builder object responsible for harboring
+     *                all the required fields of a {@link SimpleDividerItemDecorationSpec}.
+     */
+    SimpleDividerItemDecorationSpec(@NonNull final DecorationSpecBuilder builder) {
         mDividerPosition = builder.mDividerPosition;
         mDivider = builder.mDivider;
         mDrawnDivider = builder.mDrawnDivider;
@@ -70,11 +87,18 @@ import pt.simdea.gmlrva.lib.decoration.helpers.GenericDecorationDividerPosition;
         mEndSpacing = builder.mEndSpacing;
     }
 
-    /** SimpleDividerItemDecorationSpec builder class responsible for harboring all the required fields of a {@link SimpleDividerItemDecorationSpec}. */
-    @SuppressWarnings("unused") @NoArgsConstructor public static class DecorationSpecBuilder {
+    /**
+     * SimpleDividerItemDecorationSpec builder class responsible for harboring
+     * all the required fields of a {@link SimpleDividerItemDecorationSpec}.
+     */
+    @SuppressWarnings("unused")
+    @NoArgsConstructor
+    public static final class DecorationSpecBuilder {
 
-        @Nullable private Drawable mDivider;
-        @Nullable private Paint mDrawnDivider;
+        @Nullable
+        private Drawable mDivider;
+        @Nullable
+        private Paint mDrawnDivider;
 
         private int mTopSpacing;
         private int mBottomSpacing;
@@ -83,11 +107,18 @@ import pt.simdea.gmlrva.lib.decoration.helpers.GenericDecorationDividerPosition;
         private int mDividerPosition;
 
         /**
-         * Procedure meant to TODO...
-         * @param color TODO...
-         * @param thickness TODO...
-         * @return TODO...
+         * Procedure meant to set the value for {@link #mDrawnDivider} optional parameter.
+         * @param color the divider's target {@link Color} value.
+         *              See {@link Paint#setColor(int)} for more information.
+         * @param thickness the divider's target line thickness value. This value must be greater or equal than 0.
+         *                  See {@link Paint#setStrokeWidth(float)} for more information.
+         * @param style the divider's target {@link Paint.Style}.
+         *              See {@link Paint#setStyle(Paint.Style)} for more information.
+         * @param pathEffect the divider's target {@link PathEffect}.
+         *                   See {@link Paint#setPathEffect(PathEffect)} for more information.
+         * @return the same object builder object after setting the optional attribute.
          */
+        @NonNull
         public DecorationSpecBuilder withDrawnDivider(@ColorInt int color,
                                                       @FloatRange(from = 0, fromInclusive = false) float thickness,
                                                       @Nullable final Paint.Style style,
@@ -105,10 +136,11 @@ import pt.simdea.gmlrva.lib.decoration.helpers.GenericDecorationDividerPosition;
         }
 
         /**
-         * Procedure meant to TODO...
-         * @param divider TODO...
-         * @return TODO...
+         * Procedure meant to set the value for {@link #mDivider} optional parameter.
+         * @param divider the divider's target {@link Drawable} value.
+         * @return the same object builder object after setting the optional attribute.
          */
+        @NonNull
         public DecorationSpecBuilder withDrawableDivider(@Nullable final Drawable divider) {
             mDivider = divider;
             return this;
@@ -116,9 +148,11 @@ import pt.simdea.gmlrva.lib.decoration.helpers.GenericDecorationDividerPosition;
 
         /**
          * Procedure meant to set the value for {@link #mDividerPosition} optional parameter.
-         * @param dividerPosition {@link GenericDecorationDividerPosition} TODO...
-         * @return TODO...
+         * @param dividerPosition the divider's target position value. This value is ranged.
+         *                        See {@link GenericDecorationDividerPosition} for more information.
+         * @return the same object builder object after setting the optional attribute.
          */
+        @NonNull
         public DecorationSpecBuilder withDividerPosition(@IntRange(from = 0, to = 5) final int dividerPosition) {
             mDividerPosition = dividerPosition;
             return this;
@@ -126,9 +160,11 @@ import pt.simdea.gmlrva.lib.decoration.helpers.GenericDecorationDividerPosition;
 
         /**
          * Procedure meant to set the value for {@link #mTopSpacing} optional parameter.
-         * @param topSpacing TODO...
-         * @return TODO...
+         * @param topSpacing the {@link RecyclerView}'s outer top spacing value.
+         *                   This value must be greater or equal than 0.
+         * @return the same object builder object after setting the optional attribute.
          */
+        @NonNull
         public DecorationSpecBuilder withTopSpacing(@IntRange(from = 0) final int topSpacing) {
             mTopSpacing = topSpacing;
             return this;
@@ -136,9 +172,11 @@ import pt.simdea.gmlrva.lib.decoration.helpers.GenericDecorationDividerPosition;
 
         /**
          * Procedure meant to set the value for {@link #mBottomSpacing} optional parameter.
-         * @param bottomSpacing TODO...
-         * @return TODO...
+         * @param bottomSpacing the {@link RecyclerView}'s outer bottom spacing value.
+         *                      This value must be greater or equal than 0.
+         * @return the same object builder object after setting the optional attribute.
          */
+        @NonNull
         public DecorationSpecBuilder withBottomSpacing(@IntRange(from = 0) final int bottomSpacing) {
             mBottomSpacing = bottomSpacing;
             return this;
@@ -146,9 +184,11 @@ import pt.simdea.gmlrva.lib.decoration.helpers.GenericDecorationDividerPosition;
 
         /**
          * Procedure meant to set the value for {@link #mStartSpacing} optional parameter.
-         * @param startSpacing TODO...
-         * @return TODO...
+         * @param startSpacing the {@link RecyclerView}'s outer start / left spacing value.
+         *                     This value must be greater or equal than 0.
+         * @return the same object builder object after setting the optional attribute.
          */
+        @NonNull
         public DecorationSpecBuilder withStartSpacing(@IntRange(from = 0) final int startSpacing) {
             mStartSpacing = startSpacing;
             return this;
@@ -156,27 +196,23 @@ import pt.simdea.gmlrva.lib.decoration.helpers.GenericDecorationDividerPosition;
 
         /**
          * Procedure meant to set the value for {@link #mEndSpacing} optional parameter.
-         * @param endSpacing TODO...
-         * @return TODO...
+         * @param endSpacing the {@link RecyclerView}'s outer end / right spacing value.
+         *                   This value must be greater or equal than 0.
+         * @return the same object builder object after setting the optional attribute.
          */
+        @NonNull
         public DecorationSpecBuilder withEndSpacing(@IntRange(from = 0) final int endSpacing) {
             mEndSpacing = endSpacing;
             return this;
         }
 
         /**
-         * Procedure meant to return the desired {@link SimpleDividerItemDecorationSpec}
+         * Procedure meant to return the desired {@link SimpleDividerItemDecorationSpec}.
          * @return the built SimpleDividerItemDecorationSpec instance.
          */
+        @NonNull
         public SimpleDividerItemDecorationSpec buildDecorationSpec() {
-            isValidDecorationSpecData(); // TODO
             return new SimpleDividerItemDecorationSpec(this);
-        }
-
-        /** Procedure meant to execute basic validation checks on this SimpleDividerItemDecorationSpec's data */
-        private boolean isValidDecorationSpecData() {
-            /* TODO: Do some basic validations to check */
-            return true;
         }
 
     }

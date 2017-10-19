@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2017. Simdea.
+ */
+
 package pt.simdea.gmlrva.lib.decoration.helpers;
 
 import android.graphics.Canvas;
@@ -9,54 +13,72 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import lombok.NoArgsConstructor;
-
-import static pt.simdea.gmlrva.lib.decoration.helpers.GenericDecorationDividerPosition.POSITION_BOTTOM;
-import static pt.simdea.gmlrva.lib.decoration.helpers.GenericDecorationDividerPosition.POSITION_END;
-import static pt.simdea.gmlrva.lib.decoration.helpers.GenericDecorationDividerPosition.POSITION_START;
-import static pt.simdea.gmlrva.lib.decoration.helpers.GenericDecorationDividerPosition.POSITION_START_END;
-import static pt.simdea.gmlrva.lib.decoration.helpers.GenericDecorationDividerPosition.POSITION_TOP;
-import static pt.simdea.gmlrva.lib.decoration.helpers.GenericDecorationDividerPosition.POSITION_TOP_BOTTOM;
-import static pt.simdea.gmlrva.lib.utilities.GMLRVAConstants.UNSUPPORTED_ERROR;
+import pt.simdea.gmlrva.lib.decoration.decorators.SimpleDividerItemDecoration;
+import pt.simdea.gmlrva.lib.utilities.GMLRVAConstants;
 
 /**
- * TODO...
- * Created by Paulo on 14/10/2017.
+ * This auxiliary class is meant to apply a {@link SimpleDividerItemDecoration}'s divider specification rules.
+ *
+ * Created by Paulo Ribeiro on 14/10/2017.
+ * Simdea © All Rights Reserved.
+ * paulo.ribeiro@simdea.pt
  */
-@NoArgsConstructor public class DecoratorDrawOverManager {
+@NoArgsConstructor
+public class DecoratorDrawOverManager {
 
-    @NonNull private final DecoratorDrawableDividerHelper drawableDividerHelper = new DecoratorDrawableDividerHelper();
-    @NonNull private final DecoratorDrawnDividerHelper drawnDividerHelper = new DecoratorDrawnDividerHelper();
+    @NonNull
+    private final DecoratorDrawableDividerHelper mDrawableDividerHelper = new DecoratorDrawableDividerHelper();
+    @NonNull
+    private final DecoratorDrawnDividerHelper mDrawnDividerHelper = new DecoratorDrawnDividerHelper();
 
-    // TODO!
+    /**
+     * Procedure meant to handle the drawing stage of a {@link SimpleDividerItemDecoration}'s divider, sourced by
+     * a {@link Drawable} object.
+     * @param canvas the {@link Canvas} object where the divider will be drawn.
+     * @param parent the parent {@link RecyclerView} for the applied {@link SimpleDividerItemDecoration}.
+     * @param divider the divider's target {@link Drawable} value.
+     * @param position the divider's target position. This value is ranged.
+     *                 See {@link GenericDecorationDividerPosition} for more information.
+     * @throws UnsupportedOperationException if the given {@link GenericDecorationDividerPosition} is invalid.
+     */
     public void applyDrawableDivider(@NonNull final Canvas canvas, @NonNull final RecyclerView parent,
                                      @NonNull final Drawable divider, @IntRange(from = 0, to = 5) final int position) {
         switch (position) {
-            case POSITION_TOP:
-                drawableDividerHelper.drawDrawableDividerPositionTop(canvas, parent, divider);
+            case GenericDecorationDividerPosition.POSITION_TOP:
+                mDrawableDividerHelper.drawDrawableDividerPositionTop(canvas, parent, divider);
                 break;
-            case POSITION_BOTTOM:
-                drawableDividerHelper.drawDrawableDividerPositionBottom(canvas, parent, divider);
+            case GenericDecorationDividerPosition.POSITION_BOTTOM:
+                mDrawableDividerHelper.drawDrawableDividerPositionBottom(canvas, parent, divider);
                 break;
-            case POSITION_START:
-                drawableDividerHelper.drawDrawableDividerPositionStart(canvas, parent, divider);
+            case GenericDecorationDividerPosition.POSITION_START:
+                mDrawableDividerHelper.drawDrawableDividerPositionStart(canvas, parent, divider);
                 break;
-            case POSITION_END:
-                drawableDividerHelper.drawDrawableDividerPositionEnd(canvas, parent, divider);
+            case GenericDecorationDividerPosition.POSITION_END:
+                mDrawableDividerHelper.drawDrawableDividerPositionEnd(canvas, parent, divider);
                 break;
-            case POSITION_START_END:
-                drawableDividerHelper.drawDrawableDividerPositionStart(canvas, parent, divider);
-                drawableDividerHelper.drawDrawableDividerPositionEnd(canvas, parent, divider);
+            case GenericDecorationDividerPosition.POSITION_START_END:
+                mDrawableDividerHelper.drawDrawableDividerPositionStart(canvas, parent, divider);
+                mDrawableDividerHelper.drawDrawableDividerPositionEnd(canvas, parent, divider);
                 break;
-            case POSITION_TOP_BOTTOM:
-                drawableDividerHelper.drawDrawableDividerPositionTop(canvas, parent, divider);
-                drawableDividerHelper.drawDrawableDividerPositionBottom(canvas, parent, divider);
+            case GenericDecorationDividerPosition.POSITION_TOP_BOTTOM:
+                mDrawableDividerHelper.drawDrawableDividerPositionTop(canvas, parent, divider);
+                mDrawableDividerHelper.drawDrawableDividerPositionBottom(canvas, parent, divider);
                 break;
             default:
-                throw new UnsupportedOperationException(UNSUPPORTED_ERROR);
+                throw new UnsupportedOperationException(GMLRVAConstants.UNSUPPORTED_ERROR);
         }
     }
 
-    // TODO!
+    /**
+     * Procedure meant to handle the drawing stage of a {@link SimpleDividerItemDecoration}'s divider, via
+     * {@link Paint} object.
+     * @param canvas the {@link Canvas} object where the divider will be drawn.
+     * @param parent the parent {@link RecyclerView} for the applied {@link SimpleDividerItemDecoration}.
+     * @param state the parent {@link RecyclerView.State} for the applied {@link SimpleDividerItemDecoration}.
+     * @param drawnDivider the configured divider's {@link Paint} object.
+     * @param position the divider's target position. This value is ranged.
+     *                 See {@link GenericDecorationDividerPosition} for more information.
+     */
     public void applyDrawnDivider(@NonNull final Canvas canvas, @NonNull final RecyclerView parent,
                                   @NonNull final RecyclerView.State state, @NonNull final Paint drawnDivider,
                                   @IntRange(from = 0, to = 5) final int position) {
@@ -73,9 +95,9 @@ import static pt.simdea.gmlrva.lib.utilities.GMLRVAConstants.UNSUPPORTED_ERROR;
             /* Draw the separator */
             if (pos < state.getItemCount()) {
                 if (drawnDivider.getStyle().equals(Paint.Style.STROKE)) {
-                    drawnDividerHelper.drawDottedDivider(canvas, view, offset, drawnDivider, position);
+                    mDrawnDividerHelper.drawDottedDivider(canvas, view, offset, drawnDivider, position);
                 } else {
-                    drawnDividerHelper.drawLineDivider(canvas, view, offset, drawnDivider, position);
+                    mDrawnDividerHelper.drawLineDivider(canvas, view, offset, drawnDivider, position);
                 }
 
             }

@@ -11,7 +11,6 @@ package pt.simdea.gmlrva.lib.utilities;
  * Simdea © All Rights Reserved.
  * paulo.ribeiro@simdea.pt
  */
-
 @SuppressWarnings("WeakerAccess")
 public final class GMLRVAConstants {
 

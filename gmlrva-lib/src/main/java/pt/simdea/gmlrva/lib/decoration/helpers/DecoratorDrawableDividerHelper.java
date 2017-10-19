@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2017. Simdea.
+ */
+
 package pt.simdea.gmlrva.lib.decoration.helpers;
 
 import android.graphics.Canvas;
@@ -7,15 +11,29 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import lombok.NoArgsConstructor;
+import pt.simdea.gmlrva.lib.decoration.decorators.SimpleDividerItemDecoration;
 
 /**
- * TODO...
- * Created by Paulo on 14/10/2017.
+ * Auxiliary class meant to handle the drawing operation of an intended {@link SimpleDividerItemDecoration}'s divider,
+ * at the correct {@link RecyclerView} item's position.
+ *
+ * Created by Paulo Ribeiro on 14/10/2017.
+ * Simdea © All Rights Reserved.
+ * paulo.ribeiro@simdea.pt
  */
-@NoArgsConstructor class DecoratorDrawableDividerHelper {
+@SuppressWarnings("WeakerAccess")
+@NoArgsConstructor
+class DecoratorDrawableDividerHelper {
 
-    void drawDrawableDividerPositionTop(@NonNull final Canvas canvas, @NonNull final RecyclerView parent,
-                                        @NonNull final Drawable mDivider) {
+    /**
+     * Procedure meant to handle the drawing of the intended {@link SimpleDividerItemDecoration}'s divider on top of
+     * the parent's {@link RecyclerView} item.
+     * @param canvas the {@link Canvas} object where the divider will be drawn.
+     * @param parent the parent {@link RecyclerView} for the applied {@link SimpleDividerItemDecoration}.
+     * @param mDivider the divider's target {@link Drawable} value.
+     */
+    protected void drawDrawableDividerPositionTop(@NonNull final Canvas canvas, @NonNull final RecyclerView parent,
+                                                  @NonNull final Drawable mDivider) {
         final int left = parent.getPaddingLeft();
         final int right = parent.getWidth() - parent.getPaddingRight();
 
@@ -31,8 +49,15 @@ import lombok.NoArgsConstructor;
         }
     }
 
-    void drawDrawableDividerPositionBottom(@NonNull final Canvas canvas, @NonNull final RecyclerView parent,
-                                           @NonNull final Drawable mDivider) {
+    /**
+     * Procedure meant to handle the drawing of the intended {@link SimpleDividerItemDecoration}'s divider on bottom of
+     * the parent's {@link RecyclerView} item.
+     * @param canvas the {@link Canvas} object where the divider will be drawn.
+     * @param parent the parent {@link RecyclerView} for the applied {@link SimpleDividerItemDecoration}.
+     * @param mDivider the divider's target {@link Drawable} value.
+     */
+    protected void drawDrawableDividerPositionBottom(@NonNull final Canvas canvas, @NonNull final RecyclerView parent,
+                                                     @NonNull final Drawable mDivider) {
         final int left = parent.getPaddingLeft();
         final int right = parent.getWidth() - parent.getPaddingRight();
 
@@ -48,8 +73,15 @@ import lombok.NoArgsConstructor;
         }
     }
 
-    void drawDrawableDividerPositionStart(@NonNull final Canvas canvas, @NonNull final RecyclerView parent,
-                                          @NonNull final Drawable mDivider) {
+    /**
+     * Procedure meant to handle the drawing of the intended {@link SimpleDividerItemDecoration}'s divider
+     * on start / left of the parent's {@link RecyclerView} item.
+     * @param canvas the {@link Canvas} object where the divider will be drawn.
+     * @param parent the parent {@link RecyclerView} for the applied {@link SimpleDividerItemDecoration}.
+     * @param mDivider the divider's target {@link Drawable} value.
+     */
+    protected void drawDrawableDividerPositionStart(@NonNull final Canvas canvas, @NonNull final RecyclerView parent,
+                                                    @NonNull final Drawable mDivider) {
         final int top = parent.getPaddingTop();
         final int bottom = parent.getHeight() - parent.getPaddingBottom();
 
@@ -64,8 +96,15 @@ import lombok.NoArgsConstructor;
         }
     }
 
-    void drawDrawableDividerPositionEnd(@NonNull final Canvas canvas, @NonNull final RecyclerView parent,
-                                        @NonNull final Drawable mDivider) {
+    /**
+     * Procedure meant to handle the drawing of the intended {@link SimpleDividerItemDecoration}'s divider
+     * on end / right of the parent's {@link RecyclerView} item.
+     * @param canvas the {@link Canvas} object where the divider will be drawn.
+     * @param parent the parent {@link RecyclerView} for the applied {@link SimpleDividerItemDecoration}.
+     * @param mDivider the divider's target {@link Drawable} value.
+     */
+    protected void drawDrawableDividerPositionEnd(@NonNull final Canvas canvas, @NonNull final RecyclerView parent,
+                                                  @NonNull final Drawable mDivider) {
         final int top = parent.getPaddingTop();
         final int bottom = parent.getHeight() - parent.getPaddingBottom();
 
