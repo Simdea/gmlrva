@@ -6,18 +6,26 @@ package pt.simdea.gmlrva.sample.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.DashPathEffect;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import pt.simdea.gmlrva.lib.GenericMultipleLayoutAdapter;
 import pt.simdea.gmlrva.lib.IGenericRecyclerViewLayout;
+import pt.simdea.gmlrva.lib.decoration.decorators.SimpleDividerItemDecoration;
+import pt.simdea.gmlrva.lib.decoration.helpers.GenericDecorationDividerPosition;
+import pt.simdea.gmlrva.lib.decoration.specs.SimpleDividerItemDecorationSpec;
+import pt.simdea.gmlrva.lib.utilities.GenericUtils;
 import pt.simdea.gmlrva.sample.R;
 import pt.simdea.gmlrva.sample.data.ClickListener;
 import pt.simdea.gmlrva.sample.data.FakeDataObject;
@@ -28,7 +36,6 @@ import pt.simdea.gmlrva.sample.layouts.CarouselItemLayout;
 import pt.simdea.gmlrva.sample.layouts.CarouselItemWithOptionLayout;
 import pt.simdea.gmlrva.sample.layouts.SingleImageItemLayout;
 import pt.simdea.gmlrva.sample.layouts.SingleTextItemLayout;
-import pt.simdea.gmlrva.sample.utilities.GenericUtils;
 
 /**
  * Class responsible for the Sample Screen for the (GMLRVA) library.
@@ -75,6 +82,22 @@ public class SampleActivity extends AppCompatActivity implements ClickListener {
         if (mGenericTest != null) {
             mGenericTest.setAdapter(new GenericMultipleLayoutAdapter(buildGenericListExample(), this, false));
             mGenericTest.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+
+            final float thickness
+                    = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3, getResources().getDisplayMetrics());
+            final SimpleDividerItemDecorationSpec spec = new SimpleDividerItemDecorationSpec.DecorationSpecBuilder()
+                    .withTopSpacing(25)
+                    .withBottomSpacing(25)
+                    .withStartSpacing(10)
+                    .withEndSpacing(10)
+//                    .withDrawableDivider(ContextCompat.getDrawable(this, R.drawable.gmlrva_red_line_item_divider))
+                    .withDividerPosition(GenericDecorationDividerPosition.POSITION_TOP_BOTTOM)
+                    .withDrawnDivider(ContextCompat.getColor(this, R.color.gmlrvaColorAccent), thickness,
+                            Paint.Style.STROKE, new DashPathEffect(new float[]{5, 10}, 10))
+//                    .withDrawnDivider(ContextCompat.getColor(this, R.color.gmlrvaColorAccent), thickness, null, null)
+                    .buildDecorationSpec();
+            mGenericTest.addItemDecoration(new SimpleDividerItemDecoration(spec));
+
             GenericUtils.setOptimalConfigurationForRecyclerView(mGenericTest);
         }
     }

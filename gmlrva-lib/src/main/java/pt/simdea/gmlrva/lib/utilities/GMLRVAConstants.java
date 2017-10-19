@@ -2,7 +2,7 @@
  * Copyright (c) 2017. Simdea.
  */
 
-package pt.simdea.gmlrva.sample.utilities;
+package pt.simdea.gmlrva.lib.utilities;
 
 /**
  * Utility class meant to hold all constants for the Generic Multiple Layout Recycler View Adapter (GMLRVA) library.
@@ -11,14 +11,8 @@ package pt.simdea.gmlrva.sample.utilities;
  * Simdea © All Rights Reserved.
  * paulo.ribeiro@simdea.pt
  */
-
 @SuppressWarnings("WeakerAccess")
 public final class GMLRVAConstants {
-
-    /** Logs */
-    public static final String LOG_TAG = "GMLRVA";
-    public static final String ERROR = "Error";
-    public static final String EMPTY_STRING = "";
 
     /** Exception Messages */
     public static final String ASSERTION_ERROR = "Instantiating utility class.";
