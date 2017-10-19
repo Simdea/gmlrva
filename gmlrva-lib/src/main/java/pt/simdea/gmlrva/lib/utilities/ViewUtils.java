@@ -1,18 +1,29 @@
+/*
+ * Copyright (c) 2017. Simdea.
+ */
+
 package pt.simdea.gmlrva.lib.utilities;
 
 import android.content.Context;
 import android.graphics.Point;
+import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.view.Display;
 import android.view.WindowManager;
 
 /**
- * TODO...
- * Created by Paulo on 10/7/2017.
+ * Auxiliary View related Utils class.
+ *
+ * Created by Paulo Ribeiro on 7/7/2017.
+ * Simdea © All Rights Reserved.
+ * paulo.ribeiro@simdea.pt
  */
-@SuppressWarnings("unused") public final class ViewUtils {
+@SuppressWarnings("unused")
+public final class ViewUtils {
 
+    @IntRange(from = 0)
     private static int deviceScreenHeight = 0;
+    @IntRange(from = 0)
     private static int deviceScreenWidth = 0;
 
     /**
@@ -20,7 +31,7 @@ import android.view.WindowManager;
      * Private to prevent instantiation.
      */
     private ViewUtils() {
-        throw new AssertionError("Instantiating utility class.");  // Throw an exception if this *is* ever called
+        throw new AssertionError(GMLRVAConstants.ASSERTION_ERROR);  // Throw an exception if this *is* ever called
     }
 
     /**
@@ -28,7 +39,7 @@ import android.view.WindowManager;
      * @param context the application's current {@link Context}.
      * @return an Integer value representing the device's screen height, in pixels.
      */
-    public static int getDeviceScreenHeight(@NonNull final Context context) {
+    @IntRange(from = 0) public static int getDeviceScreenHeight(@NonNull final Context context) {
         if (deviceScreenHeight == 0) {
             final WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
             final Display display = windowManager.getDefaultDisplay();
@@ -44,7 +55,7 @@ import android.view.WindowManager;
      * @param context the application's current {@link Context}.
      * @return an Integer value representing the device's screen width, in pixels.
      */
-    public static int getDeviceScreenWidth(@NonNull final Context context) {
+    @IntRange(from = 0) public static int getDeviceScreenWidth(@NonNull final Context context) {
         if (deviceScreenWidth == 0) {
             final WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
             final Display display = windowManager.getDefaultDisplay();

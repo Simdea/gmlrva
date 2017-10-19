@@ -27,7 +27,7 @@ import pt.simdea.gmlrva.sample.data.ClickListener;
 
 import static pt.simdea.gmlrva.lib.animators.GenericAnimationFinishedOperation.ADD_ANIMATION_FINISHED;
 import static pt.simdea.gmlrva.lib.animators.GenericAnimationFinishedOperation.REMOVE_ANIMATION_FINISHED;
-import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERROR;
+import static pt.simdea.gmlrva.lib.utilities.GMLRVAConstants.UNSUPPORTED_ERROR;
 
 /**
  * Class representing a Single Image Layout meant to be used on a {@link GenericMultipleLayoutAdapter}.
@@ -36,34 +36,42 @@ import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERRO
  * Simdea © All Rights Reserved.
  * paulo.ribeiro@simdea.pt
  */
-@AllArgsConstructor public class SingleImageItemLayout
+@AllArgsConstructor
+public class SingleImageItemLayout
         implements IGenericRecyclerViewLayout<SingleImageItemLayout.SingleImageItemViewHolder> {
 
     protected final int mCoverResource;
     protected final ClickListener mListener;
 
-    @NonNull @Override public SingleImageItemViewHolder createViewHolder(@NonNull final ViewGroup parent) {
+    @NonNull
+    @Override
+    public SingleImageItemViewHolder createViewHolder(@NonNull final ViewGroup parent) {
         final View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.gmlrva_layout_generic_single_image_item, parent, false);
         return new SingleImageItemViewHolder(view);
     }
 
-    @Override public void setElements(@NonNull final SingleImageItemViewHolder holder) {
+    @Override
+    public void setElements(@NonNull final SingleImageItemViewHolder holder) {
         holder.getCover().setImageResource(mCoverResource);
     }
 
-    @NonNull @Override public Object getTag() {
+    @NonNull
+    @Override
+    public Object getTag() {
         return mCoverResource;
     }
 
-    @Override public int getViewType() {
+    @Override
+    public int getViewType() {
         return 0;
     }
 
     /** Class meant to define the {@link RecyclerView.ViewHolder} for a Single Image Layout instance. */
     final class SingleImageItemViewHolder extends GenericViewHolder implements View.OnClickListener {
 
-        @Getter private ImageView mCover;
+        @Getter
+        private ImageView mCover;
 
         /**
          * Instantiates a new SingleImageItemViewHolder.
@@ -75,7 +83,8 @@ import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERRO
             bindListeners();
         }
 
-        @Override public void runAddAnimation(@NonNull final GenericItemAnimator listener) {
+        @Override
+        public void runAddAnimation(@NonNull final GenericItemAnimator listener) {
             final int screenHeight = ViewUtils.getDeviceScreenHeight(itemView.getContext());
             itemView.setTranslationY(screenHeight);
             itemView.animate()
@@ -83,25 +92,30 @@ import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERRO
                     .setInterpolator(new DecelerateInterpolator(3.f))
                     .setDuration(700)
                     .setListener(new Animator.AnimatorListener() {
-                        @Override public void onAnimationStart(@NonNull final Animator animation) {
+                        @Override
+                        public void onAnimationStart(@NonNull final Animator animation) {
                             /* Do nothing here */
                         }
 
-                        @Override public void onAnimationEnd(@NonNull final Animator animation) {
+                        @Override
+                        public void onAnimationEnd(@NonNull final Animator animation) {
                             listener.onAnimationFinished(SingleImageItemViewHolder.this, ADD_ANIMATION_FINISHED);
                         }
 
-                        @Override public void onAnimationCancel(@NonNull final Animator animation) {
+                        @Override
+                        public void onAnimationCancel(@NonNull final Animator animation) {
                             /* Do nothing here */
                         }
 
-                        @Override public void onAnimationRepeat(@NonNull final Animator animation) {
+                        @Override
+                        public void onAnimationRepeat(@NonNull final Animator animation) {
                             /* Do nothing here */
                         }
                     }).start();
         }
 
-        @Override public void runRemoveAnimation(@NonNull final GenericItemAnimator listener) {
+        @Override
+        public void runRemoveAnimation(@NonNull final GenericItemAnimator listener) {
             final int screenHeight = ViewUtils.getDeviceScreenHeight(itemView.getContext());
             itemView.setTranslationY(0);
             itemView.animate()
@@ -109,25 +123,30 @@ import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERRO
                     .setInterpolator(new AccelerateInterpolator(3.f))
                     .setDuration(700)
                     .setListener(new Animator.AnimatorListener() {
-                        @Override public void onAnimationStart(@NonNull final Animator animation) {
+                        @Override
+                        public void onAnimationStart(@NonNull final Animator animation) {
                             /* Do nothing here */
                         }
 
-                        @Override public void onAnimationEnd(@NonNull final Animator animation) {
+                        @Override
+                        public void onAnimationEnd(@NonNull final Animator animation) {
                             listener.onAnimationFinished(SingleImageItemViewHolder.this, REMOVE_ANIMATION_FINISHED);
                         }
 
-                        @Override public void onAnimationCancel(@NonNull final Animator animation) {
+                        @Override
+                        public void onAnimationCancel(@NonNull final Animator animation) {
                             /* Do nothing here */
                         }
 
-                        @Override public void onAnimationRepeat(@NonNull final Animator animation) {
+                        @Override
+                        public void onAnimationRepeat(@NonNull final Animator animation) {
                             /* Do nothing here */
                         }
                     }).start();
         }
 
-        @Override public void onClick(@NonNull final View v) {
+        @Override
+        public void onClick(@NonNull final View v) {
             final int viewId = v.getId();
             if (viewId == mCover.getId()) {
                 handleCoverClick();

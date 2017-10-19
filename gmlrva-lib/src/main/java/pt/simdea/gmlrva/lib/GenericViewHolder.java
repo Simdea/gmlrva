@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2017. Simdea.
+ */
+
 package pt.simdea.gmlrva.lib;
 
 import android.support.annotation.NonNull;

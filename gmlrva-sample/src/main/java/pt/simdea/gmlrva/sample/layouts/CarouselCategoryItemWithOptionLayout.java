@@ -21,8 +21,8 @@ import pt.simdea.gmlrva.lib.GenericMultipleLayoutAdapter;
 import pt.simdea.gmlrva.lib.GenericViewHolder;
 import pt.simdea.gmlrva.lib.IGenericRecyclerViewLayout;
 import pt.simdea.gmlrva.lib.animators.GenericItemAnimator;
+import pt.simdea.gmlrva.lib.utilities.GenericUtils;
 import pt.simdea.gmlrva.sample.R;
-import pt.simdea.gmlrva.sample.utilities.GenericUtils;
 
 import static pt.simdea.gmlrva.lib.animators.GenericAnimationFinishedOperation.ADD_ANIMATION_FINISHED;
 import static pt.simdea.gmlrva.lib.animators.GenericAnimationFinishedOperation.REMOVE_ANIMATION_FINISHED;
@@ -34,29 +34,36 @@ import static pt.simdea.gmlrva.lib.animators.GenericAnimationFinishedOperation.R
  * Simdea © All Rights Reserved.
  * paulo.ribeiro@simdea.pt
  */
-@AllArgsConstructor public class CarouselCategoryItemWithOptionLayout
+@AllArgsConstructor
+public class CarouselCategoryItemWithOptionLayout
         implements IGenericRecyclerViewLayout<CarouselCategoryItemWithOptionLayout.CarouselCategoryViewHolder> {
 
     private final String mCategoryTitle;
     private final List<? extends IGenericRecyclerViewLayout> mCategoryData;
     private final Context mContext;
 
-    @NonNull @Override public CarouselCategoryViewHolder createViewHolder(@NonNull final ViewGroup parent) {
+    @NonNull
+    @Override
+    public CarouselCategoryViewHolder createViewHolder(@NonNull final ViewGroup parent) {
         final View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.gmlrva_layout_carousel_category_item, parent, false);
         return new CarouselCategoryViewHolder(view);
     }
 
-    @Override public void setElements(@NonNull final CarouselCategoryViewHolder holder) {
+    @Override
+    public void setElements(@NonNull final CarouselCategoryViewHolder holder) {
         holder.getTitle().setText(mCategoryTitle);
         loadItems(holder.getItems());
     }
 
-    @NonNull @Override public Object getTag() {
+    @NonNull
+    @Override
+    public Object getTag() {
         return mCategoryTitle;
     }
 
-    @Override public int getViewType() {
+    @Override
+    public int getViewType() {
         return 2;
     }
 
@@ -72,8 +79,10 @@ import static pt.simdea.gmlrva.lib.animators.GenericAnimationFinishedOperation.R
 
     /** Class meant to define the {@link RecyclerView.ViewHolder} for a Carousel Category Layout instance. */
     class CarouselCategoryViewHolder extends GenericViewHolder {
-        @Getter private TextView mTitle;
-        @Getter private RecyclerView mItems;
+        @Getter
+        private TextView mTitle;
+        @Getter
+        private RecyclerView mItems;
 
         /**
          * Instantiates a new CarouselCategoryViewHolder.
@@ -84,11 +93,13 @@ import static pt.simdea.gmlrva.lib.animators.GenericAnimationFinishedOperation.R
             bindViews(view);
         }
 
-        @Override public void runAddAnimation(@NonNull final GenericItemAnimator listener) {
+        @Override
+        public void runAddAnimation(@NonNull final GenericItemAnimator listener) {
             listener.onAnimationFinished(this, ADD_ANIMATION_FINISHED);
         }
 
-        @Override public void runRemoveAnimation(@NonNull final GenericItemAnimator listener) {
+        @Override
+        public void runRemoveAnimation(@NonNull final GenericItemAnimator listener) {
             listener.onAnimationFinished(this, REMOVE_ANIMATION_FINISHED);
         }
 

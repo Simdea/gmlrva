@@ -5,6 +5,7 @@
 package pt.simdea.gmlrva.lib.diff;
 
 import android.os.Bundle;
+import android.support.annotation.IntRange;
 import android.support.annotation.Nullable;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
@@ -24,37 +25,47 @@ import pt.simdea.gmlrva.lib.IGenericRecyclerViewLayout;
  * paulo.ribeiro@simdea.pt
  */
 @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
-@AllArgsConstructor public class GmlrvaDiffCallback extends DiffUtil.Callback {
+@AllArgsConstructor
+public class GmlrvaDiffCallback extends DiffUtil.Callback {
 
     private final List<? extends IGenericRecyclerViewLayout> mOldList;
     private final List<? extends IGenericRecyclerViewLayout> mNewList;
 
     /** {@inheritDoc} */
-    @Override public int getOldListSize() {
+    @Override
+    public int getOldListSize() {
         return mOldList == null ? 0 : mOldList.size();
     }
 
     /** {@inheritDoc} */
-    @Override public int getNewListSize() {
+    @Override
+    public int getNewListSize() {
         return mNewList == null ? 0 : mNewList.size();
     }
 
     /** {@inheritDoc} */
-    @Override public boolean areItemsTheSame(final int oldItemPosition, final int newItemPosition) {
+    @Override
+    public boolean areItemsTheSame(@IntRange(from = 0) final int oldItemPosition,
+                                   @IntRange(from = 0) final int newItemPosition) {
         final IGenericRecyclerViewLayout oldItem = mOldList.get(oldItemPosition);
         final IGenericRecyclerViewLayout newItem = mNewList.get(newItemPosition);
         return oldItem.equals(newItem);
     }
 
     /** {@inheritDoc} */
-    @Override public boolean areContentsTheSame(final int oldItemPosition, final int newItemPosition) {
+    @Override
+    public boolean areContentsTheSame(@IntRange(from = 0) final int oldItemPosition,
+                                      @IntRange(from = 0) final int newItemPosition) {
         final IGenericRecyclerViewLayout oldItem = mOldList.get(oldItemPosition);
         final IGenericRecyclerViewLayout newItem = mNewList.get(newItemPosition);
         return oldItem.getTag().equals(newItem.getTag());
     }
 
     /** {@inheritDoc} */
-    @Nullable @Override public Object getChangePayload(final int oldItemPosition, final int newItemPosition) {
+    @Nullable
+    @Override
+    public Object getChangePayload(@IntRange(from = 0) final int oldItemPosition,
+                                   @IntRange(from = 0) final int newItemPosition) {
         final IGenericRecyclerViewLayout oldItem = mOldList.get(oldItemPosition);
         final IGenericRecyclerViewLayout newItem = mNewList.get(newItemPosition);
         final Bundle diffBundle = new Bundle();

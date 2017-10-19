@@ -24,7 +24,7 @@ import pt.simdea.gmlrva.sample.R;
 
 import static pt.simdea.gmlrva.lib.animators.GenericAnimationFinishedOperation.ADD_ANIMATION_FINISHED;
 import static pt.simdea.gmlrva.lib.animators.GenericAnimationFinishedOperation.REMOVE_ANIMATION_FINISHED;
-import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERROR;
+import static pt.simdea.gmlrva.lib.utilities.GMLRVAConstants.UNSUPPORTED_ERROR;
 
 /**
  * Class representing a Carousel Item Layout meant to be used on a {@link GenericMultipleLayoutAdapter}.
@@ -33,42 +33,56 @@ import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERRO
  * Simdea © All Rights Reserved.
  * paulo.ribeiro@simdea.pt
  */
-@AllArgsConstructor public class CarouselItemWithOptionLayout
+@AllArgsConstructor
+public class CarouselItemWithOptionLayout
         implements IGenericRecyclerViewLayout<CarouselItemWithOptionLayout.CarouselItemWithOptionViewHolder> {
 
     private final String mTitle;
     private final String mDescription;
     private final int mCoverResource;
 
-    @NonNull @Override public CarouselItemWithOptionViewHolder createViewHolder(@NonNull final ViewGroup parent) {
+    @NonNull
+    @Override
+    public CarouselItemWithOptionViewHolder createViewHolder(@NonNull final ViewGroup parent) {
         final View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.gmlrva_layout_carousel_item_option, parent, false);
         return new CarouselItemWithOptionViewHolder(view);
     }
 
-    @Override public void setElements(@NonNull final CarouselItemWithOptionViewHolder holder) {
+    @Override
+    public void setElements(@NonNull final CarouselItemWithOptionViewHolder holder) {
         holder.getTitle().setText(mTitle);
         holder.getDescription().setText(mDescription);
         holder.getCover().setImageResource(mCoverResource);
     }
 
-    @NonNull @Override public Object getTag() {
+    @NonNull
+    @Override
+    public Object getTag() {
         return mTitle;
     }
 
-    @Override public int getViewType() {
+    @Override
+    public int getViewType() {
         return 5;
     }
 
     /** Class meant to define the {@link RecyclerView.ViewHolder} for a Carousel Item Layout instance. */
     class CarouselItemWithOptionViewHolder extends GenericViewHolder implements View.OnClickListener {
-        @Getter private TextView mTitle;
-        @Getter private TextView mDescription;
-        @Getter private ImageView mCover;
-        @Getter private ImageView mOption;
-        @Getter private RelativeLayout mOptionSection;
-        @Getter private View mLeftOption;
-        @Getter private View mRightOption;
+        @Getter
+        private TextView mTitle;
+        @Getter
+        private TextView mDescription;
+        @Getter
+        private ImageView mCover;
+        @Getter
+        private ImageView mOption;
+        @Getter
+        private RelativeLayout mOptionSection;
+        @Getter
+        private View mLeftOption;
+        @Getter
+        private View mRightOption;
 
         /**
          * Instantiates a new CarouselItemViewHolder.
@@ -80,15 +94,18 @@ import static pt.simdea.gmlrva.sample.utilities.GMLRVAConstants.UNSUPPORTED_ERRO
             bindListeners();
         }
 
-        @Override public void runAddAnimation(@NonNull final GenericItemAnimator listener) {
+        @Override
+        public void runAddAnimation(@NonNull final GenericItemAnimator listener) {
             listener.onAnimationFinished(this, ADD_ANIMATION_FINISHED);
         }
 
-        @Override public void runRemoveAnimation(@NonNull final GenericItemAnimator listener) {
+        @Override
+        public void runRemoveAnimation(@NonNull final GenericItemAnimator listener) {
             listener.onAnimationFinished(this, REMOVE_ANIMATION_FINISHED);
         }
 
-        @Override public void onClick(@NonNull final View v) {
+        @Override
+        public void onClick(@NonNull final View v) {
             final int viewId = v.getId();
             if (viewId == mTitle.getId()) {
                 handleTitleClick();

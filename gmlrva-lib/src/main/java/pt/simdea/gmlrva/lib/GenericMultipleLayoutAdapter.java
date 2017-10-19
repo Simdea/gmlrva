@@ -7,6 +7,7 @@ package pt.simdea.gmlrva.lib;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.UiThread;
@@ -63,18 +64,22 @@ public class GenericMultipleLayoutAdapter extends RecyclerView.Adapter<GenericVi
     }
 
     /** {@inheritDoc} */
-    @Override public GenericViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, final int viewType) {
+    @Override
+    public GenericViewHolder onCreateViewHolder(@NonNull final ViewGroup parent,
+                                                @IntRange(from = 0) final int viewType) {
         return mViewTypes.get(viewType).createViewHolder(parent);
     }
 
     /** {@inheritDoc} */
-    @Override public void onBindViewHolder(@NonNull final GenericViewHolder holder, final int position) {
+    @Override
+    public void onBindViewHolder(@NonNull final GenericViewHolder holder, @IntRange(from = 0) final int position) {
         mDataSet.get(position).setElements(holder);
     }
 
     /** {@inheritDoc} */
-    @Override public void onBindViewHolder(@NonNull final GenericViewHolder holder, final int position,
-                                           @NonNull final List<Object> payloads) {
+    @Override
+    public void onBindViewHolder(@NonNull final GenericViewHolder holder, @IntRange(from = 0) final int position,
+                                 @NonNull final List<Object> payloads) {
         if (payloads.isEmpty()) {
             onBindViewHolder(holder, position);
         } else {
@@ -83,12 +88,14 @@ public class GenericMultipleLayoutAdapter extends RecyclerView.Adapter<GenericVi
     }
 
     /** {@inheritDoc} */
-    @Override public int getItemCount() {
+    @Override
+    public int getItemCount() {
         return mDataSet.size();
     }
 
     /** {@inheritDoc} */
-    @Override public int getItemViewType(final int position) {
+    @Override
+    public int getItemViewType(@IntRange(from = 0) final int position) {
         return mDataSet.get(position).getViewType();
     }
 
@@ -97,7 +104,8 @@ public class GenericMultipleLayoutAdapter extends RecyclerView.Adapter<GenericVi
      * @param item a Generic Layout Implementation item to be inserted.
      *             See {@link IGenericRecyclerViewLayout} for more information.
      */
-    @UiThread public void add(@NonNull final IGenericRecyclerViewLayout item) {
+    @UiThread
+    public void add(@NonNull final IGenericRecyclerViewLayout item) {
         final List<IGenericRecyclerViewLayout> newList
                 = new ArrayList<>(mPendingUpdates.isEmpty() ? mDataSet : mPendingUpdates.peekLast());
         newList.add(item);
@@ -109,7 +117,8 @@ public class GenericMultipleLayoutAdapter extends RecyclerView.Adapter<GenericVi
      * @param items the list of Generic Layout Implementation items to be inserted.
      *              See {@link IGenericRecyclerViewLayout} for more information.
      */
-    @UiThread public void add(@NonNull final List<? extends IGenericRecyclerViewLayout> items) {
+    @UiThread
+    public void add(@NonNull final List<? extends IGenericRecyclerViewLayout> items) {
         final List<IGenericRecyclerViewLayout> newList
                 = new ArrayList<>(mPendingUpdates.isEmpty() ? mDataSet : mPendingUpdates.peekLast());
         newList.addAll(items);
@@ -124,7 +133,8 @@ public class GenericMultipleLayoutAdapter extends RecyclerView.Adapter<GenericVi
      * @throws IndexOutOfBoundsException if the position is out of range
      *                                  (<tt>position &lt; 0 || position &gt; size()</tt>).
      */
-    @UiThread public void add(@NonNull final IGenericRecyclerViewLayout item, final int position) {
+    @UiThread
+    public void add(@NonNull final IGenericRecyclerViewLayout item, @IntRange(from = 0) final int position) {
         final List<IGenericRecyclerViewLayout> newList
                 = new ArrayList<>(mPendingUpdates.isEmpty() ? mDataSet : mPendingUpdates.peekLast());
         newList.add(position, item);
@@ -136,7 +146,8 @@ public class GenericMultipleLayoutAdapter extends RecyclerView.Adapter<GenericVi
      * @param item a Generic Layout Implementation item to be removed.
      *             See {@link IGenericRecyclerViewLayout} for more information.
      */
-    @UiThread public void remove(@NonNull final IGenericRecyclerViewLayout item) {
+    @UiThread
+    public void remove(@NonNull final IGenericRecyclerViewLayout item) {
         final List<? extends IGenericRecyclerViewLayout> newList
                 = new ArrayList<>(mPendingUpdates.isEmpty() ? mDataSet : mPendingUpdates.peekLast());
         if (!newList.isEmpty() && newList.contains(item)) {
@@ -152,7 +163,8 @@ public class GenericMultipleLayoutAdapter extends RecyclerView.Adapter<GenericVi
      * @param position the target position for this item to be removed.
      * @deprecated use {@link #remove} instead.
      */
-    @Deprecated public void remove(final int position) {
+    @Deprecated
+    public void remove(@IntRange(from = 0) final int position) {
         throw new UnsupportedOperationException(mContext.getString(R.string.gmlrva_unsupported_remove_position));
     }
 
@@ -161,7 +173,8 @@ public class GenericMultipleLayoutAdapter extends RecyclerView.Adapter<GenericVi
      * @param items the list of Generic Layout Implementation items to be removed.
      *              See {@link IGenericRecyclerViewLayout} for more information.
      */
-    @UiThread public void remove(@NonNull final List<IGenericRecyclerViewLayout> items) {
+    @UiThread
+    public void remove(@NonNull final List<IGenericRecyclerViewLayout> items) {
         final List<IGenericRecyclerViewLayout> newList
                 = new ArrayList<>(mPendingUpdates.isEmpty() ? mDataSet : mPendingUpdates.peekLast());
         if (!newList.isEmpty() && !items.isEmpty()) {
@@ -178,7 +191,9 @@ public class GenericMultipleLayoutAdapter extends RecyclerView.Adapter<GenericVi
      * @throws IndexOutOfBoundsException if the target position is out of range
      *                                  (<tt>position &lt; 0 || position &gt; size()</tt>).
      */
-    @UiThread @Nullable public IGenericRecyclerViewLayout get(final int position) {
+    @UiThread
+    @Nullable
+    public IGenericRecyclerViewLayout get(@IntRange(from = 0) final int position) {
         final List<IGenericRecyclerViewLayout> newList
                 = new ArrayList<>(mPendingUpdates.isEmpty() ? mDataSet : mPendingUpdates.peekLast());
         if (newList.isEmpty()) {
@@ -197,7 +212,8 @@ public class GenericMultipleLayoutAdapter extends RecyclerView.Adapter<GenericVi
      * Allows for update queueing and recursion.
      * @param items the list of Generic Layout Implementation items for the data set.
      */
-    @UiThread public void updateList(@NonNull final List<? extends IGenericRecyclerViewLayout> items) {
+    @UiThread
+    public void updateList(@NonNull final List<? extends IGenericRecyclerViewLayout> items) {
         mPendingUpdates.add(items);
         if (mPendingUpdates.size() == 1) {
             innerUpdateList(items); // no pending update, so execute the update
@@ -209,7 +225,8 @@ public class GenericMultipleLayoutAdapter extends RecyclerView.Adapter<GenericVi
      * Makes use of a background thread to execute the update operation and off load work from the UIThread.
      * @param items the list of Generic Layout Implementation items for the data set.
      */
-    @UiThread private void innerUpdateList(@NonNull final List<? extends IGenericRecyclerViewLayout> items) {
+    @UiThread
+    private void innerUpdateList(@NonNull final List<? extends IGenericRecyclerViewLayout> items) {
         mHandler.post(new BackgroundDiffUtilWorker(mDataSet, items, mContext, this));
     }
 
@@ -219,8 +236,9 @@ public class GenericMultipleLayoutAdapter extends RecyclerView.Adapter<GenericVi
      * @param newItems the list of Generic Layout Implementation items for the data set.
      * @param diffResult the {@link DiffUtil.DiffResult} with the exclusive changes.
      */
-    @UiThread public void applyDiffResult(@NonNull final List<? extends IGenericRecyclerViewLayout> newItems,
-                                   @NonNull final DiffUtil.DiffResult diffResult) {
+    @UiThread
+    public void applyDiffResult(@NonNull final List<? extends IGenericRecyclerViewLayout> newItems,
+                                @NonNull final DiffUtil.DiffResult diffResult) {
         mPendingUpdates.remove(); // the data set is processed
         mDataSet.clear();
         mDataSet.addAll(newItems);
@@ -268,7 +286,8 @@ public class GenericMultipleLayoutAdapter extends RecyclerView.Adapter<GenericVi
      * @param payload the payload bundle object with the updates.
      * @param key the payload key for the update value object.
      */
-    private void applyPayloadChange(final int position, @NonNull final Bundle payload, @NonNull final String key) {
+    private void applyPayloadChange(@IntRange(from = 0) final int position, @NonNull final Bundle payload,
+                                    @NonNull final String key) {
         if (payload.get(key) instanceof RecyclerView.ViewHolder) {
             final GenericViewHolder newHolder = (GenericViewHolder) payload.get(key);
             if (newHolder != null) {

@@ -20,14 +20,17 @@ import pt.simdea.gmlrva.lib.IGenericRecyclerViewLayout;
  * Simdea © All Rights Reserved.
  * paulo.ribeiro@simdea.pt
  */
-@AllArgsConstructor final class UpdateUiDiffUtilResult implements Runnable {
+@AllArgsConstructor
+final class UpdateUiDiffUtilResult implements Runnable {
 
     private final List<? extends IGenericRecyclerViewLayout> mNewDataSet;
     private final DiffUtil.DiffResult mDiffResult;
     private final GenericMultipleLayoutAdapter mAdapter;
 
     /** {@inheritDoc} */
-    @UiThread @Override public void run() {
+    @UiThread
+    @Override
+    public void run() {
         mAdapter.applyDiffResult(mNewDataSet, mDiffResult);
     }
 

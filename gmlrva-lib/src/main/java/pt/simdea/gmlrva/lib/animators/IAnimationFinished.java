@@ -1,5 +1,10 @@
+/*
+ * Copyright (c) 2017. Simdea.
+ */
+
 package pt.simdea.gmlrva.lib.animators;
 
+import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 
@@ -14,6 +19,7 @@ public interface IAnimationFinished {
      * @param holder the {@link RecyclerView} item's {@link RecyclerView.ViewHolder}.
      * @param animationFinishedOperation TODO...
      */
-    void onAnimationFinished(@NonNull final RecyclerView.ViewHolder holder, final int animationFinishedOperation);
+    void onAnimationFinished(@NonNull final RecyclerView.ViewHolder holder,
+                             @IntRange(from = 0) final int animationFinishedOperation);
 
 }

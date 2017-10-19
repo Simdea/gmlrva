@@ -7,6 +7,7 @@ package pt.simdea.gmlrva.sample.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +20,7 @@ import java.util.List;
 import pt.simdea.gmlrva.lib.GenericMultipleLayoutAdapter;
 import pt.simdea.gmlrva.lib.IGenericRecyclerViewLayout;
 import pt.simdea.gmlrva.lib.animators.GenericItemAnimator;
+import pt.simdea.gmlrva.lib.utilities.GenericUtils;
 import pt.simdea.gmlrva.sample.R;
 import pt.simdea.gmlrva.sample.data.ClickListener;
 import pt.simdea.gmlrva.sample.data.FakeDataObject;
@@ -29,7 +31,6 @@ import pt.simdea.gmlrva.sample.layouts.CarouselItemLayout;
 import pt.simdea.gmlrva.sample.layouts.CarouselItemWithOptionLayout;
 import pt.simdea.gmlrva.sample.layouts.SingleImageItemLayout;
 import pt.simdea.gmlrva.sample.layouts.SingleTextItemLayout;
-import pt.simdea.gmlrva.sample.utilities.GenericUtils;
 
 /**
  * Class responsible for the Sample Screen for the (GMLRVA) library.
@@ -59,19 +60,22 @@ public class SampleActivity extends AppCompatActivity implements ClickListener {
      * Called when SampleActivity is first created.
      * @param savedInstanceState Bundle object containing the activity's previously saved state.
      */
-    @Override protected void onCreate(@Nullable final Bundle savedInstanceState) {
+    @Override
+    protected void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gmlrva_activity_sample);
     }
 
     /** Called when the activity is about to become visible. */
-    @Override protected void onStart() {
+    @Override
+    protected void onStart() {
         super.onStart();
         bindSampleActivityViews();
     }
 
     /** Called when the activity has become visible. */
-    @Override protected void onResume() {
+    @Override
+    protected void onResume() {
         super.onResume();
         if (mGenericTest != null) {
             mGenericTest.setAdapter(new GenericMultipleLayoutAdapter(buildGenericListExample(), this, false));
@@ -81,7 +85,8 @@ public class SampleActivity extends AppCompatActivity implements ClickListener {
         }
     }
 
-    @Override public void onClick() {
+    @Override
+    public void onClick() {
         if (mGenericTest != null) {
 //            rebuildGenericListExample()
             final GenericMultipleLayoutAdapter adapter = (GenericMultipleLayoutAdapter) mGenericTest.getAdapter();
@@ -94,7 +99,8 @@ public class SampleActivity extends AppCompatActivity implements ClickListener {
     }
 
     /** Procedure meant to rebuild the existing data list. */
-    @SuppressWarnings("unused") private void rebuildGenericListExample() {
+    @SuppressWarnings("unused")
+    private void rebuildGenericListExample() {
         final List<IGenericRecyclerViewLayout> exampleHolders = new ArrayList<>();
 
         /* Add a Single Image Item Example */
@@ -160,7 +166,7 @@ public class SampleActivity extends AppCompatActivity implements ClickListener {
      * @param maxItemNumber the maximum number of carousel items.
      * @return the intended Carousel item list.
      */
-    private List<IGenericRecyclerViewLayout> buildCarouselItemData(final int maxItemNumber) {
+    private List<IGenericRecyclerViewLayout> buildCarouselItemData(@IntRange(from = 0) final int maxItemNumber) {
         final List<IGenericRecyclerViewLayout> carouselItemData = new ArrayList<>();
 
         String title;
@@ -183,7 +189,7 @@ public class SampleActivity extends AppCompatActivity implements ClickListener {
      * @param maxItemNumber the maximum number of carousel items.
      * @return the intended Carousel item list.
      */
-    private List<CarouselItemWithOptionLayout> buildCarouselItemWithOptionsData(final int maxItemNumber) {
+    private List<CarouselItemWithOptionLayout> buildCarouselItemWithOptionsData(@IntRange(from = 0) final int maxItemNumber) {
         final List<CarouselItemWithOptionLayout> carouselItemData = new ArrayList<>();
 
         String title;

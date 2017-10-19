@@ -1,5 +1,10 @@
+/*
+ * Copyright (c) 2017. Simdea.
+ */
+
 package pt.simdea.gmlrva.lib.animators;
 
+import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
@@ -30,7 +35,8 @@ public class GenericItemAnimator extends DefaultItemAnimator implements IAnimati
      * @return boolean value indicating whether the {@link RecyclerView} should reuse
      *         the {@link RecyclerView.ViewHolder} or a new one.
      */
-    @Override public boolean canReuseUpdatedViewHolder(@NonNull final RecyclerView.ViewHolder holder) {
+    @Override
+    public boolean canReuseUpdatedViewHolder(@NonNull final RecyclerView.ViewHolder holder) {
         return true;
     }
 
@@ -41,7 +47,8 @@ public class GenericItemAnimator extends DefaultItemAnimator implements IAnimati
      * @return a boolean value indicating whether the {@link RecyclerView} should use an entry animation
      *         for the {@link RecyclerView.ViewHolder}. TODO: Review this JavaDoc
      */
-    @Override public boolean animateAdd(@NonNull final RecyclerView.ViewHolder holder) {
+    @Override
+    public boolean animateAdd(@NonNull final RecyclerView.ViewHolder holder) {
         if (holder instanceof GenericViewHolder) {
             ((GenericViewHolder) holder).runAddAnimation(this);
             return false;
@@ -57,7 +64,8 @@ public class GenericItemAnimator extends DefaultItemAnimator implements IAnimati
      * @return a boolean value indicating whether the {@link RecyclerView} should use an exit animation
      *         for the {@link RecyclerView.ViewHolder}. TODO: Review this JavaDoc
      */
-    @Override public boolean animateRemove(@NonNull final RecyclerView.ViewHolder holder) {
+    @Override
+    public boolean animateRemove(@NonNull final RecyclerView.ViewHolder holder) {
         if (holder instanceof GenericViewHolder) {
             ((GenericViewHolder) holder).runRemoveAnimation(this);
             return false;
@@ -71,8 +79,9 @@ public class GenericItemAnimator extends DefaultItemAnimator implements IAnimati
      * @param holder the {@link RecyclerView} item's {@link RecyclerView.ViewHolder}.
      * @param animationFinishedOperation TODO...
      */
-    @Override public void onAnimationFinished(@NonNull final RecyclerView.ViewHolder holder,
-                                              final int animationFinishedOperation) {
+    @Override
+    public void onAnimationFinished(@NonNull final RecyclerView.ViewHolder holder,
+                                    @IntRange(from = 0) final int animationFinishedOperation) {
         switch (animationFinishedOperation) {
             case ADD_ANIMATION_FINISHED:
                 dispatchAddFinished(holder);

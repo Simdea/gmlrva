@@ -18,7 +18,9 @@ import lombok.AllArgsConstructor;
  * Simdea © All Rights Reserved.
  * paulo.ribeiro@simdea.pt
  */
-@SuppressWarnings({"WeakerAccess", "unused"}) @AllArgsConstructor public class GenericAnimationFinishedOperation {
+@SuppressWarnings({"WeakerAccess", "unused"})
+@AllArgsConstructor
+public class GenericAnimationFinishedOperation {
 
     /* Constants */
 
