@@ -2,14 +2,14 @@
  * Copyright (c) 2017. Simdea.
  */
 
-package pt.simdea.gmlrva.sample.layouts;
+package pt.simdea.gmlrva.sample.layouts.holders;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import lombok.AllArgsConstructor;
@@ -20,61 +20,61 @@ import pt.simdea.gmlrva.lib.animation.GenericItemAnimator;
 import pt.simdea.gmlrva.lib.animation.IAnimatedViewHolder;
 import pt.simdea.gmlrva.sample.R;
 import pt.simdea.gmlrva.sample.data.ClickListener;
+import pt.simdea.gmlrva.sample.layouts.animation.ViewHolderAnimationHelper;
 
-import static pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation.ADD_ANIMATION_FINISHED;
-import static pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation.REMOVE_ANIMATION_FINISHED;
 import static pt.simdea.gmlrva.lib.utilities.GMLRVAConstants.UNSUPPORTED_ERROR;
+import static pt.simdea.gmlrva.sample.layouts.GenericRecyclerViewLayoutTypes.SINGLE_IMAGE_ITEM;
 
 /**
- * Class representing a Single Text Layout meant to be used on a {@link GenericMultipleLayoutAdapter}.
+ * Class representing a Single Image Layout meant to be used on a {@link GenericMultipleLayoutAdapter}.
  *
- * Created by Paulo Ribeiro on 10/6/2017.
+ * Created by Paulo Ribeiro on 7/16/2017.
  * Simdea © All Rights Reserved.
  * paulo.ribeiro@simdea.pt
  */
 @AllArgsConstructor
-public class SingleTextItemLayout
-        implements IGenericRecyclerViewLayout<SingleTextItemLayout.SingleTextItemViewHolder> {
+public class SingleImageItemLayout
+        implements IGenericRecyclerViewLayout<SingleImageItemLayout.SingleImageItemViewHolder> {
 
-    protected final String mTextResource;
+    protected final int mCoverResource;
     protected final ClickListener mListener;
 
     @NonNull
     @Override
-    public SingleTextItemViewHolder createViewHolder(@NonNull final ViewGroup parent) {
+    public SingleImageItemViewHolder createViewHolder(@NonNull final ViewGroup parent) {
         final View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.gmlrva_layout_generic_single_text_item, parent, false);
-        return new SingleTextItemViewHolder(view);
+                .inflate(R.layout.gmlrva_layout_generic_single_image_item, parent, false);
+        return new SingleImageItemViewHolder(view);
     }
 
     @Override
-    public void setElements(@NonNull final SingleTextItemViewHolder holder) {
-        holder.getTitle().setText(mTextResource);
+    public void setElements(@NonNull final SingleImageItemViewHolder holder) {
+        holder.getCover().setImageResource(mCoverResource);
     }
 
     @NonNull
     @Override
     public Object getTag() {
-        return mTextResource;
+        return mCoverResource;
     }
 
     @Override
     public int getViewType() {
-        return 6;
+        return SINGLE_IMAGE_ITEM;
     }
 
-    /** Class meant to define the {@link RecyclerView.ViewHolder} for a Single Text Layout instance. */
-    final class SingleTextItemViewHolder extends RecyclerView.ViewHolder
-            implements IAnimatedViewHolder, View.OnClickListener {
+    /** Class meant to define the {@link RecyclerView.ViewHolder} for a Single Image Layout instance. */
+    final class SingleImageItemViewHolder extends RecyclerView.ViewHolder
+            implements View.OnClickListener, IAnimatedViewHolder {
 
         @Getter
-        private TextView mTitle;
+        private ImageView mCover;
 
         /**
-         * Instantiates a new SingleTextItemViewHolder.
+         * Instantiates a new SingleImageItemViewHolder.
          * @param view this {@link RecyclerView.ViewHolder}'s root view.
          */
-        SingleTextItemViewHolder(@NonNull final View view) {
+        SingleImageItemViewHolder(@NonNull final View view) {
             super(view);
             bindViews(view);
             bindListeners();
@@ -83,29 +83,29 @@ public class SingleTextItemLayout
         /** {@inheritDoc} */
         @Override
         public void runAddAnimation(@NonNull final GenericItemAnimator listener) {
-            listener.onAnimationFinished(this, ADD_ANIMATION_FINISHED);
+            ViewHolderAnimationHelper.runTestAddAnimation(this, itemView, listener);
         }
 
         /** {@inheritDoc} */
         @Override
         public void runRemoveAnimation(@NonNull final GenericItemAnimator listener) {
-            listener.onAnimationFinished(this, REMOVE_ANIMATION_FINISHED);
+            ViewHolderAnimationHelper.runTestRemoveAnimation(this, itemView, listener);
         }
 
         /** {@inheritDoc} */
         @Override
         public void onClick(@NonNull final View v) {
             final int viewId = v.getId();
-            if (viewId == mTitle.getId()) {
+            if (viewId == mCover.getId()) {
                 handleCoverClick();
             } else {
                 throw new UnsupportedOperationException(UNSUPPORTED_ERROR);
             }
         }
 
-        /** Procedure meant to handle a Single Text Layout click action. */
+        /** Procedure meant to handle a Single Image Layout click action. */
         private void handleCoverClick() {
-            Toast.makeText(itemView.getContext(), "Title Click!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(itemView.getContext(), "Cover Click!", Toast.LENGTH_SHORT).show();
             if (mListener != null) {
                 mListener.onClick();
             }
@@ -113,15 +113,15 @@ public class SingleTextItemLayout
 
         /** Procedure meant to bind this {@link RecyclerView.ViewHolder}'s listeners. */
         private void bindListeners() {
-            mTitle.setOnClickListener(this);
+            mCover.setOnClickListener(this);
         }
 
         /**
          * Procedure meant to bind this {@link RecyclerView.ViewHolder}'s views.
-         * @param view this {@link SingleTextItemViewHolder}'s root view.
+         * @param view this {@link SingleImageItemViewHolder}'s root view.
          */
         private void bindViews(@NonNull final View view) {
-            mTitle = (TextView) view.findViewById(R.id.tvSingleTextItemLayoutTitle);
+            mCover = (ImageView) view.findViewById(R.id.ivSingleImageItemLayoutCover);
         }
 
     }

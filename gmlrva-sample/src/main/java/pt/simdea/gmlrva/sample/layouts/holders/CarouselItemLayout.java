@@ -2,7 +2,7 @@
  * Copyright (c) 2017. Simdea.
  */
 
-package pt.simdea.gmlrva.sample.layouts;
+package pt.simdea.gmlrva.sample.layouts.holders;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,17 +24,18 @@ import pt.simdea.gmlrva.sample.R;
 import static pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation.ADD_ANIMATION_FINISHED;
 import static pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation.REMOVE_ANIMATION_FINISHED;
 import static pt.simdea.gmlrva.lib.utilities.GMLRVAConstants.UNSUPPORTED_ERROR;
+import static pt.simdea.gmlrva.sample.layouts.GenericRecyclerViewLayoutTypes.CAROUSEL_ITEM;
 
 /**
  * Class representing a Carousel Item Layout meant to be used on a {@link GenericMultipleLayoutAdapter}.
  *
- * Created by Paulo Ribeiro on 9/14/2017.
+ * Created by Paulo Ribeiro on 7/16/2017.
  * Simdea © All Rights Reserved.
  * paulo.ribeiro@simdea.pt
  */
 @AllArgsConstructor
-public class CarouselItemWithOptionLayout
-        implements IGenericRecyclerViewLayout<CarouselItemWithOptionLayout.CarouselItemWithOptionViewHolder> {
+public class CarouselItemLayout
+        implements IGenericRecyclerViewLayout<CarouselItemLayout.CarouselItemViewHolder> {
 
     private final String mTitle;
     private final String mDescription;
@@ -43,14 +43,14 @@ public class CarouselItemWithOptionLayout
 
     @NonNull
     @Override
-    public CarouselItemWithOptionViewHolder createViewHolder(@NonNull final ViewGroup parent) {
+    public CarouselItemViewHolder createViewHolder(@NonNull final ViewGroup parent) {
         final View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.gmlrva_layout_carousel_item_option, parent, false);
-        return new CarouselItemWithOptionViewHolder(view);
+                .inflate(R.layout.gmlrva_layout_carousel_item, parent, false);
+        return new CarouselItemViewHolder(view);
     }
 
     @Override
-    public void setElements(@NonNull final CarouselItemWithOptionViewHolder holder) {
+    public void setElements(@NonNull final CarouselItemViewHolder holder) {
         holder.getTitle().setText(mTitle);
         holder.getDescription().setText(mDescription);
         holder.getCover().setImageResource(mCoverResource);
@@ -64,32 +64,23 @@ public class CarouselItemWithOptionLayout
 
     @Override
     public int getViewType() {
-        return 5;
+        return CAROUSEL_ITEM;
     }
 
     /** Class meant to define the {@link RecyclerView.ViewHolder} for a Carousel Item Layout instance. */
-    class CarouselItemWithOptionViewHolder extends RecyclerView.ViewHolder
-            implements IAnimatedViewHolder, View.OnClickListener {
+    class CarouselItemViewHolder extends RecyclerView.ViewHolder implements IAnimatedViewHolder, View.OnClickListener {
         @Getter
         private TextView mTitle;
         @Getter
         private TextView mDescription;
         @Getter
         private ImageView mCover;
-        @Getter
-        private ImageView mOption;
-        @Getter
-        private RelativeLayout mOptionSection;
-        @Getter
-        private View mLeftOption;
-        @Getter
-        private View mRightOption;
 
         /**
          * Instantiates a new CarouselItemViewHolder.
          * @param view this {@link RecyclerView.ViewHolder}'s root view.
          */
-        CarouselItemWithOptionViewHolder(@NonNull final View view) {
+        CarouselItemViewHolder(@NonNull final View view) {
             super(view);
             bindViews(view);
             bindListeners();
@@ -117,35 +108,8 @@ public class CarouselItemWithOptionLayout
                 handleDescriptionClick();
             } else if (viewId == mCover.getId()) {
                 handleCoverClick();
-            } else if (viewId == mOption.getId()) {
-                handleOptionClick();
-            } else if (viewId == mLeftOption.getId()) {
-                handleLeftOptionClick();
-            } else if (viewId == mRightOption.getId()) {
-                handleRightOptionClick();
             } else {
                 throw new UnsupportedOperationException(UNSUPPORTED_ERROR);
-            }
-        }
-
-        /** Procedure meant to handle a Left Option view Carousel Item Layout click action. */
-        private void handleLeftOptionClick() {
-            Toast.makeText(itemView.getContext(), "Left Option selected!", Toast.LENGTH_SHORT).show();
-            handleOptionClick();
-        }
-
-        /** Procedure meant to handle a Right Option view Carousel Item Layout click action. */
-        private void handleRightOptionClick() {
-            Toast.makeText(itemView.getContext(), "Right Option selected!", Toast.LENGTH_SHORT).show();
-            handleOptionClick();
-        }
-
-        /** Procedure meant to handle an Option view Carousel Item Layout click action. */
-        private void handleOptionClick() {
-            if (mOptionSection.getVisibility() == View.GONE) {
-                mOptionSection.setVisibility(View.VISIBLE);
-            } else {
-                mOptionSection.setVisibility(View.GONE);
             }
         }
 
@@ -166,7 +130,7 @@ public class CarouselItemWithOptionLayout
 
         /** Procedure meant to bind this {@link RecyclerView.ViewHolder}'s listeners. */
         private void bindListeners() {
-            final View[] clickableViews = {mTitle, mCover, mDescription, mOption, mLeftOption, mRightOption};
+            final View[] clickableViews = {mTitle, mCover, mDescription};
             for (final View view : clickableViews) {
                 view.setOnClickListener(this);
             }
@@ -174,16 +138,12 @@ public class CarouselItemWithOptionLayout
 
         /**
          * Procedure meant to bind this {@link RecyclerView.ViewHolder}'s views.
-         * @param view this {@link CarouselItemWithOptionViewHolder}'s root view.
+         * @param view this {@link CarouselItemViewHolder}'s root view.
          */
         private void bindViews(@NonNull final View view) {
             mTitle = (TextView) view.findViewById(R.id.tvCarouselItemTitle);
             mDescription = (TextView) view.findViewById(R.id.tvCarouselItemDescription);
             mCover = (ImageView) view.findViewById(R.id.ivCarouselItemCover);
-            mOption = (ImageView) view.findViewById(R.id.ivCarouselItemOption);
-            mOptionSection = (RelativeLayout) view.findViewById(R.id.rlOptionSection);
-            mLeftOption = view.findViewById(R.id.vOptionsSectionLeft);
-            mRightOption = view.findViewById(R.id.vOptionsSectionRight);
         }
 
     }

@@ -25,12 +25,12 @@ import pt.simdea.gmlrva.sample.R;
 import pt.simdea.gmlrva.sample.data.ClickListener;
 import pt.simdea.gmlrva.sample.data.FakeDataObject;
 import pt.simdea.gmlrva.sample.data.FakeDataProvider;
-import pt.simdea.gmlrva.sample.layouts.CarouselCategoryItemLayout;
-import pt.simdea.gmlrva.sample.layouts.CarouselCategoryItemWithOptionLayout;
-import pt.simdea.gmlrva.sample.layouts.CarouselItemLayout;
-import pt.simdea.gmlrva.sample.layouts.CarouselItemWithOptionLayout;
-import pt.simdea.gmlrva.sample.layouts.SingleImageItemLayout;
-import pt.simdea.gmlrva.sample.layouts.SingleTextItemLayout;
+import pt.simdea.gmlrva.sample.layouts.holders.CarouselCategoryItemLayout;
+import pt.simdea.gmlrva.sample.layouts.holders.CarouselCategoryItemWithOptionLayout;
+import pt.simdea.gmlrva.sample.layouts.holders.CarouselItemLayout;
+import pt.simdea.gmlrva.sample.layouts.holders.CarouselItemWithOptionLayout;
+import pt.simdea.gmlrva.sample.layouts.holders.SingleImageItemLayout;
+import pt.simdea.gmlrva.sample.layouts.holders.SingleTextItemLayout;
 
 /**
  * Class responsible for the Sample Screen for the (GMLRVA) library.

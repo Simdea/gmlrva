@@ -22,9 +22,9 @@ import android.view.WindowManager;
 public final class ViewUtils {
 
     @IntRange(from = 0)
-    private static int deviceScreenHeight = 0;
+    private static int sDeviceScreenHeight;
     @IntRange(from = 0)
-    private static int deviceScreenWidth = 0;
+    private static int sDeviceScreenWidth;
 
     /**
      * Instantiates a new ViewUtil.
@@ -40,14 +40,14 @@ public final class ViewUtils {
      * @return an Integer value representing the device's screen height, in pixels.
      */
     @IntRange(from = 0) public static int getDeviceScreenHeight(@NonNull final Context context) {
-        if (deviceScreenHeight == 0) {
+        if (sDeviceScreenHeight == 0) {
             final WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
             final Display display = windowManager.getDefaultDisplay();
             final Point size = new Point();
             display.getSize(size);
-            deviceScreenHeight = size.y;
+            sDeviceScreenHeight = size.y;
         }
-        return deviceScreenHeight;
+        return sDeviceScreenHeight;
     }
 
     /**
@@ -56,14 +56,14 @@ public final class ViewUtils {
      * @return an Integer value representing the device's screen width, in pixels.
      */
     @IntRange(from = 0) public static int getDeviceScreenWidth(@NonNull final Context context) {
-        if (deviceScreenWidth == 0) {
+        if (sDeviceScreenWidth == 0) {
             final WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
             final Display display = windowManager.getDefaultDisplay();
             final Point size = new Point();
             display.getSize(size);
-            deviceScreenWidth = size.x;
+            sDeviceScreenWidth = size.x;
         }
-        return deviceScreenWidth;
+        return sDeviceScreenWidth;
     }
 
 }

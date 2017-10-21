@@ -2,7 +2,7 @@
  * Copyright (c) 2017. Simdea.
  */
 
-package pt.simdea.gmlrva.sample.layouts;
+package pt.simdea.gmlrva.sample.layouts.holders;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -26,6 +26,7 @@ import pt.simdea.gmlrva.sample.R;
 
 import static pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation.ADD_ANIMATION_FINISHED;
 import static pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation.REMOVE_ANIMATION_FINISHED;
+import static pt.simdea.gmlrva.sample.layouts.GenericRecyclerViewLayoutTypes.CAROUSEL_ITEM_CATEGORY_WITH_OPTIONS;
 
 /**
  * Class representing a Carousel Category Layout meant to be used on a {@link GenericMultipleLayoutAdapter}.
@@ -35,8 +36,8 @@ import static pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOpe
  * paulo.ribeiro@simdea.pt
  */
 @AllArgsConstructor
-public class CarouselCategoryItemLayout
-        implements IGenericRecyclerViewLayout<CarouselCategoryItemLayout.CarouselCategoryViewHolder> {
+public class CarouselCategoryItemWithOptionLayout
+        implements IGenericRecyclerViewLayout<CarouselCategoryItemWithOptionLayout.CarouselCategoryViewHolder> {
 
     private final String mCategoryTitle;
     private final List<? extends IGenericRecyclerViewLayout> mCategoryData;
@@ -64,7 +65,7 @@ public class CarouselCategoryItemLayout
 
     @Override
     public int getViewType() {
-        return 1;
+        return CAROUSEL_ITEM_CATEGORY_WITH_OPTIONS;
     }
 
     /**
@@ -79,7 +80,6 @@ public class CarouselCategoryItemLayout
 
     /** Class meant to define the {@link RecyclerView.ViewHolder} for a Carousel Category Layout instance. */
     class CarouselCategoryViewHolder extends RecyclerView.ViewHolder implements IAnimatedViewHolder {
-
         @Getter
         private TextView mTitle;
         @Getter

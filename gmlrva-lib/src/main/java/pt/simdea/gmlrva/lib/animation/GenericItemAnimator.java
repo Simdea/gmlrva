@@ -28,7 +28,7 @@ import static pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOpe
  */
 public class GenericItemAnimator extends DefaultItemAnimator implements IAnimationFinished {
 
-    private final ArrayMap<RecyclerView.ViewHolder, AnimatorSet> customAnimationsMap = new ArrayMap<>();
+    private final ArrayMap<RecyclerView.ViewHolder, AnimatorSet> mCustomAnimationsMap = new ArrayMap<>();
 
     /**
      * {@inheritDoc}
@@ -122,7 +122,7 @@ public class GenericItemAnimator extends DefaultItemAnimator implements IAnimati
     @Override
     public void endAnimations() {
         super.endAnimations();
-        for (final AnimatorSet animatorSet : customAnimationsMap.values()) {
+        for (final AnimatorSet animatorSet : mCustomAnimationsMap.values()) {
             animatorSet.cancel();
         }
     }
@@ -133,8 +133,8 @@ public class GenericItemAnimator extends DefaultItemAnimator implements IAnimati
      * @param item the {@link RecyclerView} item's {@link RecyclerView.ViewHolder}.
      */
     private void cancelCurrentAnimationIfExists(@NonNull final RecyclerView.ViewHolder item) {
-        if (customAnimationsMap.containsKey(item)) {
-            customAnimationsMap.get(item).cancel();
+        if (mCustomAnimationsMap.containsKey(item)) {
+            mCustomAnimationsMap.get(item).cancel();
         }
     }
 
