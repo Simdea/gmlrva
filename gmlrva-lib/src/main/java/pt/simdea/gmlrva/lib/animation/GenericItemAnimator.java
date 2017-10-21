@@ -58,7 +58,7 @@ public class GenericItemAnimator extends DefaultItemAnimator implements IAnimati
      *
      * @param holder the {@link RecyclerView} item's {@link RecyclerView.ViewHolder}.
      * @return a boolean value indicating whether the {@link RecyclerView} should use an entry animation
-     *         for the {@link RecyclerView.ViewHolder}. TODO: Review this JavaDoc
+     *         for the {@link RecyclerView.ViewHolder}.
      */
     @Override
     public boolean animateAdd(@NonNull final RecyclerView.ViewHolder holder) {
@@ -78,7 +78,7 @@ public class GenericItemAnimator extends DefaultItemAnimator implements IAnimati
      *
      * @param holder the {@link RecyclerView} item's {@link RecyclerView.ViewHolder}.
      * @return a boolean value indicating whether the {@link RecyclerView} should use an exit animation
-     *         for the {@link RecyclerView.ViewHolder}. TODO: Review this JavaDoc
+     *         for the {@link RecyclerView.ViewHolder}.
      */
     @Override
     public boolean animateRemove(@NonNull final RecyclerView.ViewHolder holder) {

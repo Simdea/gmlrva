@@ -4,14 +4,11 @@
 
 package pt.simdea.gmlrva.sample.layouts;
 
-import android.animation.Animator;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -21,12 +18,10 @@ import pt.simdea.gmlrva.lib.GenericMultipleLayoutAdapter;
 import pt.simdea.gmlrva.lib.IGenericRecyclerViewLayout;
 import pt.simdea.gmlrva.lib.animation.GenericItemAnimator;
 import pt.simdea.gmlrva.lib.animation.IAnimatedViewHolder;
-import pt.simdea.gmlrva.lib.utilities.ViewUtils;
 import pt.simdea.gmlrva.sample.R;
 import pt.simdea.gmlrva.sample.data.ClickListener;
+import pt.simdea.gmlrva.sample.layouts.animation.ViewHolderAnimationHelper;
 
-import static pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation.ADD_ANIMATION_FINISHED;
-import static pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation.REMOVE_ANIMATION_FINISHED;
 import static pt.simdea.gmlrva.lib.utilities.GMLRVAConstants.UNSUPPORTED_ERROR;
 
 /**
@@ -84,68 +79,19 @@ public class SingleImageItemLayout
             bindListeners();
         }
 
+        /** {@inheritDoc} */
         @Override
         public void runAddAnimation(@NonNull final GenericItemAnimator listener) {
-            final int screenHeight = ViewUtils.getDeviceScreenHeight(itemView.getContext());
-            itemView.setTranslationY(screenHeight);
-            itemView.animate()
-                    .translationY(0)
-                    .setInterpolator(new DecelerateInterpolator(3.f))
-                    .setDuration(700)
-                    .setListener(new Animator.AnimatorListener() {
-                        @Override
-                        public void onAnimationStart(@NonNull final Animator animation) {
-                            /* Do nothing here */
-                        }
-
-                        @Override
-                        public void onAnimationEnd(@NonNull final Animator animation) {
-                            listener.onAnimationFinished(SingleImageItemViewHolder.this, ADD_ANIMATION_FINISHED);
-                        }
-
-                        @Override
-                        public void onAnimationCancel(@NonNull final Animator animation) {
-                            /* Do nothing here */
-                        }
-
-                        @Override
-                        public void onAnimationRepeat(@NonNull final Animator animation) {
-                            /* Do nothing here */
-                        }
-                    }).start();
+            ViewHolderAnimationHelper.runTestAddAnimation(SingleImageItemViewHolder.this, itemView, listener);
         }
 
+        /** {@inheritDoc} */
         @Override
         public void runRemoveAnimation(@NonNull final GenericItemAnimator listener) {
-            final int screenHeight = ViewUtils.getDeviceScreenHeight(itemView.getContext());
-            itemView.setTranslationY(0);
-            itemView.animate()
-                    .translationY(screenHeight)
-                    .setInterpolator(new AccelerateInterpolator(3.f))
-                    .setDuration(700)
-                    .setListener(new Animator.AnimatorListener() {
-                        @Override
-                        public void onAnimationStart(@NonNull final Animator animation) {
-                            /* Do nothing here */
-                        }
-
-                        @Override
-                        public void onAnimationEnd(@NonNull final Animator animation) {
-                            listener.onAnimationFinished(SingleImageItemViewHolder.this, REMOVE_ANIMATION_FINISHED);
-                        }
-
-                        @Override
-                        public void onAnimationCancel(@NonNull final Animator animation) {
-                            /* Do nothing here */
-                        }
-
-                        @Override
-                        public void onAnimationRepeat(@NonNull final Animator animation) {
-                            /* Do nothing here */
-                        }
-                    }).start();
+            ViewHolderAnimationHelper.runTestRemoveAnimation(SingleImageItemViewHolder.this, itemView, listener);
         }
 
+        /** {@inheritDoc} */
         @Override
         public void onClick(@NonNull final View v) {
             final int viewId = v.getId();

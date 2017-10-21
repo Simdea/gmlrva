@@ -94,11 +94,13 @@ public class CarouselCategoryItemLayout
             bindViews(view);
         }
 
+        /** {@inheritDoc} */
         @Override
         public void runAddAnimation(@NonNull final GenericItemAnimator listener) {
             listener.onAnimationFinished(this, ADD_ANIMATION_FINISHED);
         }
 
+        /** {@inheritDoc} */
         @Override
         public void runRemoveAnimation(@NonNull final GenericItemAnimator listener) {
             listener.onAnimationFinished(this, REMOVE_ANIMATION_FINISHED);
