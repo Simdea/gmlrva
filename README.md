@@ -2,6 +2,7 @@ GMLRVA - Generic Multiple Layout Recycler View Adapter
 ===============
 [ ![Download](https://api.bintray.com/packages/simdea/GMLRVA/gmlrva.lib/images/download.svg) ](https://bintray.com/simdea/GMLRVA/gmlrva.lib/_latestVersion)
 [ ![License](https://img.shields.io/badge/license-MIT-blue.svg) ](https://github.com/Simdea/gmlrva/blob/master/LICENSE.md)
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-GMLRVA-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/6296)
 
 Generic RecyclerView Adapter that supports multiple layout implementations.
 
