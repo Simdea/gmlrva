@@ -18,15 +18,15 @@ import android.widget.Toast;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import pt.simdea.gmlrva.lib.GenericMultipleLayoutAdapter;
-import pt.simdea.gmlrva.lib.GenericViewHolder;
 import pt.simdea.gmlrva.lib.IGenericRecyclerViewLayout;
-import pt.simdea.gmlrva.lib.animators.GenericItemAnimator;
+import pt.simdea.gmlrva.lib.animation.GenericItemAnimator;
+import pt.simdea.gmlrva.lib.animation.IAnimatedViewHolder;
 import pt.simdea.gmlrva.lib.utilities.ViewUtils;
 import pt.simdea.gmlrva.sample.R;
 import pt.simdea.gmlrva.sample.data.ClickListener;
 
-import static pt.simdea.gmlrva.lib.animators.GenericAnimationFinishedOperation.ADD_ANIMATION_FINISHED;
-import static pt.simdea.gmlrva.lib.animators.GenericAnimationFinishedOperation.REMOVE_ANIMATION_FINISHED;
+import static pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation.ADD_ANIMATION_FINISHED;
+import static pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation.REMOVE_ANIMATION_FINISHED;
 import static pt.simdea.gmlrva.lib.utilities.GMLRVAConstants.UNSUPPORTED_ERROR;
 
 /**
@@ -68,7 +68,8 @@ public class SingleImageItemLayout
     }
 
     /** Class meant to define the {@link RecyclerView.ViewHolder} for a Single Image Layout instance. */
-    final class SingleImageItemViewHolder extends GenericViewHolder implements View.OnClickListener {
+    final class SingleImageItemViewHolder extends RecyclerView.ViewHolder
+            implements View.OnClickListener, IAnimatedViewHolder {
 
         @Getter
         private ImageView mCover;

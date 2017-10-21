@@ -15,14 +15,14 @@ import java.io.Serializable;
  * Interface meant to define a contract in which we specify the rules for building a Generic {@link RecyclerView} Layout
  * (used for binding the data).
  *
- * @param <T> an instance of {@link RecyclerView.ViewHolder}. See {@link GenericViewHolder} for more information.
+ * @param <T> an instance of {@link RecyclerView.ViewHolder}.
  *
  * Created by André Rosa on 7/16/2017.
  * Simdea © All Rights Reserved.
  * andre.rosa@simdea.pt
  */
 @SuppressWarnings("WeakerAccess")
-public interface IGenericRecyclerViewLayout<T extends GenericViewHolder> extends Serializable {
+public interface IGenericRecyclerViewLayout<T extends RecyclerView.ViewHolder> extends Serializable {
 
     /**
      * Procedure meant to handle the ViewHolder instance creation.

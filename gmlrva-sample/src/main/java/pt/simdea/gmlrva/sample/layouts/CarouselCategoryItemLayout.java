@@ -18,14 +18,14 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import pt.simdea.gmlrva.lib.GenericMultipleLayoutAdapter;
-import pt.simdea.gmlrva.lib.GenericViewHolder;
 import pt.simdea.gmlrva.lib.IGenericRecyclerViewLayout;
-import pt.simdea.gmlrva.lib.animators.GenericItemAnimator;
+import pt.simdea.gmlrva.lib.animation.GenericItemAnimator;
+import pt.simdea.gmlrva.lib.animation.IAnimatedViewHolder;
 import pt.simdea.gmlrva.lib.utilities.GenericUtils;
 import pt.simdea.gmlrva.sample.R;
 
-import static pt.simdea.gmlrva.lib.animators.GenericAnimationFinishedOperation.ADD_ANIMATION_FINISHED;
-import static pt.simdea.gmlrva.lib.animators.GenericAnimationFinishedOperation.REMOVE_ANIMATION_FINISHED;
+import static pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation.ADD_ANIMATION_FINISHED;
+import static pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation.REMOVE_ANIMATION_FINISHED;
 
 /**
  * Class representing a Carousel Category Layout meant to be used on a {@link GenericMultipleLayoutAdapter}.
@@ -78,7 +78,7 @@ public class CarouselCategoryItemLayout
     }
 
     /** Class meant to define the {@link RecyclerView.ViewHolder} for a Carousel Category Layout instance. */
-    class CarouselCategoryViewHolder extends GenericViewHolder {
+    class CarouselCategoryViewHolder extends RecyclerView.ViewHolder implements IAnimatedViewHolder {
 
         @Getter
         private TextView mTitle;

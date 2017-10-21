@@ -33,7 +33,7 @@ import static pt.simdea.gmlrva.lib.diff.GenericPayload.UPDATE_ITEM;
  * andre.rosa@simdea.pt
  */
 @SuppressWarnings({"unused", "unchecked"})
-public class GenericMultipleLayoutAdapter extends RecyclerView.Adapter<GenericViewHolder> {
+public class GenericMultipleLayoutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     /* Adapter Variables */
     private final Context mContext;
@@ -65,20 +65,21 @@ public class GenericMultipleLayoutAdapter extends RecyclerView.Adapter<GenericVi
 
     /** {@inheritDoc} */
     @Override
-    public GenericViewHolder onCreateViewHolder(@NonNull final ViewGroup parent,
-                                                @IntRange(from = 0) final int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent,
+                                                      @IntRange(from = 0) final int viewType) {
         return mViewTypes.get(viewType).createViewHolder(parent);
     }
 
     /** {@inheritDoc} */
     @Override
-    public void onBindViewHolder(@NonNull final GenericViewHolder holder, @IntRange(from = 0) final int position) {
+    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder,
+                                 @IntRange(from = 0) final int position) {
         mDataSet.get(position).setElements(holder);
     }
 
     /** {@inheritDoc} */
     @Override
-    public void onBindViewHolder(@NonNull final GenericViewHolder holder, @IntRange(from = 0) final int position,
+    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, @IntRange(from = 0) final int position,
                                  @NonNull final List<Object> payloads) {
         if (payloads.isEmpty()) {
             onBindViewHolder(holder, position);
@@ -289,7 +290,7 @@ public class GenericMultipleLayoutAdapter extends RecyclerView.Adapter<GenericVi
     private void applyPayloadChange(@IntRange(from = 0) final int position, @NonNull final Bundle payload,
                                     @NonNull final String key) {
         if (payload.get(key) instanceof RecyclerView.ViewHolder) {
-            final GenericViewHolder newHolder = (GenericViewHolder) payload.get(key);
+            final RecyclerView.ViewHolder newHolder = (RecyclerView.ViewHolder) payload.get(key);
             if (newHolder != null) {
                 mDataSet.get(position).setElements(newHolder);
             }

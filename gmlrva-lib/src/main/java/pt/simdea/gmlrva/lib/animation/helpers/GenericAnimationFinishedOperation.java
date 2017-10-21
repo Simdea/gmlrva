@@ -2,7 +2,7 @@
  * Copyright (c) 2017. Simdea.
  */
 
-package pt.simdea.gmlrva.lib.animators;
+package pt.simdea.gmlrva.lib.animation.helpers;
 
 import android.support.annotation.IntDef;
 

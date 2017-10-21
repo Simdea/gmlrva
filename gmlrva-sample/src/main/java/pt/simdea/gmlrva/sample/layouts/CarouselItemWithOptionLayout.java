@@ -17,13 +17,13 @@ import android.widget.Toast;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import pt.simdea.gmlrva.lib.GenericMultipleLayoutAdapter;
-import pt.simdea.gmlrva.lib.GenericViewHolder;
 import pt.simdea.gmlrva.lib.IGenericRecyclerViewLayout;
-import pt.simdea.gmlrva.lib.animators.GenericItemAnimator;
+import pt.simdea.gmlrva.lib.animation.GenericItemAnimator;
+import pt.simdea.gmlrva.lib.animation.IAnimatedViewHolder;
 import pt.simdea.gmlrva.sample.R;
 
-import static pt.simdea.gmlrva.lib.animators.GenericAnimationFinishedOperation.ADD_ANIMATION_FINISHED;
-import static pt.simdea.gmlrva.lib.animators.GenericAnimationFinishedOperation.REMOVE_ANIMATION_FINISHED;
+import static pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation.ADD_ANIMATION_FINISHED;
+import static pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation.REMOVE_ANIMATION_FINISHED;
 import static pt.simdea.gmlrva.lib.utilities.GMLRVAConstants.UNSUPPORTED_ERROR;
 
 /**
@@ -68,7 +68,8 @@ public class CarouselItemWithOptionLayout
     }
 
     /** Class meant to define the {@link RecyclerView.ViewHolder} for a Carousel Item Layout instance. */
-    class CarouselItemWithOptionViewHolder extends GenericViewHolder implements View.OnClickListener {
+    class CarouselItemWithOptionViewHolder extends RecyclerView.ViewHolder
+            implements IAnimatedViewHolder, View.OnClickListener {
         @Getter
         private TextView mTitle;
         @Getter
