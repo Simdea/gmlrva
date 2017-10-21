@@ -7,11 +7,11 @@ Contributions are welcome and are greatly appreciated! Every little bit helps, a
 
 ## Pull Request Guidelines
 
-Before you submit a pull request from your forked repo, check that it meets these guidelines:
+Before you submit a pull request from your forked repo, please check that it meets the following guidelines:
 1. Create a feature branch
 2. When the feature is done, please run (`./gradlew check`) to ensure the code respects our style guidelines.
-3. If the pull request adds functionality, edit the sample app to demonstrates the new functionality.
-4. If the pull request fixes a bug, create a new [issue](https://github.com/simdea/gmlrva/issues/new) with an explanation including what the bug was, and how to reproduce, then reference the issue in PR description.
+3. If the pull request adds functionality, edit the sample app to demonstrate the new functionality.
+4. If the pull request fixes a bug, create a new [issue](https://github.com/simdea/gmlrva/issues/new) with an explanation including what the bug was and how to reproduce it, then reference the issue in PR description.
 5. Create PR when you're done.
 
 ## DO and DON'Ts
@@ -22,7 +22,7 @@ Before you submit a pull request from your forked repo, check that it meets thes
 * **DO** give PRs short-but-descriptive names (e.g. "Improve code coverage for xpto by 10%", not "Fix #23")
 * **DO** tag any users that should know about and/or review the change.
 * **DO** ensure each commit successfully builds.
-* **DO** run check validator (`./gradlew check`) when submiting PRs.
+* **DO** run check validator (`./gradlew check`) when submitting PRs.
 * **DO** fix merge conflicts using a merge commit in public branches. Prefer `git rebase` to get new commits from develop to local feature.
 * **DO NOT** submit "work in progress" PRs.  A PR should only be submitted when it is considered ready for review and subsequent merging by the contributor.
 * **DO NOT** mix independent, unrelated changes in one PR. Separate unrelated fixes into separate PRs.
