@@ -19,7 +19,7 @@ import java.util.List;
 
 import pt.simdea.gmlrva.lib.GenericMultipleLayoutAdapter;
 import pt.simdea.gmlrva.lib.IGenericRecyclerViewLayout;
-import pt.simdea.gmlrva.lib.animation.GenericItemAnimator;
+import pt.simdea.gmlrva.lib.animation.animators.ExampleItemAnimator;
 import pt.simdea.gmlrva.lib.utilities.GenericUtils;
 import pt.simdea.gmlrva.sample.R;
 import pt.simdea.gmlrva.sample.data.ClickListener;
@@ -31,6 +31,8 @@ import pt.simdea.gmlrva.sample.layouts.holders.CarouselItemLayout;
 import pt.simdea.gmlrva.sample.layouts.holders.CarouselItemWithOptionLayout;
 import pt.simdea.gmlrva.sample.layouts.holders.SingleImageItemLayout;
 import pt.simdea.gmlrva.sample.layouts.holders.SingleTextItemLayout;
+
+import static pt.simdea.gmlrva.sample.layouts.animation.ChangeAnimationTypes.TOAST_TRIGGER;
 
 /**
  * Class responsible for the Sample Screen for the (GMLRVA) library.
@@ -81,7 +83,7 @@ public class SampleActivity extends AppCompatActivity implements ClickListener {
             mGenericTest.setAdapter(new GenericMultipleLayoutAdapter(buildGenericListExample(), this, false));
             mGenericTest.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
             GenericUtils.setOptimalConfigurationForRecyclerView(mGenericTest);
-            mGenericTest.setItemAnimator(new GenericItemAnimator());
+            mGenericTest.setItemAnimator(new ExampleItemAnimator());
         }
     }
 
@@ -92,8 +94,9 @@ public class SampleActivity extends AppCompatActivity implements ClickListener {
             final GenericMultipleLayoutAdapter adapter = (GenericMultipleLayoutAdapter) mGenericTest.getAdapter();
             final IGenericRecyclerViewLayout item = adapter.get(1);
             if (item != null) {
-                adapter.remove(item);
-                adapter.add(item);
+//                adapter.remove(item);
+//                adapter.add(item);
+                adapter.updateItem(item, TOAST_TRIGGER);
             }
         }
     }
@@ -156,6 +159,18 @@ public class SampleActivity extends AppCompatActivity implements ClickListener {
         /* Add a Single Image Item Example */
         final SingleImageItemLayout singleItemLayout3 = new SingleImageItemLayout(R.mipmap.gmlrva_ic_launcher, this);
         exampleHolders.add(singleItemLayout3);
+
+        /* Add a Single Image Item Example */
+        final SingleImageItemLayout singleItemLayout4 = new SingleImageItemLayout(R.mipmap.gmlrva_ic_launcher, this);
+        exampleHolders.add(singleItemLayout4);
+
+        /* Add a Single Image Item Example */
+        final SingleImageItemLayout singleItemLayout5 = new SingleImageItemLayout(R.mipmap.gmlrva_ic_launcher, this);
+        exampleHolders.add(singleItemLayout5);
+
+        /* Add a Single Image Item Example */
+        final SingleImageItemLayout singleItemLayout6 = new SingleImageItemLayout(R.mipmap.gmlrva_ic_launcher, this);
+        exampleHolders.add(singleItemLayout6);
 
         return exampleHolders;
     }

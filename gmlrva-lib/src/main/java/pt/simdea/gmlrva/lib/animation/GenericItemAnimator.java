@@ -7,15 +7,22 @@ package pt.simdea.gmlrva.lib.animation;
 import android.animation.AnimatorSet;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.util.ArrayMap;
 
+import java.util.List;
+
+import pt.simdea.gmlrva.lib.IGenericRecyclerViewLayout;
+import pt.simdea.gmlrva.lib.animation.helpers.GenericAnimatedViewHolderInfo;
 import pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation;
+import pt.simdea.gmlrva.lib.animation.helpers.IAnimatedViewHolder;
 import pt.simdea.gmlrva.lib.animation.helpers.IAnimationFinished;
 import pt.simdea.gmlrva.lib.utilities.GMLRVAConstants;
 
 import static pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation.ADD_ANIMATION_FINISHED;
+import static pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation.CHANGE_ANIMATION_FINISHED;
 import static pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation.REMOVE_ANIMATION_FINISHED;
 
 /**
@@ -26,8 +33,9 @@ import static pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOpe
  * Simdea © All Rights Reserved.
  * paulo.ribeiro@simdea.pt
  */
-public class GenericItemAnimator extends DefaultItemAnimator implements IAnimationFinished {
+public abstract class GenericItemAnimator extends DefaultItemAnimator implements IAnimationFinished {
 
+    // TODO: Add in progress animations to this Map!
     private final ArrayMap<RecyclerView.ViewHolder, AnimatorSet> mCustomAnimationsMap = new ArrayMap<>();
 
     /**
@@ -91,6 +99,75 @@ public class GenericItemAnimator extends DefaultItemAnimator implements IAnimati
     }
 
     /**
+     * {@inheritDoc}
+     *
+     * Custom animations should be triggered on the {@link IGenericRecyclerViewLayout} implementation.
+     * Since changes are usually triggered by the {@link RecyclerView.Adapter#notifyItemChanged(int, Object)} procedure,
+     * we can pass additional arguments to it which will help the {@link IGenericRecyclerViewLayout} decide what
+     * animation should be performed.
+     * This procedure is used to catch the data before changes occur. The {@link RecyclerView} then calls
+     * {@link RecyclerView.Adapter#onBindViewHolder(RecyclerView.ViewHolder, int, List)} and finally,
+     * {@link RecyclerView.ItemAnimator} will call {@link RecyclerView.ItemAnimator
+     * #recordPostLayoutInformation(RecyclerView.State, RecyclerView.ViewHolder)}.
+     *
+     * @param state the current {@link RecyclerView.State}.
+     * @param holder the {@link RecyclerView} item's {@link RecyclerView.ViewHolder}.
+     * @param changeFlags additional information about what changes happened in the Adapter
+     *                    about the Item represented by this ViewHolder. For instance, if
+     *                    item is deleted from the adapter, {@link #FLAG_REMOVED} will be set.
+     * @param payloads The payload list that was previously passed to
+     *                 {@link RecyclerView.Adapter#notifyItemChanged(int, Object)} or
+     *                 {@link RecyclerView.Adapter#notifyItemRangeChanged(int, int, Object)}.
+     */
+    @NonNull
+    @Override
+    public ItemHolderInfo recordPreLayoutInformation(@NonNull final RecyclerView.State state,
+                                                     @NonNull final RecyclerView.ViewHolder holder,
+                                                     @IntRange(from = 0) final int changeFlags,
+                                                     @NonNull final List<Object> payloads) {
+        if (changeFlags == FLAG_CHANGED) {
+            for (final Object payload : payloads) {
+                if (payload instanceof Integer) {
+                    return new GenericAnimatedViewHolderInfo((Integer) payload);
+                }
+            }
+        }
+        return super.recordPreLayoutInformation(state, holder, changeFlags, payloads);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * Item's whose {@link RecyclerView.ViewHolder}s implement the {@link IAnimatedViewHolder} interface will have
+     * their {@link IAnimatedViewHolder#runChangeAnimation(GenericItemAnimator)} procedure called.
+     *
+     * @param oldHolder TODO
+     * @param newHolder TODO
+     * @param preInfo TODO
+     * @param postInfo TODO
+     * @return a boolean value indicating whether the {@link RecyclerView} should use a change animation
+     *         for the {@link RecyclerView.ViewHolder}.
+     */
+    @Override
+    public boolean animateChange(@NonNull final RecyclerView.ViewHolder oldHolder,
+                                 @NonNull final RecyclerView.ViewHolder newHolder,
+                                 @NonNull final ItemHolderInfo preInfo, @NonNull final ItemHolderInfo postInfo) {
+        cancelCurrentAnimationIfExists(newHolder);
+        if (preInfo instanceof GenericAnimatedViewHolderInfo && newHolder instanceof IAnimatedViewHolder) {
+            final GenericAnimatedViewHolderInfo holderInfo = (GenericAnimatedViewHolderInfo) preInfo;
+            final IAnimatedViewHolder holder = (IAnimatedViewHolder) newHolder;
+
+            /* Call custom animation handlers */
+            final AnimatorSet animatorSet = handleCustomAnimation(holderInfo, holder);
+            if (animatorSet != null) {
+                mCustomAnimationsMap.put(newHolder, animatorSet);
+                animatorSet.start();
+            }
+        }
+        return false;
+    }
+
+    /**
      * Procedure meant to handle the report when the animation for the {@link RecyclerView.ViewHolder} has finished.
      * @param holder the {@link RecyclerView} item's {@link RecyclerView.ViewHolder}.
      * @param animationFinishedOperation an Integer value representing the animation operation that has finished.
@@ -105,6 +182,12 @@ public class GenericItemAnimator extends DefaultItemAnimator implements IAnimati
                 break;
             case REMOVE_ANIMATION_FINISHED:
                 dispatchRemoveFinished(holder);
+                break;
+            case CHANGE_ANIMATION_FINISHED:
+                dispatchChangeFinished(holder, false);
+                if (mCustomAnimationsMap.containsKey(holder)) {
+                    mCustomAnimationsMap.remove(holder);
+                }
                 break;
             default:
                 throw new UnsupportedOperationException(GMLRVAConstants.UNSUPPORTED_ERROR);
@@ -126,6 +209,11 @@ public class GenericItemAnimator extends DefaultItemAnimator implements IAnimati
             animatorSet.cancel();
         }
     }
+
+    // TODO!
+    @Nullable
+    public abstract AnimatorSet handleCustomAnimation(@NonNull final GenericAnimatedViewHolderInfo holderInfo,
+                                                      @NonNull final IAnimatedViewHolder holder);
 
     /**
      * Auxiliary procedure meant to allow {@link RecyclerView} to stop animations on its items, when they
