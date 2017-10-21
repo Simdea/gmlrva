@@ -30,8 +30,11 @@ public class GenericAnimationFinishedOperation {
     /** REMOVE_ANIMATION_FINISHED representing an item remove animation conclusion. */
     public static final int REMOVE_ANIMATION_FINISHED = 1;
 
+    /** CHANGE_ANIMATION_FINISHED representing an item change animation conclusion. */
+    public static final int CHANGE_ANIMATION_FINISHED = 2;
+
     // Declare the @StringDef for these constants
-    @IntDef({ ADD_ANIMATION_FINISHED, REMOVE_ANIMATION_FINISHED })
+    @IntDef({ ADD_ANIMATION_FINISHED, REMOVE_ANIMATION_FINISHED, CHANGE_ANIMATION_FINISHED })
     @Retention(RetentionPolicy.SOURCE)
     public @interface GenericAnimationFinishedOperationConstants { /* Do nothing here ... */ }
 

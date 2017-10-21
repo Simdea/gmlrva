@@ -4,6 +4,7 @@
 
 package pt.simdea.gmlrva.sample.layouts.holders;
 
+import android.animation.AnimatorSet;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,11 +18,13 @@ import lombok.Getter;
 import pt.simdea.gmlrva.lib.GenericMultipleLayoutAdapter;
 import pt.simdea.gmlrva.lib.IGenericRecyclerViewLayout;
 import pt.simdea.gmlrva.lib.animation.GenericItemAnimator;
-import pt.simdea.gmlrva.lib.animation.IAnimatedViewHolder;
+import pt.simdea.gmlrva.lib.animation.helpers.IAnimatedViewHolder;
 import pt.simdea.gmlrva.sample.R;
 import pt.simdea.gmlrva.sample.data.ClickListener;
+import pt.simdea.gmlrva.sample.layouts.animation.ViewHolderAnimationHelper;
 
 import static pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation.ADD_ANIMATION_FINISHED;
+import static pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation.CHANGE_ANIMATION_FINISHED;
 import static pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation.REMOVE_ANIMATION_FINISHED;
 import static pt.simdea.gmlrva.lib.utilities.GMLRVAConstants.UNSUPPORTED_ERROR;
 import static pt.simdea.gmlrva.sample.layouts.GenericRecyclerViewLayoutTypes.SINGLE_TEXT_ITEM;
@@ -95,17 +98,23 @@ public class SingleTextItemLayout
 
         /** {@inheritDoc} */
         @Override
+        public AnimatorSet runChangeAnimation(@NonNull final GenericItemAnimator listener) {
+            return ViewHolderAnimationHelper.runTestChangeAnimation(this, mTitle, listener);
+        }
+
+        /** {@inheritDoc} */
+        @Override
         public void onClick(@NonNull final View v) {
             final int viewId = v.getId();
             if (viewId == mTitle.getId()) {
-                handleCoverClick();
+                handleTitleClick();
             } else {
                 throw new UnsupportedOperationException(UNSUPPORTED_ERROR);
             }
         }
 
         /** Procedure meant to handle a Single Text Layout click action. */
-        private void handleCoverClick() {
+        private void handleTitleClick() {
             Toast.makeText(itemView.getContext(), "Title Click!", Toast.LENGTH_SHORT).show();
             if (mListener != null) {
                 mListener.onClick();

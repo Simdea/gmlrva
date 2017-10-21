@@ -1,6 +1,10 @@
-package pt.simdea.gmlrva.lib.animation;
+package pt.simdea.gmlrva.lib.animation.helpers;
 
+import android.animation.AnimatorSet;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
+import pt.simdea.gmlrva.lib.animation.GenericItemAnimator;
 
 /**
  * Animated RecyclerView ViewHolder Specification Interface.
@@ -25,5 +29,12 @@ public interface IAnimatedViewHolder {
      * @param listener the {@link GenericItemAnimator} instance orchestrating the animations.
      */
     void runRemoveAnimation(@NonNull final GenericItemAnimator listener);
+
+    /**
+     * Procedure meant to handle change animations for the RecyclerView ViewHolder.
+     * @param listener the {@link GenericItemAnimator} instance orchestrating the animations.
+     */
+    @Nullable
+    AnimatorSet runChangeAnimation(@NonNull final GenericItemAnimator listener);
 
 }

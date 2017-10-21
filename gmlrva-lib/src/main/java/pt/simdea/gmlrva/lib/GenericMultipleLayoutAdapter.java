@@ -32,7 +32,7 @@ import static pt.simdea.gmlrva.lib.diff.GenericPayload.UPDATE_ITEM;
  * Simdea © All Rights Reserved.
  * andre.rosa@simdea.pt
  */
-@SuppressWarnings({"unused", "unchecked"})
+@SuppressWarnings({"unused", "unchecked", "WeakerAccess"})
 public class GenericMultipleLayoutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     /* Adapter Variables */
@@ -207,6 +207,23 @@ public class GenericMultipleLayoutAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     /**
+     * Procedure meant to update a Generic Layout Implementation item on this adapter's data set.
+     * @param item a Generic Layout Implementation item to be updated.
+     *             See {@link IGenericRecyclerViewLayout} for more information.
+     * @param holderInfoAction an Integer value representing the custom animation that should be executed in this
+     *                         update.
+     */
+    @UiThread
+    public void updateItem(@NonNull final IGenericRecyclerViewLayout item,
+                           @IntRange(from = 0) final int holderInfoAction) {
+        final List<IGenericRecyclerViewLayout> newList
+                = new ArrayList<>(mPendingUpdates.isEmpty() ? mDataSet : mPendingUpdates.peekLast());
+        if (!newList.isEmpty() && newList.contains(item)) {
+            notifyItemChanged(newList.indexOf(item), holderInfoAction);
+        }
+    }
+
+    /**
      * Procedure meant to prepare an update this adapter's entire data set.
      * This procedure checks for the changes made to this adapter's data set and applies these changes exclusively,
      * meaning there are no wasted operations.
@@ -267,15 +284,27 @@ public class GenericMultipleLayoutAdapter extends RecyclerView.Adapter<RecyclerV
 
     /**
      * Procedure meant to apply a given payload to this adapter's data set.
-     * @param payloads the payload bundle object with the updates.
+     * @param payloads the payload list object with the updates.
      * @param position the adapter's position to be updated.
      */
     private void applyPayloads(@NonNull final List<Object> payloads, final int position) {
-        final Bundle payload = (Bundle) payloads.get(0);
-        if (payload != null && payload.keySet() != null) {
-            for (final String key : payload.keySet()) {
+        for (final Object payload : payloads) {
+            if (payload instanceof Bundle) {
+                applyBundledPayloads((Bundle) payloads.get(0), position);
+            }
+        }
+    }
+
+    /**
+     * Procedure meant to apply a {@link DiffUtil} result payload to this adapter's data set.
+     * @param bundledPayloads the {@link Bundle} list object with the updates.
+     * @param position the adapter's position to be updated.
+     */
+    private void applyBundledPayloads(@Nullable final Bundle bundledPayloads, final int position) {
+        if (bundledPayloads != null && bundledPayloads.keySet() != null) {
+            for (final String key : bundledPayloads.keySet()) {
                 if (UPDATE_ITEM.equals(key)) {
-                    applyPayloadChange(position, payload, key);
+                    applyPayloadChange(position, bundledPayloads, key);
                 }
             }
         }

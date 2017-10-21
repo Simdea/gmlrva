@@ -5,18 +5,24 @@
 package pt.simdea.gmlrva.sample.layouts.animation;
 
 import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.TextView;
 
 import pt.simdea.gmlrva.lib.IGenericRecyclerViewLayout;
 import pt.simdea.gmlrva.lib.animation.GenericItemAnimator;
 import pt.simdea.gmlrva.lib.utilities.GMLRVAConstants;
 import pt.simdea.gmlrva.lib.utilities.ViewUtils;
+import pt.simdea.gmlrva.sample.layouts.holders.SingleTextItemLayout;
 
 import static pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation.ADD_ANIMATION_FINISHED;
+import static pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation.CHANGE_ANIMATION_FINISHED;
 import static pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation.REMOVE_ANIMATION_FINISHED;
 
 /**
@@ -109,6 +115,24 @@ public final class ViewHolderAnimationHelper {
                             /* Do nothing here */
                     }
                 }).start();
+    }
+
+    public static AnimatorSet runTestChangeAnimation(@NonNull final RecyclerView.ViewHolder holder,
+                                              @NonNull final View itemView,
+                                              @NonNull final GenericItemAnimator listener) {
+        final ObjectAnimator oldTextRotate = ObjectAnimator.ofFloat(itemView, View.ROTATION_X, 0, 90);
+        final ObjectAnimator newTextRotate = ObjectAnimator.ofFloat(itemView, View.ROTATION_X, -90, 0);
+        final AnimatorSet textAnim = new AnimatorSet();
+
+        textAnim.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(@NonNull final Animator animation) {
+                listener.onAnimationFinished(holder, CHANGE_ANIMATION_FINISHED);
+            }
+        });
+
+        textAnim.playSequentially(oldTextRotate, newTextRotate);
+        return textAnim;
     }
 
 }

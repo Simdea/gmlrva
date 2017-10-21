@@ -4,8 +4,10 @@
 
 package pt.simdea.gmlrva.sample.layouts.holders;
 
+import android.animation.AnimatorSet;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -20,11 +22,12 @@ import lombok.Getter;
 import pt.simdea.gmlrva.lib.GenericMultipleLayoutAdapter;
 import pt.simdea.gmlrva.lib.IGenericRecyclerViewLayout;
 import pt.simdea.gmlrva.lib.animation.GenericItemAnimator;
-import pt.simdea.gmlrva.lib.animation.IAnimatedViewHolder;
+import pt.simdea.gmlrva.lib.animation.helpers.IAnimatedViewHolder;
 import pt.simdea.gmlrva.lib.utilities.GenericUtils;
 import pt.simdea.gmlrva.sample.R;
 
 import static pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation.ADD_ANIMATION_FINISHED;
+import static pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation.CHANGE_ANIMATION_FINISHED;
 import static pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation.REMOVE_ANIMATION_FINISHED;
 import static pt.simdea.gmlrva.sample.layouts.GenericRecyclerViewLayoutTypes.CAROUSEL_ITEM_CATEGORY_WITH_OPTIONS;
 
@@ -104,6 +107,14 @@ public class CarouselCategoryItemWithOptionLayout
         @Override
         public void runRemoveAnimation(@NonNull final GenericItemAnimator listener) {
             listener.onAnimationFinished(this, REMOVE_ANIMATION_FINISHED);
+        }
+
+        /** {@inheritDoc} */
+        @Nullable
+        @Override
+        public AnimatorSet runChangeAnimation(@NonNull final GenericItemAnimator listener) {
+            listener.onAnimationFinished(this, CHANGE_ANIMATION_FINISHED);
+            return null;
         }
 
         /**
