@@ -21,6 +21,7 @@ public final class GMLRVAConstants {
     /**
      * Instantiates a new GMLRVAConstants.
      * Private to prevent instantiation.
+     * @throws AssertionError if this constructor is ever called. Utility classes should not be instantiated.
      */
     private GMLRVAConstants() {
         throw new AssertionError(ASSERTION_ERROR); // Throw an exception if this *is* ever called

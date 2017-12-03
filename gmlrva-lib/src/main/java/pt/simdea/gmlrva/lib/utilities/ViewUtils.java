@@ -29,6 +29,7 @@ public final class ViewUtils {
     /**
      * Instantiates a new ViewUtil.
      * Private to prevent instantiation.
+     * @throws AssertionError if this constructor is ever called. Utility classes should not be instantiated.
      */
     private ViewUtils() {
         throw new AssertionError(GMLRVAConstants.ASSERTION_ERROR);  // Throw an exception if this *is* ever called
@@ -42,10 +43,12 @@ public final class ViewUtils {
     @IntRange(from = 0) public static int getDeviceScreenHeight(@NonNull final Context context) {
         if (sDeviceScreenHeight == 0) {
             final WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-            final Display display = windowManager.getDefaultDisplay();
-            final Point size = new Point();
-            display.getSize(size);
-            sDeviceScreenHeight = size.y;
+            if (windowManager != null) {
+                final Display display = windowManager.getDefaultDisplay();
+                final Point size = new Point();
+                display.getSize(size);
+                sDeviceScreenHeight = size.y;
+            }
         }
         return sDeviceScreenHeight;
     }
@@ -58,10 +61,12 @@ public final class ViewUtils {
     @IntRange(from = 0) public static int getDeviceScreenWidth(@NonNull final Context context) {
         if (sDeviceScreenWidth == 0) {
             final WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-            final Display display = windowManager.getDefaultDisplay();
-            final Point size = new Point();
-            display.getSize(size);
-            sDeviceScreenWidth = size.x;
+            if (windowManager != null) {
+                final Display display = windowManager.getDefaultDisplay();
+                final Point size = new Point();
+                display.getSize(size);
+                sDeviceScreenWidth = size.x;
+            }
         }
         return sDeviceScreenWidth;
     }

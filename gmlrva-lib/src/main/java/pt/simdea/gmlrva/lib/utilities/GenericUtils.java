@@ -20,6 +20,7 @@ public final class GenericUtils {
     /**
      * Instantiates a new GenericUtils.
      * Private to prevent instantiation.
+     * @throws AssertionError if this constructor is ever called. Utility classes should not be instantiated.
      */
     private GenericUtils() {
         throw new AssertionError(GMLRVAConstants.ASSERTION_ERROR); // Throw an exception if this *is* ever called
