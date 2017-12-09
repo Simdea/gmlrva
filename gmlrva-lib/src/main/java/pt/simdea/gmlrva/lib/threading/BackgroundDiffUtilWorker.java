@@ -23,7 +23,8 @@ import pt.simdea.gmlrva.lib.diff.GmlrvaDiffCallback;
  * Simdea © All Rights Reserved.
  * paulo.ribeiro@simdea.pt
  */
-@AllArgsConstructor public final class BackgroundDiffUtilWorker implements Runnable {
+@AllArgsConstructor
+public final class BackgroundDiffUtilWorker implements Runnable {
 
     private final List<? extends IGenericRecyclerViewLayout> mOldDataSet;
     private final List<? extends IGenericRecyclerViewLayout> mNewDataSet;
@@ -31,7 +32,9 @@ import pt.simdea.gmlrva.lib.diff.GmlrvaDiffCallback;
     private final GenericMultipleLayoutAdapter mAdapter;
 
     /** {@inheritDoc} */
-    @WorkerThread @Override public void run() {
+    @WorkerThread
+    @Override
+    public void run() {
         final DiffUtil.DiffResult diffResult
                 = DiffUtil.calculateDiff(new GmlrvaDiffCallback(this.mOldDataSet, this.mNewDataSet));
         if (mContext != null) {

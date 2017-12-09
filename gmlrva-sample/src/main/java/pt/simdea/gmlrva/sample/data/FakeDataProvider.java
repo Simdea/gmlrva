@@ -4,6 +4,7 @@
 
 package pt.simdea.gmlrva.sample.data;
 
+import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 
 import java.util.Random;
@@ -17,7 +18,8 @@ import lombok.NoArgsConstructor;
  * Simdea © All Rights Reserved.
  * paulo.ribeiro@simdea.pt
  */
-@NoArgsConstructor public final class FakeDataProvider {
+@NoArgsConstructor
+public final class FakeDataProvider {
 
     private static final int MAX_LENGTH = 10;
 
@@ -25,7 +27,8 @@ import lombok.NoArgsConstructor;
      * Procedure meant to return a {@link FakeDataObject} instance, containing the randomly generated data.
      * @return the {@link FakeDataObject} instance, containing the randomly generated data.
      */
-    @NonNull public FakeDataObject provideFakeData() {
+    @NonNull
+    public FakeDataObject provideFakeData() {
         final Random random = new Random();
         return new FakeDataObject(RandomStringGenerator.getRandomString(random.nextInt(MAX_LENGTH)),
                 RandomStringGenerator.getRandomString(random.nextInt(MAX_LENGTH)));
@@ -41,7 +44,8 @@ import lombok.NoArgsConstructor;
          * @param sizeOfRandomString the desired size of the resulting {@link String} object.
          * @return the {@link String} object containing randomly generated output.
          */
-        @NonNull private static String getRandomString(final int sizeOfRandomString) {
+        @NonNull
+        private static String getRandomString(@IntRange(from = 0) final int sizeOfRandomString) {
             final Random random = new Random();
             final StringBuilder sb = new StringBuilder(sizeOfRandomString);
             for (int i = 0; i < sizeOfRandomString; i++) {

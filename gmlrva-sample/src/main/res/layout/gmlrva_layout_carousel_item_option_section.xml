@@ -7,6 +7,7 @@
     android:layout_height="120dp"
     android:background="@android:color/holo_red_dark"
     android:clickable="true"
+    android:focusable="true"
     android:visibility="gone">
 
     <LinearLayout
@@ -24,6 +25,7 @@
             android:layout_height="match_parent"
             android:background="@android:color/holo_blue_bright"
             android:layout_weight="5"
+            android:focusable="true"
             android:clickable="true"/>
 
         <View
@@ -32,6 +34,7 @@
             android:layout_height="match_parent"
             android:background="@android:color/holo_green_light"
             android:layout_weight="5"
+            android:focusable="true"
             android:clickable="true"/>
 
     </LinearLayout>

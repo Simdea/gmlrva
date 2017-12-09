@@ -6,7 +6,6 @@ apply from: "$project.rootDir/tools/script-check.gradle"
 android {
 
     defaultPublishConfig 'release'
-    publishNonDefault true
     resourcePrefix project.RESOURCE_PREFIX
 
     compileSdkVersion project.COMPILE_SDK_VERSION.toInteger()
@@ -22,7 +21,6 @@ android {
             debuggable true
             zipAlignEnabled true
             minifyEnabled true
-            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'),
                     "$project.rootDir/tools/rules-proguard-debug.pro"
         }
@@ -31,7 +29,6 @@ android {
             debuggable false
             zipAlignEnabled true
             minifyEnabled true
-            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), "$project.rootDir/tools/rules-proguard.pro"
         }
     }
@@ -48,14 +45,15 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     /* Google */
-    compile "com.android.support:appcompat-v7:$project.supportLibraryVersion"
-    compile "com.android.support:recyclerview-v7:$project.supportLibraryVersion"
+    api "com.android.support:appcompat-v7:$project.supportLibraryVersion"
+    api "com.android.support:recyclerview-v7:$project.supportLibraryVersion"
 
     /* Lombok */
-    provided "org.projectlombok:lombok:$project.lombokVersion"
+    compileOnly "org.projectlombok:lombok:$project.lombokVersion"
+    annotationProcessor "org.projectlombok:lombok:$project.lombokVersion"
 }
 
 project.ext {

@@ -8,8 +8,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import static pt.simdea.gmlrva.lib.utilities.GMLRVAConstants.ASSERTION_ERROR;
-
 /**
  * Auxiliary Utils class.
  *
@@ -22,9 +20,10 @@ public final class GenericUtils {
     /**
      * Instantiates a new GenericUtils.
      * Private to prevent instantiation.
+     * @throws AssertionError if this constructor is ever called. Utility classes should not be instantiated.
      */
     private GenericUtils() {
-        throw new AssertionError(ASSERTION_ERROR); // Throw an exception if this *is* ever called
+        throw new AssertionError(GMLRVAConstants.ASSERTION_ERROR); // Throw an exception if this *is* ever called
     }
 
     /**

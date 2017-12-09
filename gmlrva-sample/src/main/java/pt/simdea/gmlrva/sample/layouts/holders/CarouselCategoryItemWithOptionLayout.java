@@ -2,10 +2,12 @@
  * Copyright (c) 2017. Simdea.
  */
 
-package pt.simdea.gmlrva.sample.layouts;
+package pt.simdea.gmlrva.sample.layouts.holders;
 
+import android.animation.AnimatorSet;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -20,7 +22,11 @@ import lombok.Getter;
 import pt.simdea.gmlrva.lib.GenericMultipleLayoutAdapter;
 import pt.simdea.gmlrva.lib.IGenericRecyclerViewLayout;
 import pt.simdea.gmlrva.lib.utilities.GenericUtils;
+import pt.simdea.gmlrva.lib.animation.GenericItemAnimator;
+import pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation;
+import pt.simdea.gmlrva.lib.animation.helpers.IAnimatedViewHolder;
 import pt.simdea.gmlrva.sample.R;
+import pt.simdea.gmlrva.sample.layouts.GenericRecyclerViewLayoutTypes;
 
 /**
  * Class representing a Carousel Category Layout meant to be used on a {@link GenericMultipleLayoutAdapter}.
@@ -29,30 +35,37 @@ import pt.simdea.gmlrva.sample.R;
  * Simdea © All Rights Reserved.
  * paulo.ribeiro@simdea.pt
  */
-@AllArgsConstructor public class CarouselCategoryItemWithOptionLayout
+@AllArgsConstructor
+public class CarouselCategoryItemWithOptionLayout
         implements IGenericRecyclerViewLayout<CarouselCategoryItemWithOptionLayout.CarouselCategoryViewHolder> {
 
     private final String mCategoryTitle;
     private final List<? extends IGenericRecyclerViewLayout> mCategoryData;
     private final Context mContext;
 
-    @NonNull @Override public CarouselCategoryViewHolder createViewHolder(@NonNull final ViewGroup parent) {
+    @NonNull
+    @Override
+    public CarouselCategoryViewHolder createViewHolder(@NonNull final ViewGroup parent) {
         final View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.gmlrva_layout_carousel_category_item, parent, false);
         return new CarouselCategoryViewHolder(view);
     }
 
-    @Override public void setElements(@NonNull final CarouselCategoryViewHolder holder) {
+    @Override
+    public void setElements(@NonNull final CarouselCategoryViewHolder holder) {
         holder.getTitle().setText(mCategoryTitle);
         loadItems(holder.getItems());
     }
 
-    @NonNull @Override public Object getTag() {
+    @NonNull
+    @Override
+    public Object getTag() {
         return mCategoryTitle;
     }
 
-    @Override public int getViewType() {
-        return 2;
+    @Override
+    public int getViewType() {
+        return GenericRecyclerViewLayoutTypes.CAROUSEL_ITEM_CATEGORY_WITH_OPTIONS;
     }
 
     /**
@@ -66,9 +79,12 @@ import pt.simdea.gmlrva.sample.R;
     }
 
     /** Class meant to define the {@link RecyclerView.ViewHolder} for a Carousel Category Layout instance. */
-    class CarouselCategoryViewHolder extends RecyclerView.ViewHolder {
-        @Getter private TextView mTitle;
-        @Getter private RecyclerView mItems;
+    class CarouselCategoryViewHolder extends RecyclerView.ViewHolder implements IAnimatedViewHolder {
+
+        @Getter
+        private TextView mTitle;
+        @Getter
+        private RecyclerView mItems;
 
         /**
          * Instantiates a new CarouselCategoryViewHolder.
@@ -79,13 +95,33 @@ import pt.simdea.gmlrva.sample.R;
             bindViews(view);
         }
 
+        /** {@inheritDoc} */
+        @Override
+        public void runAddAnimation(@NonNull final GenericItemAnimator listener) {
+            listener.onAnimationFinished(this, GenericAnimationFinishedOperation.ADD_ANIMATION_FINISHED);
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public void runRemoveAnimation(@NonNull final GenericItemAnimator listener) {
+            listener.onAnimationFinished(this, GenericAnimationFinishedOperation.REMOVE_ANIMATION_FINISHED);
+        }
+
+        /** {@inheritDoc} */
+        @Nullable
+        @Override
+        public AnimatorSet runChangeAnimation(@NonNull final GenericItemAnimator listener) {
+            listener.onAnimationFinished(this, GenericAnimationFinishedOperation.CHANGE_ANIMATION_FINISHED);
+            return null;
+        }
+
         /**
          * Procedure meant to bind this {@link RecyclerView.ViewHolder}'s views.
          * @param view this {@link CarouselCategoryViewHolder}'s root view.
          */
         private void bindViews(@NonNull final View view) {
-            mTitle = (TextView) view.findViewById(R.id.tvCarouselCategoryItemTitle);
-            mItems = (RecyclerView) view.findViewById(R.id.rvCarouselCategoryItemData);
+            mTitle = view.findViewById(R.id.tvCarouselCategoryItemTitle);
+            mItems = view.findViewById(R.id.rvCarouselCategoryItemData);
         }
 
     }
