@@ -24,7 +24,8 @@ licenses:
   - 'google-gdk-license-.+'
 
 before_script:
-  - android update sdk --no-ui --all --filter build-tools-26.0.2,android-26,extra-android-m2repository -y
+  - android update sdk --no-ui --all --filter build-tools-26.0.2,android-26,extra-android-m2repository
+  - echo y
   - android list targets
   - echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a
   - emulator -avd test -no-audio -no-window &
