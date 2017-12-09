@@ -19,14 +19,13 @@ import lombok.Getter;
 import pt.simdea.gmlrva.lib.GenericMultipleLayoutAdapter;
 import pt.simdea.gmlrva.lib.IGenericRecyclerViewLayout;
 import pt.simdea.gmlrva.lib.animation.GenericItemAnimator;
+import pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation;
 import pt.simdea.gmlrva.lib.animation.helpers.IAnimatedViewHolder;
+import pt.simdea.gmlrva.lib.utilities.GMLRVAConstants;
 import pt.simdea.gmlrva.sample.R;
 import pt.simdea.gmlrva.sample.data.ClickListener;
+import pt.simdea.gmlrva.sample.layouts.GenericRecyclerViewLayoutTypes;
 import pt.simdea.gmlrva.sample.layouts.animation.ViewHolderAnimationHelper;
-
-import static pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation.CHANGE_ANIMATION_FINISHED;
-import static pt.simdea.gmlrva.lib.utilities.GMLRVAConstants.UNSUPPORTED_ERROR;
-import static pt.simdea.gmlrva.sample.layouts.GenericRecyclerViewLayoutTypes.SINGLE_IMAGE_ITEM;
 
 /**
  * Class representing a Single Image Layout meant to be used on a {@link GenericMultipleLayoutAdapter}.
@@ -39,7 +38,8 @@ import static pt.simdea.gmlrva.sample.layouts.GenericRecyclerViewLayoutTypes.SIN
 public class SingleImageItemLayout
         implements IGenericRecyclerViewLayout<SingleImageItemLayout.SingleImageItemViewHolder> {
 
-    protected final int mCoverResource;
+    private final int mCoverResource;
+    @SuppressWarnings("WeakerAccess")
     protected final ClickListener mListener;
 
     @NonNull
@@ -63,7 +63,7 @@ public class SingleImageItemLayout
 
     @Override
     public int getViewType() {
-        return SINGLE_IMAGE_ITEM;
+        return GenericRecyclerViewLayoutTypes.SINGLE_IMAGE_ITEM;
     }
 
     /** Class meant to define the {@link RecyclerView.ViewHolder} for a Single Image Layout instance. */
@@ -99,7 +99,7 @@ public class SingleImageItemLayout
         @Nullable
         @Override
         public AnimatorSet runChangeAnimation(@NonNull final GenericItemAnimator listener) {
-            listener.onAnimationFinished(this, CHANGE_ANIMATION_FINISHED);
+            listener.onAnimationFinished(this, GenericAnimationFinishedOperation.CHANGE_ANIMATION_FINISHED);
             return null;
         }
 
@@ -110,7 +110,7 @@ public class SingleImageItemLayout
             if (viewId == mCover.getId()) {
                 handleCoverClick();
             } else {
-                throw new UnsupportedOperationException(UNSUPPORTED_ERROR);
+                throw new UnsupportedOperationException(GMLRVAConstants.UNSUPPORTED_ERROR);
             }
         }
 
@@ -132,7 +132,7 @@ public class SingleImageItemLayout
          * @param view this {@link SingleImageItemViewHolder}'s root view.
          */
         private void bindViews(@NonNull final View view) {
-            mCover = (ImageView) view.findViewById(R.id.ivSingleImageItemLayoutCover);
+            mCover = view.findViewById(R.id.ivSingleImageItemLayoutCover);
         }
 
     }

@@ -13,13 +13,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
-import android.widget.TextView;
 
 import pt.simdea.gmlrva.lib.IGenericRecyclerViewLayout;
 import pt.simdea.gmlrva.lib.animation.GenericItemAnimator;
 import pt.simdea.gmlrva.lib.utilities.GMLRVAConstants;
 import pt.simdea.gmlrva.lib.utilities.ViewUtils;
-import pt.simdea.gmlrva.sample.layouts.holders.SingleTextItemLayout;
 
 import static pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation.ADD_ANIMATION_FINISHED;
 import static pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation.CHANGE_ANIMATION_FINISHED;
@@ -59,7 +57,7 @@ public final class ViewHolderAnimationHelper {
                 .setListener(new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationStart(@NonNull final Animator animation) {
-                            /* Do nothing here */
+                        /* Do nothing here */
                     }
 
                     @Override
@@ -69,12 +67,12 @@ public final class ViewHolderAnimationHelper {
 
                     @Override
                     public void onAnimationCancel(@NonNull final Animator animation) {
-                            /* Do nothing here */
+                        /* Do nothing here */
                     }
 
                     @Override
                     public void onAnimationRepeat(@NonNull final Animator animation) {
-                            /* Do nothing here */
+                        /* Do nothing here */
                     }
                 }).start();
     }
@@ -117,6 +115,13 @@ public final class ViewHolderAnimationHelper {
                 }).start();
     }
 
+    /**
+     * Procedure meant to execute a change animation for the desired {@link RecyclerView.ViewHolder}.
+     * @param holder the {@link RecyclerView} item's {@link RecyclerView.ViewHolder}.
+     * @param itemView the {@link RecyclerView.ViewHolder}'s root view.
+     * @param listener the {@link GenericItemAnimator} instance orchestrating the animations.
+     * @return the resulting {@link AnimatorSet} for the {@link RecyclerView} item's {@link RecyclerView.ViewHolder}.
+     */
     public static AnimatorSet runTestChangeAnimation(@NonNull final RecyclerView.ViewHolder holder,
                                               @NonNull final View itemView,
                                               @NonNull final GenericItemAnimator listener) {

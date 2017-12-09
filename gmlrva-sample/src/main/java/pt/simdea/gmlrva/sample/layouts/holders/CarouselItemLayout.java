@@ -20,14 +20,11 @@ import lombok.Getter;
 import pt.simdea.gmlrva.lib.GenericMultipleLayoutAdapter;
 import pt.simdea.gmlrva.lib.IGenericRecyclerViewLayout;
 import pt.simdea.gmlrva.lib.animation.GenericItemAnimator;
+import pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation;
 import pt.simdea.gmlrva.lib.animation.helpers.IAnimatedViewHolder;
+import pt.simdea.gmlrva.lib.utilities.GMLRVAConstants;
 import pt.simdea.gmlrva.sample.R;
-
-import static pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation.ADD_ANIMATION_FINISHED;
-import static pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation.CHANGE_ANIMATION_FINISHED;
-import static pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation.REMOVE_ANIMATION_FINISHED;
-import static pt.simdea.gmlrva.lib.utilities.GMLRVAConstants.UNSUPPORTED_ERROR;
-import static pt.simdea.gmlrva.sample.layouts.GenericRecyclerViewLayoutTypes.CAROUSEL_ITEM;
+import pt.simdea.gmlrva.sample.layouts.GenericRecyclerViewLayoutTypes;
 
 /**
  * Class representing a Carousel Item Layout meant to be used on a {@link GenericMultipleLayoutAdapter}.
@@ -67,7 +64,7 @@ public class CarouselItemLayout
 
     @Override
     public int getViewType() {
-        return CAROUSEL_ITEM;
+        return GenericRecyclerViewLayoutTypes.CAROUSEL_ITEM;
     }
 
     /** Class meant to define the {@link RecyclerView.ViewHolder} for a Carousel Item Layout instance. */
@@ -92,20 +89,20 @@ public class CarouselItemLayout
         /** {@inheritDoc} */
         @Override
         public void runAddAnimation(@NonNull final GenericItemAnimator listener) {
-            listener.onAnimationFinished(this, ADD_ANIMATION_FINISHED);
+            listener.onAnimationFinished(this, GenericAnimationFinishedOperation.ADD_ANIMATION_FINISHED);
         }
 
         /** {@inheritDoc} */
         @Override
         public void runRemoveAnimation(@NonNull final GenericItemAnimator listener) {
-            listener.onAnimationFinished(this, REMOVE_ANIMATION_FINISHED);
+            listener.onAnimationFinished(this, GenericAnimationFinishedOperation.REMOVE_ANIMATION_FINISHED);
         }
 
         /** {@inheritDoc} */
         @Nullable
         @Override
         public AnimatorSet runChangeAnimation(@NonNull final GenericItemAnimator listener) {
-            listener.onAnimationFinished(this, CHANGE_ANIMATION_FINISHED);
+            listener.onAnimationFinished(this, GenericAnimationFinishedOperation.CHANGE_ANIMATION_FINISHED);
             return null;
         }
 
@@ -120,7 +117,7 @@ public class CarouselItemLayout
             } else if (viewId == mCover.getId()) {
                 handleCoverClick();
             } else {
-                throw new UnsupportedOperationException(UNSUPPORTED_ERROR);
+                throw new UnsupportedOperationException(GMLRVAConstants.UNSUPPORTED_ERROR);
             }
         }
 
@@ -152,9 +149,9 @@ public class CarouselItemLayout
          * @param view this {@link CarouselItemViewHolder}'s root view.
          */
         private void bindViews(@NonNull final View view) {
-            mTitle = (TextView) view.findViewById(R.id.tvCarouselItemTitle);
-            mDescription = (TextView) view.findViewById(R.id.tvCarouselItemDescription);
-            mCover = (ImageView) view.findViewById(R.id.ivCarouselItemCover);
+            mTitle = view.findViewById(R.id.tvCarouselItemTitle);
+            mDescription = view.findViewById(R.id.tvCarouselItemDescription);
+            mCover = view.findViewById(R.id.ivCarouselItemCover);
         }
 
     }

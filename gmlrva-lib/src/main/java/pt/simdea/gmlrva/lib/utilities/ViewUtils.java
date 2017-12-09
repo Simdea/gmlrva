@@ -41,13 +41,15 @@ public final class ViewUtils {
      * @return an Integer value representing the device's screen height, in pixels.
      */
     @IntRange(from = 0) public static int getDeviceScreenHeight(@NonNull final Context context) {
-        if (sDeviceScreenHeight == 0) {
-            final WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-            if (windowManager != null) {
-                final Display display = windowManager.getDefaultDisplay();
-                final Point size = new Point();
-                display.getSize(size);
-                sDeviceScreenHeight = size.y;
+        synchronized (ViewUtils.class) {
+            if (sDeviceScreenHeight == 0) {
+                final WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+                if (windowManager != null) {
+                    final Display display = windowManager.getDefaultDisplay();
+                    final Point size = new Point();
+                    display.getSize(size);
+                    sDeviceScreenHeight = size.y;
+                }
             }
         }
         return sDeviceScreenHeight;
@@ -59,13 +61,15 @@ public final class ViewUtils {
      * @return an Integer value representing the device's screen width, in pixels.
      */
     @IntRange(from = 0) public static int getDeviceScreenWidth(@NonNull final Context context) {
-        if (sDeviceScreenWidth == 0) {
-            final WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-            if (windowManager != null) {
-                final Display display = windowManager.getDefaultDisplay();
-                final Point size = new Point();
-                display.getSize(size);
-                sDeviceScreenWidth = size.x;
+        synchronized (ViewUtils.class) {
+            if (sDeviceScreenWidth == 0) {
+                final WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+                if (windowManager != null) {
+                    final Display display = windowManager.getDefaultDisplay();
+                    final Point size = new Point();
+                    display.getSize(size);
+                    sDeviceScreenWidth = size.x;
+                }
             }
         }
         return sDeviceScreenWidth;

@@ -1,8 +1,13 @@
+/*
+ * Copyright (c) 2017. Simdea.
+ */
+
 package pt.simdea.gmlrva.lib.animation.helpers;
 
 import android.animation.AnimatorSet;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
 
 import pt.simdea.gmlrva.lib.animation.GenericItemAnimator;
 
@@ -33,6 +38,7 @@ public interface IAnimatedViewHolder {
     /**
      * Procedure meant to handle change animations for the RecyclerView ViewHolder.
      * @param listener the {@link GenericItemAnimator} instance orchestrating the animations.
+     * @return the resulting {@link AnimatorSet} for the {@link RecyclerView} item's {@link RecyclerView.ViewHolder}.
      */
     @Nullable
     AnimatorSet runChangeAnimation(@NonNull final GenericItemAnimator listener);

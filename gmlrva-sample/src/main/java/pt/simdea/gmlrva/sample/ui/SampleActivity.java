@@ -32,7 +32,7 @@ import pt.simdea.gmlrva.sample.layouts.holders.CarouselItemWithOptionLayout;
 import pt.simdea.gmlrva.sample.layouts.holders.SingleImageItemLayout;
 import pt.simdea.gmlrva.sample.layouts.holders.SingleTextItemLayout;
 
-import static pt.simdea.gmlrva.sample.layouts.animation.ChangeAnimationTypes.TOAST_TRIGGER;
+import static pt.simdea.gmlrva.sample.layouts.animation.ChangeAnimationTypes.ROTATION_TRIGGER;
 
 /**
  * Class responsible for the Sample Screen for the (GMLRVA) library.
@@ -87,6 +87,7 @@ public class SampleActivity extends AppCompatActivity implements ClickListener {
         }
     }
 
+    /** {@inheritDoc} */
     @Override
     public void onClick() {
         if (mGenericTest != null) {
@@ -94,9 +95,7 @@ public class SampleActivity extends AppCompatActivity implements ClickListener {
             final GenericMultipleLayoutAdapter adapter = (GenericMultipleLayoutAdapter) mGenericTest.getAdapter();
             final IGenericRecyclerViewLayout item = adapter.get(1);
             if (item != null) {
-//                adapter.remove(item);
-//                adapter.add(item);
-                adapter.updateItem(item, TOAST_TRIGGER);
+                adapter.updateItem(item, ROTATION_TRIGGER);
             }
         }
     }

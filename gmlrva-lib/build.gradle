@@ -6,7 +6,6 @@ apply from: "$project.rootDir/tools/script-check.gradle"
 android {
 
     defaultPublishConfig 'release'
-    publishNonDefault true
     resourcePrefix project.RESOURCE_PREFIX
 
     compileSdkVersion project.COMPILE_SDK_VERSION.toInteger()

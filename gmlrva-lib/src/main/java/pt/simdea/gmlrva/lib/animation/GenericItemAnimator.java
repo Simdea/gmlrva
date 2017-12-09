@@ -35,7 +35,7 @@ import static pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOpe
  */
 public abstract class GenericItemAnimator extends DefaultItemAnimator implements IAnimationFinished {
 
-    // TODO: Add in progress animations to this Map!
+    /* View Holder Animations Map */
     private final ArrayMap<RecyclerView.ViewHolder, AnimatorSet> mCustomAnimationsMap = new ArrayMap<>();
 
     /**
@@ -118,6 +118,7 @@ public abstract class GenericItemAnimator extends DefaultItemAnimator implements
      * @param payloads The payload list that was previously passed to
      *                 {@link RecyclerView.Adapter#notifyItemChanged(int, Object)} or
      *                 {@link RecyclerView.Adapter#notifyItemRangeChanged(int, int, Object)}.
+     * @return an ItemHolderInfo instance that preserves necessary information about the ViewHolder.
      */
     @NonNull
     @Override
@@ -141,10 +142,14 @@ public abstract class GenericItemAnimator extends DefaultItemAnimator implements
      * Item's whose {@link RecyclerView.ViewHolder}s implement the {@link IAnimatedViewHolder} interface will have
      * their {@link IAnimatedViewHolder#runChangeAnimation(GenericItemAnimator)} procedure called.
      *
-     * @param oldHolder TODO
-     * @param newHolder TODO
-     * @param preInfo TODO
-     * @param postInfo TODO
+     * @param oldHolder the old {@link RecyclerView} item's {@link RecyclerView.ViewHolder}. Might be the same
+     *                  instance with newHolder.
+     * @param newHolder the new {@link RecyclerView} item's {@link RecyclerView.ViewHolder}. Might be the same
+     *                  instance with oldHolder.
+     * @param preInfo The information that was returned from
+     *                {@link #recordPreLayoutInformation(RecyclerView.State, RecyclerView.ViewHolder, int, List)}.
+     * @param postInfo The information that was returned from {@link
+     *                 #recordPreLayoutInformation(RecyclerView.State, RecyclerView.ViewHolder, int, List)}.
      * @return a boolean value indicating whether the {@link RecyclerView} should use a change animation
      *         for the {@link RecyclerView.ViewHolder}.
      */
@@ -210,7 +215,17 @@ public abstract class GenericItemAnimator extends DefaultItemAnimator implements
         }
     }
 
-    // TODO!
+    /**
+     * Abstract procedure meant to dispatch the intended animations whenever
+     * {@link #animateChange(RecyclerView.ViewHolder, RecyclerView.ViewHolder, ItemHolderInfo, ItemHolderInfo)} is
+     * called.
+     * This procedure should be implement by classes extending this Item Animator base class.
+     *
+     * @param holderInfo The information that was returned from
+     *                   {@link #recordPreLayoutInformation(RecyclerView.State, RecyclerView.ViewHolder, int, List)}.
+     * @param holder the {@link RecyclerView} item's {@link RecyclerView.ViewHolder}.
+     * @return the resulting {@link AnimatorSet} for the {@link RecyclerView} item's {@link RecyclerView.ViewHolder}.
+     */
     @Nullable
     public abstract AnimatorSet handleCustomAnimation(@NonNull final GenericAnimatedViewHolderInfo holderInfo,
                                                       @NonNull final IAnimatedViewHolder holder);

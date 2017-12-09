@@ -18,16 +18,13 @@ import lombok.Getter;
 import pt.simdea.gmlrva.lib.GenericMultipleLayoutAdapter;
 import pt.simdea.gmlrva.lib.IGenericRecyclerViewLayout;
 import pt.simdea.gmlrva.lib.animation.GenericItemAnimator;
+import pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation;
 import pt.simdea.gmlrva.lib.animation.helpers.IAnimatedViewHolder;
+import pt.simdea.gmlrva.lib.utilities.GMLRVAConstants;
 import pt.simdea.gmlrva.sample.R;
 import pt.simdea.gmlrva.sample.data.ClickListener;
+import pt.simdea.gmlrva.sample.layouts.GenericRecyclerViewLayoutTypes;
 import pt.simdea.gmlrva.sample.layouts.animation.ViewHolderAnimationHelper;
-
-import static pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation.ADD_ANIMATION_FINISHED;
-import static pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation.CHANGE_ANIMATION_FINISHED;
-import static pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation.REMOVE_ANIMATION_FINISHED;
-import static pt.simdea.gmlrva.lib.utilities.GMLRVAConstants.UNSUPPORTED_ERROR;
-import static pt.simdea.gmlrva.sample.layouts.GenericRecyclerViewLayoutTypes.SINGLE_TEXT_ITEM;
 
 /**
  * Class representing a Single Text Layout meant to be used on a {@link GenericMultipleLayoutAdapter}.
@@ -40,7 +37,8 @@ import static pt.simdea.gmlrva.sample.layouts.GenericRecyclerViewLayoutTypes.SIN
 public class SingleTextItemLayout
         implements IGenericRecyclerViewLayout<SingleTextItemLayout.SingleTextItemViewHolder> {
 
-    protected final String mTextResource;
+    private final String mTextResource;
+    @SuppressWarnings("WeakerAccess")
     protected final ClickListener mListener;
 
     @NonNull
@@ -64,7 +62,7 @@ public class SingleTextItemLayout
 
     @Override
     public int getViewType() {
-        return SINGLE_TEXT_ITEM;
+        return GenericRecyclerViewLayoutTypes.SINGLE_TEXT_ITEM;
     }
 
     /** Class meant to define the {@link RecyclerView.ViewHolder} for a Single Text Layout instance. */
@@ -87,13 +85,14 @@ public class SingleTextItemLayout
         /** {@inheritDoc} */
         @Override
         public void runAddAnimation(@NonNull final GenericItemAnimator listener) {
-            listener.onAnimationFinished(this, ADD_ANIMATION_FINISHED);
+            ViewHolderAnimationHelper.runTestAddAnimation(this, itemView, listener);
+//            listener.onAnimationFinished(this, ADD_ANIMATION_FINISHED)
         }
 
         /** {@inheritDoc} */
         @Override
         public void runRemoveAnimation(@NonNull final GenericItemAnimator listener) {
-            listener.onAnimationFinished(this, REMOVE_ANIMATION_FINISHED);
+            listener.onAnimationFinished(this, GenericAnimationFinishedOperation.REMOVE_ANIMATION_FINISHED);
         }
 
         /** {@inheritDoc} */
@@ -109,7 +108,7 @@ public class SingleTextItemLayout
             if (viewId == mTitle.getId()) {
                 handleTitleClick();
             } else {
-                throw new UnsupportedOperationException(UNSUPPORTED_ERROR);
+                throw new UnsupportedOperationException(GMLRVAConstants.UNSUPPORTED_ERROR);
             }
         }
 
@@ -131,7 +130,7 @@ public class SingleTextItemLayout
          * @param view this {@link SingleTextItemViewHolder}'s root view.
          */
         private void bindViews(@NonNull final View view) {
-            mTitle = (TextView) view.findViewById(R.id.tvSingleTextItemLayoutTitle);
+            mTitle = view.findViewById(R.id.tvSingleTextItemLayoutTitle);
         }
 
     }
