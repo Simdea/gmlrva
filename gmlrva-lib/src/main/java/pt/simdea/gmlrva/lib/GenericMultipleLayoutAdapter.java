@@ -82,6 +82,18 @@ public class GenericMultipleLayoutAdapter extends RecyclerView.Adapter<RecyclerV
         mDataSet.get(position).setElements(holder);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onViewRecycled(RecyclerView.ViewHolder holder) {
+        if (holder != null && holder instanceof IViewHolder) {
+            ((IViewHolder) holder).recycle();
+        }
+
+        super.onViewRecycled(holder);
+    }
+
     /** {@inheritDoc} */
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, @IntRange(from = 0) final int position,
