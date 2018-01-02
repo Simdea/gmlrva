@@ -4,6 +4,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
 
+## [1.4.3] - 2017-01-02
+### Added
+ - [#13](https://github.com/Simdea/gmlrva/issues/13) Added onViewRecycled option to cleanup elements for better performance of recycler view.
+ - [#8](https://github.com/Simdea/gmlrva/issues/8) Added a base architecture for adding [RecyclerView Item Decorations](https://developer.android.com/reference/android/support/v7/widget/RecyclerView.ItemDecoration.html).
+
 ## [1.4.2] - 2017-10-06
 ### Added
 - New carousel item with a single text sample.
