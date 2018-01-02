@@ -22,7 +22,7 @@ import java.io.Serializable;
  * andre.rosa@simdea.pt
  */
 @SuppressWarnings("WeakerAccess")
-public interface IGenericRecyclerViewLayout<T extends RecyclerView.ViewHolder> extends Serializable {
+public interface IGenericRecyclerViewLayout<T extends RecyclerView.ViewHolder & IViewHolder> extends Serializable {
 
     /**
      * Procedure meant to handle the ViewHolder instance creation.
