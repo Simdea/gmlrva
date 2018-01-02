@@ -20,6 +20,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import pt.simdea.gmlrva.lib.GenericMultipleLayoutAdapter;
 import pt.simdea.gmlrva.lib.IGenericRecyclerViewLayout;
+import pt.simdea.gmlrva.lib.IViewHolder;
 import pt.simdea.gmlrva.lib.animation.GenericItemAnimator;
 import pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation;
 import pt.simdea.gmlrva.lib.animation.helpers.IAnimatedViewHolder;
@@ -71,7 +72,7 @@ public class CarouselItemLayout
     }
 
     /** Class meant to define the {@link RecyclerView.ViewHolder} for a Carousel Item Layout instance. */
-    class CarouselItemViewHolder extends RecyclerView.ViewHolder implements IAnimatedViewHolder, View.OnClickListener {
+    class CarouselItemViewHolder extends RecyclerView.ViewHolder implements IAnimatedViewHolder, View.OnClickListener, IViewHolder {
 
         @Getter
         private TextView mTitle;
@@ -158,6 +159,10 @@ public class CarouselItemLayout
             mCover = view.findViewById(R.id.ivCarouselItemCover);
         }
 
+        @Override
+        public void recycle() {
+
+        }
     }
 
 }
