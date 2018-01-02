@@ -24,49 +24,39 @@ android {
     }
 
     buildTypes {
-        dev {
-            initWith debug
+        debug {
             debuggable true
             zipAlignEnabled true
             minifyEnabled true
-            shrinkResources false
             versionNameSuffix project.DEV_VERSION_NAME_SUFFIX
             proguardFiles getDefaultProguardFile('proguard-android.txt'),
                     "$project.rootDir/tools/rules-proguard-debug.pro"
         }
 
-        prod {
-            initWith release
+        release {
             debuggable false
             zipAlignEnabled true
             minifyEnabled true
-            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), "$project.rootDir/tools/rules-proguard.pro"
         }
     }
 
 }
 
-android.variantFilter { variant ->
-    if (variant.buildType.name.endsWith('release') || variant.buildType.name.endsWith('debug')) {
-        variant.setIgnore(true);
-    }
-}
-
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     /* Google */
-    compile "com.android.support:design:$project.supportLibraryVersion"
+    implementation "com.android.support:design:$project.supportLibraryVersion"
 
     /* Lombok */
-    provided "org.projectlombok:lombok:$project.lombokVersion"
+    compileOnly "org.projectlombok:lombok:$project.lombokVersion"
+    annotationProcessor "org.projectlombok:lombok:$project.lombokVersion"
 
     /* Retrofit & OkHttp */
-    compile 'com.squareup.retrofit2:retrofit:2.3.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
 
     /* GMLRVA Library */
-    devCompile project(path: ':gmlrva-lib', configuration: 'debug')
-    prodCompile project(path: ':gmlrva-lib', configuration: 'release')
+    implementation project(path: ':gmlrva-lib')
 }

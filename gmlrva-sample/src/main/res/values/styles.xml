@@ -13,11 +13,4 @@
         <item name="android:windowBackground">@drawable/gmlrva_splash_background</item>
     </style>
 
-    <!-- Custom No Status Bar theme. -->
-    <style name="GmlrvaNoStatusBarTheme" parent="GmlrvaAppTheme">
-        <!-- Customize your theme here. -->
-        <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:windowTranslucentNavigation">true</item>
-    </style>
-
 </resources>

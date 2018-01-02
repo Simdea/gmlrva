@@ -6,29 +6,40 @@ package pt.simdea.gmlrva.sample.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.DashPathEffect;
+import android.graphics.Paint;
 import android.os.Bundle;
+import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import pt.simdea.gmlrva.lib.GenericMultipleLayoutAdapter;
 import pt.simdea.gmlrva.lib.IGenericRecyclerViewLayout;
+import pt.simdea.gmlrva.lib.decoration.decorators.SimpleDividerItemDecoration;
+import pt.simdea.gmlrva.lib.decoration.helpers.GenericDecorationDividerPosition;
+import pt.simdea.gmlrva.lib.decoration.specs.SimpleDividerItemDecorationSpec;
+import pt.simdea.gmlrva.lib.utilities.GenericUtils;
+import pt.simdea.gmlrva.lib.animation.animators.ExampleItemAnimator;
 import pt.simdea.gmlrva.sample.R;
 import pt.simdea.gmlrva.sample.data.ClickListener;
 import pt.simdea.gmlrva.sample.data.FakeDataObject;
 import pt.simdea.gmlrva.sample.data.FakeDataProvider;
-import pt.simdea.gmlrva.sample.layouts.CarouselCategoryItemLayout;
-import pt.simdea.gmlrva.sample.layouts.CarouselCategoryItemWithOptionLayout;
-import pt.simdea.gmlrva.sample.layouts.CarouselItemLayout;
-import pt.simdea.gmlrva.sample.layouts.CarouselItemWithOptionLayout;
-import pt.simdea.gmlrva.sample.layouts.SingleImageItemLayout;
-import pt.simdea.gmlrva.sample.layouts.SingleTextItemLayout;
-import pt.simdea.gmlrva.sample.utilities.GenericUtils;
+import pt.simdea.gmlrva.sample.layouts.holders.CarouselCategoryItemLayout;
+import pt.simdea.gmlrva.sample.layouts.holders.CarouselCategoryItemWithOptionLayout;
+import pt.simdea.gmlrva.sample.layouts.holders.CarouselItemLayout;
+import pt.simdea.gmlrva.sample.layouts.holders.CarouselItemWithOptionLayout;
+import pt.simdea.gmlrva.sample.layouts.holders.SingleImageItemLayout;
+import pt.simdea.gmlrva.sample.layouts.holders.SingleTextItemLayout;
+
+import static pt.simdea.gmlrva.sample.layouts.animation.ChangeAnimationTypes.ROTATION_TRIGGER;
 
 /**
  * Class responsible for the Sample Screen for the (GMLRVA) library.
@@ -37,7 +48,7 @@ import pt.simdea.gmlrva.sample.utilities.GenericUtils;
  * Simdea © All Rights Reserved.
  * paulo.ribeiro@simdea.pt
  */
-@SuppressWarnings("unchecked")
+@SuppressWarnings({"unchecked", "SameParameterValue"})
 public class SampleActivity extends AppCompatActivity implements ClickListener {
 
     private final FakeDataProvider mDataProvider = new FakeDataProvider();
@@ -58,35 +69,63 @@ public class SampleActivity extends AppCompatActivity implements ClickListener {
      * Called when SampleActivity is first created.
      * @param savedInstanceState Bundle object containing the activity's previously saved state.
      */
-    @Override protected void onCreate(@Nullable final Bundle savedInstanceState) {
+    @Override
+    protected void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gmlrva_activity_sample);
     }
 
     /** Called when the activity is about to become visible. */
-    @Override protected void onStart() {
+    @Override
+    protected void onStart() {
         super.onStart();
         bindSampleActivityViews();
     }
 
     /** Called when the activity has become visible. */
-    @Override protected void onResume() {
+    @Override
+    protected void onResume() {
         super.onResume();
         if (mGenericTest != null) {
             mGenericTest.setAdapter(new GenericMultipleLayoutAdapter(buildGenericListExample(), this, false));
             mGenericTest.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+
+            final float thickness
+                    = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3, getResources().getDisplayMetrics());
+            final SimpleDividerItemDecorationSpec spec = new SimpleDividerItemDecorationSpec.DecorationSpecBuilder()
+                    .withTopSpacing(25)
+                    .withBottomSpacing(25)
+                    .withStartSpacing(10)
+                    .withEndSpacing(10)
+//                    .withDrawableDivider(ContextCompat.getDrawable(this, R.drawable.gmlrva_red_line_item_divider))
+                    .withDividerPosition(GenericDecorationDividerPosition.POSITION_TOP_BOTTOM)
+                    .withDrawnDivider(ContextCompat.getColor(this, R.color.gmlrvaColorAccent), thickness,
+                            Paint.Style.STROKE, new DashPathEffect(new float[]{5, 10}, 10))
+//                    .withDrawnDivider(ContextCompat.getColor(this, R.color.gmlrvaColorAccent), thickness, null, null)
+                    .buildDecorationSpec();
+            mGenericTest.addItemDecoration(new SimpleDividerItemDecoration(spec));
+
             GenericUtils.setOptimalConfigurationForRecyclerView(mGenericTest);
+            mGenericTest.setItemAnimator(new ExampleItemAnimator());
         }
     }
 
-    @Override public void onClick() {
+    /** {@inheritDoc} */
+    @Override
+    public void onClick() {
         if (mGenericTest != null) {
-            rebuildGenericListExample();
+//            rebuildGenericListExample()
+            final GenericMultipleLayoutAdapter adapter = (GenericMultipleLayoutAdapter) mGenericTest.getAdapter();
+            final IGenericRecyclerViewLayout item = adapter.get(1);
+            if (item != null) {
+                adapter.updateItem(item, ROTATION_TRIGGER);
+            }
         }
     }
 
     /** Procedure meant to rebuild the existing data list. */
-    @SuppressWarnings("unused") private void rebuildGenericListExample() {
+    @SuppressWarnings("unused")
+    private void rebuildGenericListExample() {
         final List<IGenericRecyclerViewLayout> exampleHolders = new ArrayList<>();
 
         /* Add a Single Image Item Example */
@@ -121,9 +160,10 @@ public class SampleActivity extends AppCompatActivity implements ClickListener {
         final SingleImageItemLayout singleItemLayout = new SingleImageItemLayout(R.mipmap.gmlrva_ic_launcher, this);
         exampleHolders.add(singleItemLayout);
 
-        /* Add a Single Image Item Example */
-        final SingleImageItemLayout singleItemLayout2 = new SingleImageItemLayout(R.mipmap.gmlrva_ic_launcher, this);
-        exampleHolders.add(singleItemLayout2);
+        /* Add a Single Text Item Example */
+        final SingleTextItemLayout singleTextItemLayout
+                = new SingleTextItemLayout(getString(R.string.gmlrva_app_name), this);
+        exampleHolders.add(singleTextItemLayout);
 
         /* Add a Carousel (Category + List) Item Example */
         final List<IGenericRecyclerViewLayout> mCarouselItemData = buildCarouselItemData(10);
@@ -142,6 +182,18 @@ public class SampleActivity extends AppCompatActivity implements ClickListener {
         final SingleImageItemLayout singleItemLayout3 = new SingleImageItemLayout(R.mipmap.gmlrva_ic_launcher, this);
         exampleHolders.add(singleItemLayout3);
 
+        /* Add a Single Image Item Example */
+        final SingleImageItemLayout singleItemLayout4 = new SingleImageItemLayout(R.mipmap.gmlrva_ic_launcher, this);
+        exampleHolders.add(singleItemLayout4);
+
+        /* Add a Single Image Item Example */
+        final SingleImageItemLayout singleItemLayout5 = new SingleImageItemLayout(R.mipmap.gmlrva_ic_launcher, this);
+        exampleHolders.add(singleItemLayout5);
+
+        /* Add a Single Image Item Example */
+        final SingleImageItemLayout singleItemLayout6 = new SingleImageItemLayout(R.mipmap.gmlrva_ic_launcher, this);
+        exampleHolders.add(singleItemLayout6);
+
         return exampleHolders;
     }
 
@@ -151,7 +203,7 @@ public class SampleActivity extends AppCompatActivity implements ClickListener {
      * @param maxItemNumber the maximum number of carousel items.
      * @return the intended Carousel item list.
      */
-    private List<IGenericRecyclerViewLayout> buildCarouselItemData(final int maxItemNumber) {
+    private List<IGenericRecyclerViewLayout> buildCarouselItemData(@IntRange(from = 0) final int maxItemNumber) {
         final List<IGenericRecyclerViewLayout> carouselItemData = new ArrayList<>();
 
         String title;
@@ -174,7 +226,7 @@ public class SampleActivity extends AppCompatActivity implements ClickListener {
      * @param maxItemNumber the maximum number of carousel items.
      * @return the intended Carousel item list.
      */
-    private List<CarouselItemWithOptionLayout> buildCarouselItemWithOptionsData(final int maxItemNumber) {
+    private List<CarouselItemWithOptionLayout> buildCarouselItemWithOptionsData(@IntRange(from = 0) final int maxItemNumber) {
         final List<CarouselItemWithOptionLayout> carouselItemData = new ArrayList<>();
 
         String title;
@@ -193,7 +245,7 @@ public class SampleActivity extends AppCompatActivity implements ClickListener {
 
     /** Procedure meant to bind this activity's views. */
     private void bindSampleActivityViews() {
-        mGenericTest = (RecyclerView) findViewById(R.id.rvGeneric);
+        mGenericTest = findViewById(R.id.rvGeneric);
     }
 
 }
