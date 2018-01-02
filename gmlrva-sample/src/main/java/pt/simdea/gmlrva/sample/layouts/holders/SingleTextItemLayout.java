@@ -17,6 +17,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import pt.simdea.gmlrva.lib.GenericMultipleLayoutAdapter;
 import pt.simdea.gmlrva.lib.IGenericRecyclerViewLayout;
+import pt.simdea.gmlrva.lib.IViewHolder;
 import pt.simdea.gmlrva.lib.animation.GenericItemAnimator;
 import pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation;
 import pt.simdea.gmlrva.lib.animation.helpers.IAnimatedViewHolder;
@@ -67,7 +68,7 @@ public class SingleTextItemLayout
 
     /** Class meant to define the {@link RecyclerView.ViewHolder} for a Single Text Layout instance. */
     final class SingleTextItemViewHolder extends RecyclerView.ViewHolder
-            implements IAnimatedViewHolder, View.OnClickListener {
+            implements IAnimatedViewHolder, View.OnClickListener, IViewHolder {
 
         @Getter
         private TextView mTitle;
@@ -133,6 +134,10 @@ public class SingleTextItemLayout
             mTitle = view.findViewById(R.id.tvSingleTextItemLayoutTitle);
         }
 
+        @Override
+        public void recycle() {
+
+        }
     }
 
 }

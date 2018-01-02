@@ -23,6 +23,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import pt.simdea.gmlrva.lib.GenericMultipleLayoutAdapter;
 import pt.simdea.gmlrva.lib.IGenericRecyclerViewLayout;
+import pt.simdea.gmlrva.lib.IViewHolder;
 import pt.simdea.gmlrva.lib.decoration.decorators.SimpleDividerItemDecoration;
 import pt.simdea.gmlrva.lib.decoration.helpers.GenericDecorationDividerPosition;
 import pt.simdea.gmlrva.lib.decoration.specs.SimpleDividerItemDecorationSpec;
@@ -96,7 +97,7 @@ public class CarouselCategoryItemLayout
     }
 
     /** Class meant to define the {@link RecyclerView.ViewHolder} for a Carousel Category Layout instance. */
-    class CarouselCategoryViewHolder extends RecyclerView.ViewHolder implements IAnimatedViewHolder {
+    class CarouselCategoryViewHolder extends RecyclerView.ViewHolder implements IAnimatedViewHolder, IViewHolder {
 
         @Getter
         private TextView mTitle;
@@ -141,6 +142,10 @@ public class CarouselCategoryItemLayout
             mItems = view.findViewById(R.id.rvCarouselCategoryItemData);
         }
 
+        @Override
+        public void recycle() {
+
+        }
     }
 
 }

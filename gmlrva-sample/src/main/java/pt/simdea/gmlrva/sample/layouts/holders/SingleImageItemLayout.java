@@ -19,6 +19,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import pt.simdea.gmlrva.lib.GenericMultipleLayoutAdapter;
 import pt.simdea.gmlrva.lib.IGenericRecyclerViewLayout;
+import pt.simdea.gmlrva.lib.IViewHolder;
 import pt.simdea.gmlrva.lib.animation.GenericItemAnimator;
 import pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation;
 import pt.simdea.gmlrva.lib.animation.helpers.IAnimatedViewHolder;
@@ -70,7 +71,7 @@ public class SingleImageItemLayout
 
     /** Class meant to define the {@link RecyclerView.ViewHolder} for a Single Image Layout instance. */
     final class SingleImageItemViewHolder extends RecyclerView.ViewHolder
-            implements View.OnClickListener, IAnimatedViewHolder {
+            implements View.OnClickListener, IAnimatedViewHolder, IViewHolder {
 
         @Getter
         private ImageView mCover;
@@ -137,6 +138,10 @@ public class SingleImageItemLayout
             mCover = view.findViewById(R.id.ivSingleImageItemLayoutCover);
         }
 
+        @Override
+        public void recycle() {
+
+        }
     }
 
 }
