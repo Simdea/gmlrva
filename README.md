@@ -30,7 +30,7 @@ Configuration
 ```gradle
 dependencies {
     ...
-    compile 'pt.simdea:gmlrva.lib:1.4.2'
+    compile 'pt.simdea:gmlrva.lib:1.4.3'
     ...
 }
 ```
