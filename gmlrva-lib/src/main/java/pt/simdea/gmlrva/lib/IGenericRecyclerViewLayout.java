@@ -4,6 +4,7 @@
 
 package pt.simdea.gmlrva.lib;
 
+import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
@@ -21,7 +22,7 @@ import java.io.Serializable;
  * andre.rosa@simdea.pt
  */
 @SuppressWarnings("WeakerAccess")
-public interface IGenericRecyclerViewLayout<T extends RecyclerView.ViewHolder> extends Serializable {
+public interface IGenericRecyclerViewLayout<T extends RecyclerView.ViewHolder & IViewHolder> extends Serializable {
 
     /**
      * Procedure meant to handle the ViewHolder instance creation.
@@ -46,6 +47,6 @@ public interface IGenericRecyclerViewLayout<T extends RecyclerView.ViewHolder> e
      * Procedure meant to define a ViewType for the ViewHolder item {@link RecyclerView.ViewHolder}.
      * @return the Integer value representing the ViewHolder item {@link RecyclerView.ViewHolder}'s ViewType.
      */
-    int getViewType();
+    @IntRange(from = 0) int getViewType();
 
 }

@@ -17,12 +17,16 @@ import lombok.Getter;
  * Simdea © All Rights Reserved.
  * paulo.ribeiro@simdea.pt
  */
-@AllArgsConstructor @Getter @EqualsAndHashCode(exclude = "mDescription") public final class FakeDataObject implements
-        Comparable<FakeDataObject> {
+@AllArgsConstructor
+@Getter
+@EqualsAndHashCode(exclude = "mDescription")
+public final class FakeDataObject implements Comparable<FakeDataObject> {
 
-    private String mTitle, mDescription;
+    private String mTitle;
+    private String mDescription;
 
-    @Override public int compareTo(@NonNull final FakeDataObject o) {
+    @Override
+    public int compareTo(@NonNull final FakeDataObject o) {
         return getTitle().compareToIgnoreCase(o.getTitle());
     }
 
