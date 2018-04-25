@@ -280,27 +280,32 @@ public class GenericMultipleLayoutAdapter extends RecyclerView.Adapter<RecyclerV
         mDataSet.addAll(newItems);
         updateViewTypes();
         diffResult.dispatchUpdatesTo(new ListUpdateCallback() {
+
+            /** {@inheritDoc} */
             @Override
-            public void onInserted(int position, int count) {
+            public void onInserted(final int position, final int count) {
                 notifyDataSetChanged();
             }
 
+            /** {@inheritDoc} */
             @Override
-            public void onRemoved(int position, int count) {
+            public void onRemoved(final int position, final int count) {
                 notifyDataSetChanged();
             }
 
+            /** {@inheritDoc} */
             @Override
-            public void onMoved(int fromPosition, int toPosition) {
-                notifyDataSetChanged();
+            public void onMoved(final int fromPosition, final int toPosition) {
+                notifyItemMoved(fromPosition, toPosition);
             }
 
+            /** {@inheritDoc} */
             @Override
-            public void onChanged(int position, int count, Object payload) {
-                notifyDataSetChanged();
+            public void onChanged(final int position, final int count, @NonNull final Object payload) {
+                notifyItemRangeChanged(position, count, payload);
             }
+
         });
-
         mPendingUpdates.remove(); // the data set is processed
 
         /* Process the next queued data set if there is any */

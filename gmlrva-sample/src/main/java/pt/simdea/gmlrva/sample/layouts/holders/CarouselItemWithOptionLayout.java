@@ -27,7 +27,6 @@ import pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation;
 import pt.simdea.gmlrva.lib.animation.helpers.IAnimatedViewHolder;
 import pt.simdea.gmlrva.lib.utilities.GMLRVAConstants;
 import pt.simdea.gmlrva.sample.R;
-
 import pt.simdea.gmlrva.sample.layouts.GenericRecyclerViewLayoutTypes;
 
 /**
@@ -46,6 +45,7 @@ public class CarouselItemWithOptionLayout
     @IntRange(from = 0)
     private final int mCoverResource;
 
+    /** {@inheritDoc} */
     @NonNull
     @Override
     public CarouselItemWithOptionViewHolder createViewHolder(@NonNull final ViewGroup parent) {
@@ -54,6 +54,7 @@ public class CarouselItemWithOptionLayout
         return new CarouselItemWithOptionViewHolder(view);
     }
 
+    /** {@inheritDoc} */
     @Override
     public void setElements(@NonNull final CarouselItemWithOptionViewHolder holder) {
         holder.getTitle().setText(mTitle);
@@ -61,12 +62,14 @@ public class CarouselItemWithOptionLayout
         holder.getCover().setImageResource(mCoverResource);
     }
 
+    /** {@inheritDoc} */
     @NonNull
     @Override
     public Object getTag() {
         return mTitle;
     }
 
+    /** {@inheritDoc} */
     @Override
     public int getViewType() {
         return GenericRecyclerViewLayoutTypes.CAROUSEL_ITEM_WITH_OPTIONS;
@@ -99,6 +102,15 @@ public class CarouselItemWithOptionLayout
             super(view);
             bindViews(view);
             bindListeners();
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public void recycle() {
+            mTitle.setText(null);
+            mDescription.setText(null);
+            mCover.setImageDrawable(null);
+            mOption.setImageDrawable(null);
         }
 
         /** {@inheritDoc} */
@@ -200,10 +212,6 @@ public class CarouselItemWithOptionLayout
             mRightOption = view.findViewById(R.id.vOptionsSectionRight);
         }
 
-        @Override
-        public void recycle() {
-
-        }
     }
 
 }

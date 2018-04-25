@@ -38,7 +38,8 @@ import pt.simdea.gmlrva.lib.decoration.helpers.GenericDecorationDividerPosition;
 @SuppressWarnings("WeakerAccess")
 @ToString
 @EqualsAndHashCode
-public final class SimpleDividerItemDecorationSpec implements ItemDecorationSpec, Serializable {
+public final class SimpleDividerItemDecorationSpec
+        implements ItemDecorationSpec, Serializable {
 
     /** This ItemDecoration's top spacing value */
     @Getter
@@ -91,7 +92,7 @@ public final class SimpleDividerItemDecorationSpec implements ItemDecorationSpec
      * SimpleDividerItemDecorationSpec builder class responsible for harboring
      * all the required fields of a {@link SimpleDividerItemDecorationSpec}.
      */
-    @SuppressWarnings("unused")
+    @SuppressWarnings({"unused", "SameParameterValue"})
     @NoArgsConstructor
     public static final class DecorationSpecBuilder {
 

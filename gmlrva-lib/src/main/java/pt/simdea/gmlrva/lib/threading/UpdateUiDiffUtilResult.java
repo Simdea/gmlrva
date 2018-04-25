@@ -21,7 +21,8 @@ import pt.simdea.gmlrva.lib.IGenericRecyclerViewLayout;
  * paulo.ribeiro@simdea.pt
  */
 @AllArgsConstructor
-final class UpdateUiDiffUtilResult implements Runnable {
+final class UpdateUiDiffUtilResult
+        implements Runnable {
 
     private final List<? extends IGenericRecyclerViewLayout> mNewDataSet;
     private final DiffUtil.DiffResult mDiffResult;

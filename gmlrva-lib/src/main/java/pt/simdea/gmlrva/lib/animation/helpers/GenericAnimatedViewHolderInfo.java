@@ -20,7 +20,9 @@ import lombok.Getter;
  */
 @AllArgsConstructor
 public class GenericAnimatedViewHolderInfo extends RecyclerView.ItemAnimator.ItemHolderInfo {
+
     @Getter
     @IntRange (from = 0)
     private int mUpdateAction;
+
 }

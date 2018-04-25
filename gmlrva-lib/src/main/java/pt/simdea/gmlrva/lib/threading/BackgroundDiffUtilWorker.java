@@ -24,7 +24,8 @@ import pt.simdea.gmlrva.lib.diff.GmlrvaDiffCallback;
  * paulo.ribeiro@simdea.pt
  */
 @AllArgsConstructor
-public final class BackgroundDiffUtilWorker implements Runnable {
+public final class BackgroundDiffUtilWorker
+        implements Runnable {
 
     private final List<? extends IGenericRecyclerViewLayout> mOldDataSet;
     private final List<? extends IGenericRecyclerViewLayout> mNewDataSet;

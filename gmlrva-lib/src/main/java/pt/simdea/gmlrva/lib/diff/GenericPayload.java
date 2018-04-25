@@ -9,8 +9,6 @@ import android.support.annotation.StringDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-import lombok.AllArgsConstructor;
-
 /**
  * Magic Constant Annotation Enum containing the possible {@link GenericPayload} change key options.
  *
@@ -18,18 +16,15 @@ import lombok.AllArgsConstructor;
  * Simdea © All Rights Reserved.
  * paulo.ribeiro@simdea.pt
  */
-@SuppressWarnings({"WeakerAccess", "unused"})
-@AllArgsConstructor
-public class GenericPayload {
+@Retention(RetentionPolicy.SOURCE)
+@StringDef({
+        GenericPayload.UPDATE_ITEM
+})
+public @interface GenericPayload {
 
     /* Constants */
 
     /** UPDATE_ITEM representing an item that needs to be updated. */
-    public static final String UPDATE_ITEM = "UPDATE_ITEM";
-
-    // Declare the @StringDef for these constants
-    @StringDef({ UPDATE_ITEM })
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface GenericPayloadConstants { /* Do nothing here ... */ }
+    String UPDATE_ITEM = "UPDATE_ITEM";
 
 }

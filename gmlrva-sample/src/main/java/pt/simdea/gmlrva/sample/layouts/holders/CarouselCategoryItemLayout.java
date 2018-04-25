@@ -8,8 +8,8 @@ import android.animation.AnimatorSet;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -24,13 +24,13 @@ import lombok.Getter;
 import pt.simdea.gmlrva.lib.GenericMultipleLayoutAdapter;
 import pt.simdea.gmlrva.lib.IGenericRecyclerViewLayout;
 import pt.simdea.gmlrva.lib.IViewHolder;
+import pt.simdea.gmlrva.lib.animation.GenericItemAnimator;
+import pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation;
+import pt.simdea.gmlrva.lib.animation.helpers.IAnimatedViewHolder;
 import pt.simdea.gmlrva.lib.decoration.decorators.SimpleDividerItemDecoration;
 import pt.simdea.gmlrva.lib.decoration.helpers.GenericDecorationDividerPosition;
 import pt.simdea.gmlrva.lib.decoration.specs.SimpleDividerItemDecorationSpec;
 import pt.simdea.gmlrva.lib.utilities.GenericUtils;
-import pt.simdea.gmlrva.lib.animation.GenericItemAnimator;
-import pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation;
-import pt.simdea.gmlrva.lib.animation.helpers.IAnimatedViewHolder;
 import pt.simdea.gmlrva.sample.R;
 import pt.simdea.gmlrva.sample.layouts.GenericRecyclerViewLayoutTypes;
 
@@ -49,6 +49,7 @@ public class CarouselCategoryItemLayout
     private final List<? extends IGenericRecyclerViewLayout> mCategoryData;
     private final Context mContext;
 
+    /** {@inheritDoc} */
     @NonNull
     @Override
     public CarouselCategoryViewHolder createViewHolder(@NonNull final ViewGroup parent) {
@@ -57,6 +58,7 @@ public class CarouselCategoryItemLayout
         return new CarouselCategoryViewHolder(view);
     }
 
+    /** {@inheritDoc} */
     @Override
     public void setElements(@NonNull final CarouselCategoryViewHolder holder) {
         holder.getTitle().setText(mCategoryTitle);
@@ -67,12 +69,14 @@ public class CarouselCategoryItemLayout
         }
     }
 
+    /** {@inheritDoc} */
     @NonNull
     @Override
     public Object getTag() {
         return mCategoryTitle;
     }
 
+    /** {@inheritDoc} */
     @Override
     public int getViewType() {
         return GenericRecyclerViewLayoutTypes.CAROUSEL_ITEM_CATEGORY;
@@ -97,7 +101,8 @@ public class CarouselCategoryItemLayout
     }
 
     /** Class meant to define the {@link RecyclerView.ViewHolder} for a Carousel Category Layout instance. */
-    class CarouselCategoryViewHolder extends RecyclerView.ViewHolder implements IAnimatedViewHolder, IViewHolder {
+    class CarouselCategoryViewHolder extends RecyclerView.ViewHolder
+            implements IAnimatedViewHolder, IViewHolder {
 
         @Getter
         private TextView mTitle;
@@ -111,6 +116,12 @@ public class CarouselCategoryItemLayout
         CarouselCategoryViewHolder(@NonNull final View view) {
             super(view);
             bindViews(view);
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public void recycle() {
+            mTitle.setText(null);
         }
 
         /** {@inheritDoc} */
@@ -142,10 +153,6 @@ public class CarouselCategoryItemLayout
             mItems = view.findViewById(R.id.rvCarouselCategoryItemData);
         }
 
-        @Override
-        public void recycle() {
-
-        }
     }
 
 }

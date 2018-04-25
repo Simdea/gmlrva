@@ -55,25 +55,31 @@ public final class ViewHolderAnimationHelper {
                 .setInterpolator(new DecelerateInterpolator(3.f))
                 .setDuration(700)
                 .setListener(new Animator.AnimatorListener() {
+
+                    /** {@inheritDoc} */
                     @Override
                     public void onAnimationStart(@NonNull final Animator animation) {
                         /* Do nothing here */
                     }
 
+                    /** {@inheritDoc} */
                     @Override
                     public void onAnimationEnd(@NonNull final Animator animation) {
                         listener.onAnimationFinished(holder, ADD_ANIMATION_FINISHED);
                     }
 
+                    /** {@inheritDoc} */
                     @Override
                     public void onAnimationCancel(@NonNull final Animator animation) {
                         /* Do nothing here */
                     }
 
+                    /** {@inheritDoc} */
                     @Override
                     public void onAnimationRepeat(@NonNull final Animator animation) {
                         /* Do nothing here */
                     }
+
                 }).start();
     }
 
@@ -93,25 +99,31 @@ public final class ViewHolderAnimationHelper {
                 .setInterpolator(new AccelerateInterpolator(3.f))
                 .setDuration(700)
                 .setListener(new Animator.AnimatorListener() {
+
+                    /** {@inheritDoc} */
                     @Override
                     public void onAnimationStart(@NonNull final Animator animation) {
-                            /* Do nothing here */
+                        /* Do nothing here */
                     }
 
+                    /** {@inheritDoc} */
                     @Override
                     public void onAnimationEnd(@NonNull final Animator animation) {
                         listener.onAnimationFinished(holder, REMOVE_ANIMATION_FINISHED);
                     }
 
+                    /** {@inheritDoc} */
                     @Override
                     public void onAnimationCancel(@NonNull final Animator animation) {
-                            /* Do nothing here */
+                        /* Do nothing here */
                     }
 
+                    /** {@inheritDoc} */
                     @Override
                     public void onAnimationRepeat(@NonNull final Animator animation) {
-                            /* Do nothing here */
+                        /* Do nothing here */
                     }
+
                 }).start();
     }
 
@@ -130,10 +142,13 @@ public final class ViewHolderAnimationHelper {
         final AnimatorSet textAnim = new AnimatorSet();
 
         textAnim.addListener(new AnimatorListenerAdapter() {
+
+            /** {@inheritDoc} */
             @Override
             public void onAnimationEnd(@NonNull final Animator animation) {
                 listener.onAnimationFinished(holder, CHANGE_ANIMATION_FINISHED);
             }
+
         });
 
         textAnim.playSequentially(oldTextRotate, newTextRotate);

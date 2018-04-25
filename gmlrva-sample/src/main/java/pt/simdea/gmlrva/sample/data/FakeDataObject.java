@@ -20,7 +20,8 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 @EqualsAndHashCode(exclude = "mDescription")
-public final class FakeDataObject implements Comparable<FakeDataObject> {
+public final class FakeDataObject
+        implements Comparable<FakeDataObject> {
 
     private String mTitle;
     private String mDescription;

@@ -29,7 +29,8 @@ public interface IGenericRecyclerViewLayout<T extends RecyclerView.ViewHolder & 
      * @param parent the root ViewGroup {@link ViewGroup} for the ViewHolder instance.
      * @return the created ViewHolder instance.
      */
-    @NonNull T createViewHolder(@NonNull final ViewGroup parent);
+    @NonNull
+    T createViewHolder(@NonNull final ViewGroup parent);
 
     /**
      * Procedure meant to bind the target data from a model to the ViewHolder item {@link RecyclerView.ViewHolder}.
@@ -41,12 +42,14 @@ public interface IGenericRecyclerViewLayout<T extends RecyclerView.ViewHolder & 
      * Procedure meant to define a tag for the ViewHolder item {@link RecyclerView.ViewHolder}.
      * @return the {@link Object} representing the ViewHolder item {@link RecyclerView.ViewHolder}'s tag.
      */
-    @NonNull Object getTag();
+    @NonNull
+    Object getTag();
 
     /**
      * Procedure meant to define a ViewType for the ViewHolder item {@link RecyclerView.ViewHolder}.
      * @return the Integer value representing the ViewHolder item {@link RecyclerView.ViewHolder}'s ViewType.
      */
-    @IntRange(from = 0) int getViewType();
+    @IntRange(from = 0)
+    int getViewType();
 
 }

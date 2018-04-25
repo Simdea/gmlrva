@@ -45,6 +45,7 @@ public class SingleImageItemLayout
     @SuppressWarnings("WeakerAccess")
     protected final ClickListener mListener;
 
+    /** {@inheritDoc} */
     @NonNull
     @Override
     public SingleImageItemViewHolder createViewHolder(@NonNull final ViewGroup parent) {
@@ -53,17 +54,20 @@ public class SingleImageItemLayout
         return new SingleImageItemViewHolder(view);
     }
 
+    /** {@inheritDoc} */
     @Override
     public void setElements(@NonNull final SingleImageItemViewHolder holder) {
         holder.getCover().setImageResource(mCoverResource);
     }
 
+    /** {@inheritDoc} */
     @NonNull
     @Override
     public Object getTag() {
         return mCoverResource;
     }
 
+    /** {@inheritDoc} */
     @Override
     public int getViewType() {
         return GenericRecyclerViewLayoutTypes.SINGLE_IMAGE_ITEM;
@@ -84,6 +88,12 @@ public class SingleImageItemLayout
             super(view);
             bindViews(view);
             bindListeners();
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public void recycle() {
+            mCover.setImageDrawable(null);
         }
 
         /** {@inheritDoc} */
@@ -138,10 +148,6 @@ public class SingleImageItemLayout
             mCover = view.findViewById(R.id.ivSingleImageItemLayoutCover);
         }
 
-        @Override
-        public void recycle() {
-
-        }
     }
 
 }

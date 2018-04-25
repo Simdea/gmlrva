@@ -23,11 +23,11 @@ import java.util.List;
 
 import pt.simdea.gmlrva.lib.GenericMultipleLayoutAdapter;
 import pt.simdea.gmlrva.lib.IGenericRecyclerViewLayout;
+import pt.simdea.gmlrva.lib.animation.animators.ExampleItemAnimator;
 import pt.simdea.gmlrva.lib.decoration.decorators.SimpleDividerItemDecoration;
 import pt.simdea.gmlrva.lib.decoration.helpers.GenericDecorationDividerPosition;
 import pt.simdea.gmlrva.lib.decoration.specs.SimpleDividerItemDecorationSpec;
 import pt.simdea.gmlrva.lib.utilities.GenericUtils;
-import pt.simdea.gmlrva.lib.animation.animators.ExampleItemAnimator;
 import pt.simdea.gmlrva.sample.R;
 import pt.simdea.gmlrva.sample.data.ClickListener;
 import pt.simdea.gmlrva.sample.data.FakeDataObject;
@@ -49,7 +49,8 @@ import static pt.simdea.gmlrva.sample.layouts.animation.ChangeAnimationTypes.ROT
  * paulo.ribeiro@simdea.pt
  */
 @SuppressWarnings({"unchecked", "SameParameterValue"})
-public class SampleActivity extends AppCompatActivity implements ClickListener {
+public class SampleActivity extends AppCompatActivity
+        implements ClickListener {
 
     private final FakeDataProvider mDataProvider = new FakeDataProvider();
 

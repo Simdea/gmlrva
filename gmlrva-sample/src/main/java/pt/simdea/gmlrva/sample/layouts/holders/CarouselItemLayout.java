@@ -26,7 +26,6 @@ import pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation;
 import pt.simdea.gmlrva.lib.animation.helpers.IAnimatedViewHolder;
 import pt.simdea.gmlrva.lib.utilities.GMLRVAConstants;
 import pt.simdea.gmlrva.sample.R;
-
 import pt.simdea.gmlrva.sample.layouts.GenericRecyclerViewLayoutTypes;
 
 /**
@@ -45,6 +44,7 @@ public class CarouselItemLayout
     @IntRange(from = 0)
     private final int mCoverResource;
 
+    /** {@inheritDoc} */
     @NonNull
     @Override
     public CarouselItemViewHolder createViewHolder(@NonNull final ViewGroup parent) {
@@ -53,6 +53,7 @@ public class CarouselItemLayout
         return new CarouselItemViewHolder(view);
     }
 
+    /** {@inheritDoc} */
     @Override
     public void setElements(@NonNull final CarouselItemViewHolder holder) {
         holder.getTitle().setText(mTitle);
@@ -60,19 +61,22 @@ public class CarouselItemLayout
         holder.getCover().setImageResource(mCoverResource);
     }
 
+    /** {@inheritDoc} */
     @NonNull
     @Override
     public Object getTag() {
         return mTitle;
     }
 
+    /** {@inheritDoc} */
     @Override
     public int getViewType() {
         return GenericRecyclerViewLayoutTypes.CAROUSEL_ITEM;
     }
 
     /** Class meant to define the {@link RecyclerView.ViewHolder} for a Carousel Item Layout instance. */
-    class CarouselItemViewHolder extends RecyclerView.ViewHolder implements IAnimatedViewHolder, View.OnClickListener, IViewHolder {
+    class CarouselItemViewHolder extends RecyclerView.ViewHolder
+            implements IAnimatedViewHolder, View.OnClickListener, IViewHolder {
 
         @Getter
         private TextView mTitle;
@@ -89,6 +93,14 @@ public class CarouselItemLayout
             super(view);
             bindViews(view);
             bindListeners();
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public void recycle() {
+            mTitle.setText(null);
+            mDescription.setText(null);
+            mCover.setImageDrawable(null);
         }
 
         /** {@inheritDoc} */
@@ -159,10 +171,6 @@ public class CarouselItemLayout
             mCover = view.findViewById(R.id.ivCarouselItemCover);
         }
 
-        @Override
-        public void recycle() {
-
-        }
     }
 
 }

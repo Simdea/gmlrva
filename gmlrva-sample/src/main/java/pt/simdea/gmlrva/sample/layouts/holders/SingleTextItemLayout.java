@@ -42,6 +42,7 @@ public class SingleTextItemLayout
     @SuppressWarnings("WeakerAccess")
     protected final ClickListener mListener;
 
+    /** {@inheritDoc} */
     @NonNull
     @Override
     public SingleTextItemViewHolder createViewHolder(@NonNull final ViewGroup parent) {
@@ -50,17 +51,20 @@ public class SingleTextItemLayout
         return new SingleTextItemViewHolder(view);
     }
 
+    /** {@inheritDoc} */
     @Override
     public void setElements(@NonNull final SingleTextItemViewHolder holder) {
         holder.getTitle().setText(mTextResource);
     }
 
+    /** {@inheritDoc} */
     @NonNull
     @Override
     public Object getTag() {
         return mTextResource;
     }
 
+    /** {@inheritDoc} */
     @Override
     public int getViewType() {
         return GenericRecyclerViewLayoutTypes.SINGLE_TEXT_ITEM;
@@ -81,6 +85,12 @@ public class SingleTextItemLayout
             super(view);
             bindViews(view);
             bindListeners();
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public void recycle() {
+            mTitle.setText(null);
         }
 
         /** {@inheritDoc} */
@@ -134,10 +144,6 @@ public class SingleTextItemLayout
             mTitle = view.findViewById(R.id.tvSingleTextItemLayoutTitle);
         }
 
-        @Override
-        public void recycle() {
-
-        }
     }
 
 }

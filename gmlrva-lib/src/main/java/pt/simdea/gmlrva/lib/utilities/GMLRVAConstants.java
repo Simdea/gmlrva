@@ -4,6 +4,11 @@
 
 package pt.simdea.gmlrva.lib.utilities;
 
+import android.support.annotation.StringDef;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
 /**
  * Utility class meant to hold all constants for the Generic Multiple Layout Recycler View Adapter (GMLRVA) library.
  *
@@ -11,20 +16,15 @@ package pt.simdea.gmlrva.lib.utilities;
  * Simdea © All Rights Reserved.
  * paulo.ribeiro@simdea.pt
  */
-@SuppressWarnings("WeakerAccess")
-public final class GMLRVAConstants {
+@Retention(RetentionPolicy.SOURCE)
+@StringDef({
+        GMLRVAConstants.ASSERTION_ERROR,
+        GMLRVAConstants.UNSUPPORTED_ERROR
+})
+public @interface GMLRVAConstants {
 
     /** Exception Messages */
-    public static final String ASSERTION_ERROR = "Instantiating utility class.";
-    public static final String UNSUPPORTED_ERROR = "Unsupported operation.";
-
-    /**
-     * Instantiates a new GMLRVAConstants.
-     * Private to prevent instantiation.
-     * @throws AssertionError if this constructor is ever called. Utility classes should not be instantiated.
-     */
-    private GMLRVAConstants() {
-        throw new AssertionError(ASSERTION_ERROR); // Throw an exception if this *is* ever called
-    }
+    String ASSERTION_ERROR = "Instantiating utility class.";
+    String UNSUPPORTED_ERROR = "Unsupported operation.";
 
 }

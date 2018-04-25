@@ -22,10 +22,10 @@ import lombok.Getter;
 import pt.simdea.gmlrva.lib.GenericMultipleLayoutAdapter;
 import pt.simdea.gmlrva.lib.IGenericRecyclerViewLayout;
 import pt.simdea.gmlrva.lib.IViewHolder;
-import pt.simdea.gmlrva.lib.utilities.GenericUtils;
 import pt.simdea.gmlrva.lib.animation.GenericItemAnimator;
 import pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation;
 import pt.simdea.gmlrva.lib.animation.helpers.IAnimatedViewHolder;
+import pt.simdea.gmlrva.lib.utilities.GenericUtils;
 import pt.simdea.gmlrva.sample.R;
 import pt.simdea.gmlrva.sample.layouts.GenericRecyclerViewLayoutTypes;
 
@@ -44,6 +44,7 @@ public class CarouselCategoryItemWithOptionLayout
     private final List<? extends IGenericRecyclerViewLayout> mCategoryData;
     private final Context mContext;
 
+    /** {@inheritDoc} */
     @NonNull
     @Override
     public CarouselCategoryViewHolder createViewHolder(@NonNull final ViewGroup parent) {
@@ -52,18 +53,21 @@ public class CarouselCategoryItemWithOptionLayout
         return new CarouselCategoryViewHolder(view);
     }
 
+    /** {@inheritDoc} */
     @Override
     public void setElements(@NonNull final CarouselCategoryViewHolder holder) {
         holder.getTitle().setText(mCategoryTitle);
         loadItems(holder.getItems());
     }
 
+    /** {@inheritDoc} */
     @NonNull
     @Override
     public Object getTag() {
         return mCategoryTitle;
     }
 
+    /** {@inheritDoc} */
     @Override
     public int getViewType() {
         return GenericRecyclerViewLayoutTypes.CAROUSEL_ITEM_CATEGORY_WITH_OPTIONS;
@@ -80,7 +84,8 @@ public class CarouselCategoryItemWithOptionLayout
     }
 
     /** Class meant to define the {@link RecyclerView.ViewHolder} for a Carousel Category Layout instance. */
-    class CarouselCategoryViewHolder extends RecyclerView.ViewHolder implements IAnimatedViewHolder, IViewHolder {
+    class CarouselCategoryViewHolder extends RecyclerView.ViewHolder
+            implements IAnimatedViewHolder, IViewHolder {
 
         @Getter
         private TextView mTitle;
@@ -94,6 +99,12 @@ public class CarouselCategoryItemWithOptionLayout
         CarouselCategoryViewHolder(@NonNull final View view) {
             super(view);
             bindViews(view);
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public void recycle() {
+            mTitle.setText(null);
         }
 
         /** {@inheritDoc} */
@@ -125,10 +136,6 @@ public class CarouselCategoryItemWithOptionLayout
             mItems = view.findViewById(R.id.rvCarouselCategoryItemData);
         }
 
-        @Override
-        public void recycle() {
-
-        }
     }
 
 }
