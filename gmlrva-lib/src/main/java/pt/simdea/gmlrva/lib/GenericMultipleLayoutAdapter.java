@@ -7,11 +7,13 @@ package pt.simdea.gmlrva.lib;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.UiThread;
 import android.support.v7.util.DiffUtil;
+import android.support.v7.util.ListUpdateCallback;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.ViewGroup;
@@ -46,7 +48,7 @@ public class GenericMultipleLayoutAdapter extends RecyclerView.Adapter<RecyclerV
     @NonNull
     private final ArrayDeque<List<? extends IGenericRecyclerViewLayout>> mPendingUpdates = new ArrayDeque<>();
     @NonNull
-    private final Handler mHandler = new Handler();
+    private final Handler mHandler = new Handler(Looper.getMainLooper());
 
     /* View Type Auxiliary Variable */
     @NonNull
@@ -274,11 +276,32 @@ public class GenericMultipleLayoutAdapter extends RecyclerView.Adapter<RecyclerV
     @UiThread
     public void applyDiffResult(@NonNull final List<? extends IGenericRecyclerViewLayout> newItems,
                                 @NonNull final DiffUtil.DiffResult diffResult) {
-        mPendingUpdates.remove(); // the data set is processed
         mDataSet.clear();
         mDataSet.addAll(newItems);
-        diffResult.dispatchUpdatesTo(this);
         updateViewTypes();
+        diffResult.dispatchUpdatesTo(new ListUpdateCallback() {
+            @Override
+            public void onInserted(int position, int count) {
+                notifyDataSetChanged();
+            }
+
+            @Override
+            public void onRemoved(int position, int count) {
+                notifyDataSetChanged();
+            }
+
+            @Override
+            public void onMoved(int fromPosition, int toPosition) {
+                notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChanged(int position, int count, Object payload) {
+                notifyDataSetChanged();
+            }
+        });
+
+        mPendingUpdates.remove(); // the data set is processed
 
         /* Process the next queued data set if there is any */
         if (!mPendingUpdates.isEmpty()) {
