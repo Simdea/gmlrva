@@ -8,13 +8,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.annotation.IntRange;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.UiThread;
-import android.support.v7.util.DiffUtil;
-import android.support.v7.util.ListUpdateCallback;
-import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.ViewGroup;
 
@@ -22,6 +15,13 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.IntRange;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.UiThread;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListUpdateCallback;
+import androidx.recyclerview.widget.RecyclerView;
 import pt.simdea.gmlrva.lib.threading.BackgroundDiffUtilWorker;
 
 import static pt.simdea.gmlrva.lib.diff.GenericPayload.UPDATE_ITEM;

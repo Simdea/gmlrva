@@ -4,7 +4,7 @@
 
 package pt.simdea.gmlrva.sample.layouts.animation;
 
-import android.support.annotation.IntDef;
+import androidx.annotation.IntDef;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

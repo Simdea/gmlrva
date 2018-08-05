@@ -8,8 +8,8 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
@@ -48,7 +48,7 @@ public final class ViewHolderAnimationHelper {
      */
     public static void runTestAddAnimation(@NonNull final RecyclerView.ViewHolder holder, @NonNull final View itemView,
                                            @NonNull final GenericItemAnimator listener) {
-        final int screenHeight = ViewUtils.getDeviceScreenHeight(itemView.getContext());
+        final int screenHeight = ViewUtils.Companion.getDeviceScreenHeight(itemView.getContext());
         itemView.setTranslationY(screenHeight);
         itemView.animate()
                 .translationY(0)
@@ -92,7 +92,7 @@ public final class ViewHolderAnimationHelper {
     public static void runTestRemoveAnimation(@NonNull final RecyclerView.ViewHolder holder,
                                               @NonNull final View itemView,
                                               @NonNull final GenericItemAnimator listener) {
-        final int screenHeight = ViewUtils.getDeviceScreenHeight(itemView.getContext());
+        final int screenHeight = ViewUtils.Companion.getDeviceScreenHeight(itemView.getContext());
         itemView.setTranslationY(0);
         itemView.animate()
                 .translationY(screenHeight)

@@ -4,7 +4,7 @@
 
 package pt.simdea.gmlrva.sample.data;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

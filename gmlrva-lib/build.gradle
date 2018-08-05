@@ -1,7 +1,8 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 apply plugin: 'com.novoda.bintray-release'
-apply plugin: 'pt.simdea.verifier'
-apply from: "$project.rootDir/tools/script-check.gradle"
+//apply plugin: 'pt.simdea.verifier'
+//apply from: "$project.rootDir/tools/script-check.gradle"
 
 android {
 
@@ -53,12 +54,13 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     /* Google */
-    api "com.android.support:appcompat-v7:$project.supportLibraryVersion"
-    api "com.android.support:recyclerview-v7:$project.supportLibraryVersion"
+    api "androidx.appcompat:appcompat:$project.supportLibraryVersion"
+    api "androidx.recyclerview:recyclerview:$project.supportLibraryVersion"
 
     /* Lombok */
     compileOnly "org.projectlombok:lombok:$project.lombokVersion"
     annotationProcessor "org.projectlombok:lombok:$project.lombokVersion"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 
 project.ext {
@@ -110,4 +112,7 @@ publish {
     issueTracker = "${project.ext.scm}/issues"
     website = project.ext.website
     licences = ['MIT']
+}
+repositories {
+    mavenCentral()
 }

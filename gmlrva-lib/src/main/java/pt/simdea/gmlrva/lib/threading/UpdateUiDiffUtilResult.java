@@ -4,8 +4,8 @@
 
 package pt.simdea.gmlrva.lib.threading;
 
-import android.support.annotation.UiThread;
-import android.support.v7.util.DiffUtil;
+import androidx.annotation.UiThread;
+import androidx.recyclerview.widget.DiffUtil;
 
 import java.util.List;
 

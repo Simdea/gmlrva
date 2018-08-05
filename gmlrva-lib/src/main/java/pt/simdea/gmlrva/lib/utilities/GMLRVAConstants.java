@@ -4,7 +4,7 @@
 
 package pt.simdea.gmlrva.lib.utilities;
 
-import android.support.annotation.StringDef;
+import androidx.annotation.StringDef;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

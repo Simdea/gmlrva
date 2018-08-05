@@ -4,8 +4,8 @@
 
 package pt.simdea.gmlrva.lib.animation.helpers;
 
-import android.support.annotation.IntRange;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.IntRange;
+import androidx.recyclerview.widget.RecyclerView;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

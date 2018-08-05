@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
-apply plugin: 'pt.simdea.verifier'
-apply from: "$project.rootDir/tools/script-check.gradle"
+apply plugin: 'kotlin-android'
+//apply plugin: 'pt.simdea.verifier'
+//apply from: "$project.rootDir/tools/script-check.gradle"
 
 android {
     resourcePrefix project.RESOURCE_PREFIX
@@ -47,7 +48,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     /* Google */
-    implementation "com.android.support:design:$project.supportLibraryVersion"
+    implementation "com.google.android.material:material:$project.supportLibraryVersion"
 
     /* Lombok */
     compileOnly "org.projectlombok:lombok:$project.lombokVersion"
@@ -59,4 +60,8 @@ dependencies {
 
     /* GMLRVA Library */
     implementation project(path: ':gmlrva-lib')
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
 }

@@ -5,8 +5,8 @@
 package pt.simdea.gmlrva.lib.animation.animators;
 
 import android.animation.AnimatorSet;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import pt.simdea.gmlrva.lib.animation.GenericItemAnimator;
 import pt.simdea.gmlrva.lib.animation.helpers.GenericAnimatedViewHolderInfo;
