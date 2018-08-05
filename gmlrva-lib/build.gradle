@@ -56,10 +56,7 @@ dependencies {
     /* Google */
     api "androidx.appcompat:appcompat:$project.supportLibraryVersion"
     api "androidx.recyclerview:recyclerview:$project.supportLibraryVersion"
-
-    /* Lombok */
-    compileOnly "org.projectlombok:lombok:$project.lombokVersion"
-    annotationProcessor "org.projectlombok:lombok:$project.lombokVersion"
+    api "android.arch.paging:runtime:$project.pagingVersion"
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 

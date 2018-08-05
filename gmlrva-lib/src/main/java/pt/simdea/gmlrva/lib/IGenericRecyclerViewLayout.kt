@@ -4,10 +4,9 @@
 
 package pt.simdea.gmlrva.lib
 
+import android.view.ViewGroup
 import androidx.annotation.IntRange
 import androidx.recyclerview.widget.RecyclerView
-import android.view.ViewGroup
-
 import java.io.Serializable
 
 /**
@@ -20,7 +19,7 @@ import java.io.Serializable
  * Simdea © All Rights Reserved.
  * andre.rosa@simdea.pt
 </T> */
-interface IGenericRecyclerViewLayout<T> : Serializable where T : RecyclerView.ViewHolder, T : IViewHolder {
+interface IGenericRecyclerViewLayout<T> : Serializable where T : ViewHolder {
 
     /**
      * Procedure meant to define a tag for the ViewHolder item [RecyclerView.ViewHolder].

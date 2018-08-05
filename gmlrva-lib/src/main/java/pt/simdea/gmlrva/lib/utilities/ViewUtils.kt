@@ -6,9 +6,8 @@ package pt.simdea.gmlrva.lib.utilities
 
 import android.content.Context
 import android.graphics.Point
-import androidx.annotation.IntRange
-import android.view.Display
 import android.view.WindowManager
+import androidx.annotation.IntRange
 
 /**
  * Auxiliary View related Utils class.
@@ -26,7 +25,7 @@ class ViewUtils
 private constructor() {
 
     init {
-        throw AssertionError(GMLRVAConstants.ASSERTION_ERROR)  // Throw an exception if this *is* ever called
+        throw AssertionError(Const.ASSERTION_ERROR)  // Throw an exception if this *is* ever called
     }
 
     companion object {

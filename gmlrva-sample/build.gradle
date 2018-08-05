@@ -49,14 +49,15 @@ dependencies {
 
     /* Google */
     implementation "com.google.android.material:material:$project.supportLibraryVersion"
+    implementation "android.arch.paging:runtime:$project.pagingVersion"
 
     /* Lombok */
     compileOnly "org.projectlombok:lombok:$project.lombokVersion"
     annotationProcessor "org.projectlombok:lombok:$project.lombokVersion"
 
     /* Retrofit & OkHttp */
-    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
 
     /* GMLRVA Library */
     implementation project(path: ':gmlrva-lib')
