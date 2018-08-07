@@ -19,10 +19,12 @@ import pt.simdea.gmlrva.lib.GenericMultipleLayoutAdapter
 import pt.simdea.gmlrva.lib.IGenericRecyclerViewLayout
 import pt.simdea.gmlrva.lib.ViewHolder
 import pt.simdea.gmlrva.lib.animation.GenericItemAnimator
-import pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation
+import pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperationVars.Companion.ADD_ANIMATION_FINISHED
+import pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperationVars.Companion.CHANGE_ANIMATION_FINISHED
+import pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperationVars.Companion.REMOVE_ANIMATION_FINISHED
 import pt.simdea.gmlrva.lib.animation.helpers.IAnimatedViewHolder
 import pt.simdea.gmlrva.lib.decoration.decorators.SimpleDividerItemDecoration
-import pt.simdea.gmlrva.lib.decoration.helpers.GenericDecorationDividerPosition
+import pt.simdea.gmlrva.lib.decoration.helpers.GenericDecorationDividerPositionVars.Companion.POSITION_END
 import pt.simdea.gmlrva.lib.decoration.specs.SimpleDividerItemDecorationSpec
 import pt.simdea.gmlrva.lib.utilities.GenericUtils
 import pt.simdea.gmlrva.sample.R
@@ -76,7 +78,7 @@ class CarouselCategoryItemLayout(private val mCategoryTitle: String,
 
         val spec = SimpleDividerItemDecorationSpec.DecorationSpecBuilder()
                 .withDrawableDivider(drawable)
-                .withDividerPosition(GenericDecorationDividerPosition.POSITION_END)
+                .withDividerPosition(POSITION_END)
                 .buildDecorationSpec()
         items.addItemDecoration(SimpleDividerItemDecoration(spec))
 
@@ -104,17 +106,17 @@ class CarouselCategoryItemLayout(private val mCategoryTitle: String,
 
         /** {@inheritDoc}  */
         override fun runAddAnimation(listener: GenericItemAnimator) {
-            listener.onAnimationFinished(this, GenericAnimationFinishedOperation.ADD_ANIMATION_FINISHED)
+            listener.onAnimationFinished(this, ADD_ANIMATION_FINISHED)
         }
 
         /** {@inheritDoc}  */
         override fun runRemoveAnimation(listener: GenericItemAnimator) {
-            listener.onAnimationFinished(this, GenericAnimationFinishedOperation.REMOVE_ANIMATION_FINISHED)
+            listener.onAnimationFinished(this, REMOVE_ANIMATION_FINISHED)
         }
 
         /** {@inheritDoc}  */
         override fun runChangeAnimation(listener: GenericItemAnimator): AnimatorSet? {
-            listener.onAnimationFinished(this, GenericAnimationFinishedOperation.CHANGE_ANIMATION_FINISHED)
+            listener.onAnimationFinished(this, CHANGE_ANIMATION_FINISHED)
             return null
         }
 

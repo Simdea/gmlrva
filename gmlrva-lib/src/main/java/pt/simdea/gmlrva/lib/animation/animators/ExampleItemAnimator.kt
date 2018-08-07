@@ -8,6 +8,7 @@ import android.animation.AnimatorSet
 import pt.simdea.gmlrva.lib.animation.GenericItemAnimator
 import pt.simdea.gmlrva.lib.animation.helpers.GenericAnimatedViewHolderInfo
 import pt.simdea.gmlrva.lib.animation.helpers.IAnimatedViewHolder
+import pt.simdea.gmlrva.lib.utilities.GMLRVAConstantsVars
 
 /**
  * This class serves as an extension of RecyclerView's ItemAnimator.
@@ -22,9 +23,9 @@ class ExampleItemAnimator : GenericItemAnimator() {
     /** {@inheritDoc}  */
     override fun handleCustomAnimation(holderInfo: GenericAnimatedViewHolderInfo,
                                        holder: IAnimatedViewHolder): AnimatorSet? {
-        when (holderInfo.getUpdateAction()) {
+        when (holderInfo.mUpdateAction) {
             0 -> return holder.runChangeAnimation(this)
-            else -> throw UnsupportedOperationException(Companion.getUNSUPPORTED_ERROR())
+            else -> throw UnsupportedOperationException(GMLRVAConstantsVars.UNSUPPORTED_ERROR)
         }
     }
 

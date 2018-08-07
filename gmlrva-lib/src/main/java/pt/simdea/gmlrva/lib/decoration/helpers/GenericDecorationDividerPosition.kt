@@ -5,7 +5,12 @@
 package pt.simdea.gmlrva.lib.decoration.helpers
 
 import androidx.annotation.IntDef
-
+import pt.simdea.gmlrva.lib.decoration.helpers.GenericDecorationDividerPositionVars.Companion.POSITION_BOTTOM
+import pt.simdea.gmlrva.lib.decoration.helpers.GenericDecorationDividerPositionVars.Companion.POSITION_END
+import pt.simdea.gmlrva.lib.decoration.helpers.GenericDecorationDividerPositionVars.Companion.POSITION_START
+import pt.simdea.gmlrva.lib.decoration.helpers.GenericDecorationDividerPositionVars.Companion.POSITION_START_END
+import pt.simdea.gmlrva.lib.decoration.helpers.GenericDecorationDividerPositionVars.Companion.POSITION_TOP
+import pt.simdea.gmlrva.lib.decoration.helpers.GenericDecorationDividerPositionVars.Companion.POSITION_TOP_BOTTOM
 import java.lang.annotation.Retention
 import java.lang.annotation.RetentionPolicy
 
@@ -17,29 +22,29 @@ import java.lang.annotation.RetentionPolicy
  * paulo.ribeiro@simdea.pt
  */
 @Retention(RetentionPolicy.SOURCE)
-@IntDef(GenericDecorationDividerPosition.POSITION_TOP, GenericDecorationDividerPosition.POSITION_BOTTOM, GenericDecorationDividerPosition.POSITION_START, GenericDecorationDividerPosition.POSITION_END)
-annotation class GenericDecorationDividerPosition {
-    companion object {
+@IntDef(POSITION_TOP, POSITION_BOTTOM, POSITION_START, POSITION_END, POSITION_START_END, POSITION_TOP_BOTTOM)
+annotation class GenericDecorationDividerPosition
 
+class GenericDecorationDividerPositionVars {
+    companion object {
         /* Constants */
 
         /** POSITION_TOP representing an item has its divider placed above it.  */
-        val POSITION_TOP = 0
+        const val POSITION_TOP = 0
 
         /** POSITION_BOTTOM representing an item has its divider placed below it.  */
-        val POSITION_BOTTOM = 1
+        const val POSITION_BOTTOM = 1
 
         /** POSITION_START representing an item has its divider placed to it's left.  */
-        val POSITION_START = 2
+        const val POSITION_START = 2
 
         /** POSITION_END representing an item has its divider placed to it's right.  */
-        val POSITION_END = 3
+        const val POSITION_END = 3
 
         /** POSITION_START_END representing an item has its divider placed to it's left and to it's right.  */
-        val POSITION_START_END = 4
+        const val POSITION_START_END = 4
 
         /** POSITION_TOP_BOTTOM representing an item has its divider placed above and below it.  */
-        val POSITION_TOP_BOTTOM = 5
+        const val POSITION_TOP_BOTTOM = 5
     }
-
 }

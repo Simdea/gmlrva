@@ -25,7 +25,7 @@ class ViewUtils
 private constructor() {
 
     init {
-        throw AssertionError(Const.ASSERTION_ERROR)  // Throw an exception if this *is* ever called
+        throw AssertionError(GMLRVAConstantsVars.ASSERTION_ERROR)  // Throw an exception if this *is* ever called
     }
 
     companion object {

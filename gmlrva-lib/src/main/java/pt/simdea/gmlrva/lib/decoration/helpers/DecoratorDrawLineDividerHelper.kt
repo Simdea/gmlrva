@@ -17,7 +17,6 @@ import pt.simdea.gmlrva.lib.decoration.decorators.SimpleDividerItemDecoration
  * Simdea © All Rights Reserved.
  * paulo.ribeiro@simdea.pt
  */
-@NoArgsConstructor
 internal class DecoratorDrawLineDividerHelper {
 
     /**

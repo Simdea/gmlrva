@@ -5,6 +5,9 @@
 package pt.simdea.gmlrva.lib.animation.helpers
 
 import androidx.annotation.IntDef
+import pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperationVars.Companion.ADD_ANIMATION_FINISHED
+import pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperationVars.Companion.CHANGE_ANIMATION_FINISHED
+import pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperationVars.Companion.REMOVE_ANIMATION_FINISHED
 
 import java.lang.annotation.Retention
 import java.lang.annotation.RetentionPolicy
@@ -17,20 +20,20 @@ import java.lang.annotation.RetentionPolicy
  * paulo.ribeiro@simdea.pt
  */
 @Retention(RetentionPolicy.SOURCE)
-@IntDef(GenericAnimationFinishedOperation.ADD_ANIMATION_FINISHED, GenericAnimationFinishedOperation.REMOVE_ANIMATION_FINISHED, GenericAnimationFinishedOperation.CHANGE_ANIMATION_FINISHED)
-annotation class GenericAnimationFinishedOperation {
-    companion object {
+@IntDef(ADD_ANIMATION_FINISHED, REMOVE_ANIMATION_FINISHED, CHANGE_ANIMATION_FINISHED)
+annotation class GenericAnimationFinishedOperation
 
+class GenericAnimationFinishedOperationVars {
+    companion object {
         /* Constants */
 
         /** ADD_ANIMATION_FINISHED representing an item add animation conclusion.  */
-        val ADD_ANIMATION_FINISHED = 0
+        const val ADD_ANIMATION_FINISHED = 0
 
         /** REMOVE_ANIMATION_FINISHED representing an item remove animation conclusion.  */
-        val REMOVE_ANIMATION_FINISHED = 1
+        const val REMOVE_ANIMATION_FINISHED = 1
 
         /** CHANGE_ANIMATION_FINISHED representing an item change animation conclusion.  */
-        val CHANGE_ANIMATION_FINISHED = 2
+        const val CHANGE_ANIMATION_FINISHED = 2
     }
-
 }

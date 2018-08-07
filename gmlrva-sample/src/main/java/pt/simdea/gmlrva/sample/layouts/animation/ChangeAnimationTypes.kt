@@ -5,9 +5,7 @@
 package pt.simdea.gmlrva.sample.layouts.animation
 
 import androidx.annotation.IntDef
-
-import java.lang.annotation.Retention
-import java.lang.annotation.RetentionPolicy
+import pt.simdea.gmlrva.sample.layouts.animation.ChangeAnimationTypesVars.Companion.ROTATION_TRIGGER
 
 /**
  * Magic Constant Annotation Enum containing the possible [ChangeAnimationTypes] key options.
@@ -16,15 +14,15 @@ import java.lang.annotation.RetentionPolicy
  * Simdea © All Rights Reserved.
  * paulo.ribeiro@simdea.pt
  */
-@Retention(RetentionPolicy.SOURCE)
-@IntDef(ChangeAnimationTypes.ROTATION_TRIGGER)
-annotation class ChangeAnimationTypes {
-    companion object {
+@Retention(AnnotationRetention.SOURCE)
+@IntDef(ROTATION_TRIGGER)
+annotation class ChangeAnimationTypes
 
+class ChangeAnimationTypesVars {
+    companion object {
         /* Constants */
 
         /** ROTATION_TRIGGER representing a rotation custom animation.  */
-        val ROTATION_TRIGGER = 0
+        const val ROTATION_TRIGGER = 0
     }
-
 }

@@ -68,15 +68,15 @@ class SimpleDividerItemDecoration
     /** {@inheritDoc}  */
     override fun applySpec(configurationSpec: SimpleDividerItemDecorationSpec) {
         /* Get Spacing Rules */
-        mTopSpacing = configurationSpec.getTopSpacing()
-        mBottomSpacing = configurationSpec.getBottomSpacing()
-        mStartSpacing = configurationSpec.getStartSpacing()
-        mEndSpacing = configurationSpec.getEndSpacing()
+        mTopSpacing = configurationSpec.mTopSpacing
+        mBottomSpacing = configurationSpec.mBottomSpacing
+        mStartSpacing = configurationSpec.mStartSpacing
+        mEndSpacing = configurationSpec.mEndSpacing
 
         /* Get Divider Rules */
-        mDivider = configurationSpec.getDivider()
-        mDividerPosition = configurationSpec.getDividerPosition()
-        mDrawnDivider = configurationSpec.getDrawnDivider()
+        mDivider = configurationSpec.mDivider
+        mDividerPosition = configurationSpec.mDividerPosition
+        mDrawnDivider = configurationSpec.mDrawnDivider
     }
 
 }

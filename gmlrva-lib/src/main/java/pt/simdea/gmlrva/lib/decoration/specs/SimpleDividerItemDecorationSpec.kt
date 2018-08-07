@@ -27,44 +27,28 @@ import java.io.Serializable
  * Simdea © All Rights Reserved.
  * paulo.ribeiro@simdea.pt
  */
-@ToString
-@EqualsAndHashCode
-class SimpleDividerItemDecorationSpec
-/**
- * Instantiates a new SimpleDividerItemDecorationSpec.
- * Private to prevent instantiation.
- * @param builder the builder object responsible for harboring
- * all the required fields of a [SimpleDividerItemDecorationSpec].
- */
-internal constructor(builder: DecorationSpecBuilder) : ItemDecorationSpec, Serializable {
+class SimpleDividerItemDecorationSpec(builder: DecorationSpecBuilder) : ItemDecorationSpec, Serializable {
 
     /** This ItemDecoration's top spacing value  */
-    @Getter
-    private val mTopSpacing: Int
+    internal val mTopSpacing: Int
 
     /** This ItemDecoration's bottom spacing value  */
-    @Getter
-    private val mBottomSpacing: Int
+    internal val mBottomSpacing: Int
 
     /** This ItemDecoration's start spacing value  */
-    @Getter
-    private val mStartSpacing: Int
+    internal val mStartSpacing: Int
 
     /** This ItemDecoration's end spacing value  */
-    @Getter
-    private val mEndSpacing: Int
+    internal val mEndSpacing: Int
 
     /** This ItemDecoration's divider position value [GenericDecorationDividerPosition]  */
-    @Getter
-    private val mDividerPosition: Int
+    internal val mDividerPosition: Int
 
     /** This ItemDecoration's divider resource  */
-    @Getter
-    private val mDivider: Drawable?
+    internal val mDivider: Drawable?
 
     /** This ItemDecoration's divider [Paint] resource  */
-    @Getter
-    private val mDrawnDivider: Paint?
+    internal val mDrawnDivider: Paint?
 
     init {
         mDividerPosition = builder.mDividerPosition
@@ -81,17 +65,16 @@ internal constructor(builder: DecorationSpecBuilder) : ItemDecorationSpec, Seria
      * SimpleDividerItemDecorationSpec builder class responsible for harboring
      * all the required fields of a [SimpleDividerItemDecorationSpec].
      */
-    @NoArgsConstructor
     class DecorationSpecBuilder {
 
-        private var mDivider: Drawable? = null
-        private var mDrawnDivider: Paint? = null
+        internal var mDivider: Drawable? = null
+        internal var mDrawnDivider: Paint? = null
 
-        private var mTopSpacing: Int = 0
-        private var mBottomSpacing: Int = 0
-        private var mStartSpacing: Int = 0
-        private var mEndSpacing: Int = 0
-        private var mDividerPosition: Int = 0
+        internal var mTopSpacing: Int = 0
+        internal var mBottomSpacing: Int = 0
+        internal var mStartSpacing: Int = 0
+        internal var mEndSpacing: Int = 0
+        internal var mDividerPosition: Int = 0
 
         /**
          * Procedure meant to set the value for [.mDrawnDivider] optional parameter.

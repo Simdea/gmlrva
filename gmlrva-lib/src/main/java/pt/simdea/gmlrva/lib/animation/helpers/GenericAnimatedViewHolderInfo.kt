@@ -15,11 +15,6 @@ import androidx.recyclerview.widget.RecyclerView
  * Simdea © All Rights Reserved.
  * paulo.ribeiro@simdea.pt
  */
-@AllArgsConstructor
-class GenericAnimatedViewHolderInfo : RecyclerView.ItemAnimator.ItemHolderInfo() {
-
-    @Getter
-    @IntRange(from = 0)
-    private val mUpdateAction: Int = 0
-
-}
+class GenericAnimatedViewHolderInfo(
+        @IntRange(from = 0) internal val mUpdateAction: Int = 0
+) : RecyclerView.ItemAnimator.ItemHolderInfo()

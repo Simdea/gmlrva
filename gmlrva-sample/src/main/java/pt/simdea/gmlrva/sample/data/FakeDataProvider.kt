@@ -29,14 +29,14 @@ class FakeDataProvider {
     /** Auxiliary class meant to handle the random generation of data.  */
     private object RandomStringGenerator {
 
-        private val ALLOWED_CHARACTERS = "0123456789qwertyuiopasdfghjklzxcvbnm"
+        private const val ALLOWED_CHARACTERS = "0123456789qwertyuiopasdfghjklzxcvbnm"
 
         /**
          * Procedure meant to generate and return a [String] object containing randomly generated output.
          * @param sizeOfRandomString the desired size of the resulting [String] object.
          * @return the [String] object containing randomly generated output.
          */
-        private fun getRandomString(@IntRange(from = 0) sizeOfRandomString: Int): String {
+        internal fun getRandomString(@IntRange(from = 0) sizeOfRandomString: Int): String {
             val random = Random()
             val sb = StringBuilder(sizeOfRandomString)
             for (i in 0 until sizeOfRandomString) {
@@ -49,7 +49,7 @@ class FakeDataProvider {
 
     companion object {
 
-        private val MAX_LENGTH = 10
+        private const val MAX_LENGTH = 10
     }
 
 }

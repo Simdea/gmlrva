@@ -10,7 +10,7 @@ import android.graphics.drawable.Drawable
 import androidx.annotation.IntRange
 import androidx.recyclerview.widget.RecyclerView
 import pt.simdea.gmlrva.lib.decoration.decorators.SimpleDividerItemDecoration
-import pt.simdea.gmlrva.lib.utilities.GMLRVAConstants
+import pt.simdea.gmlrva.lib.utilities.GMLRVAConstantsVars
 
 /**
  * This auxiliary class is meant to apply a [SimpleDividerItemDecoration]'s divider specification rules.
@@ -19,7 +19,6 @@ import pt.simdea.gmlrva.lib.utilities.GMLRVAConstants
  * Simdea © All Rights Reserved.
  * paulo.ribeiro@simdea.pt
  */
-@NoArgsConstructor
 class DecoratorDrawOverManager {
 
     private val mDrawableDividerHelper = DecoratorDrawableDividerHelper()
@@ -38,19 +37,19 @@ class DecoratorDrawOverManager {
     fun applyDrawableDivider(canvas: Canvas, parent: RecyclerView,
                              divider: Drawable, @IntRange(from = 0, to = 5) position: Int) {
         when (position) {
-            GenericDecorationDividerPosition.POSITION_TOP -> mDrawableDividerHelper.drawDrawableDividerPositionTop(canvas, parent, divider)
-            GenericDecorationDividerPosition.POSITION_BOTTOM -> mDrawableDividerHelper.drawDrawableDividerPositionBottom(canvas, parent, divider)
-            GenericDecorationDividerPosition.POSITION_START -> mDrawableDividerHelper.drawDrawableDividerPositionStart(canvas, parent, divider)
-            GenericDecorationDividerPosition.POSITION_END -> mDrawableDividerHelper.drawDrawableDividerPositionEnd(canvas, parent, divider)
-            GenericDecorationDividerPosition.POSITION_START_END -> {
+            GenericDecorationDividerPositionVars.POSITION_TOP -> mDrawableDividerHelper.drawDrawableDividerPositionTop(canvas, parent, divider)
+            GenericDecorationDividerPositionVars.POSITION_BOTTOM -> mDrawableDividerHelper.drawDrawableDividerPositionBottom(canvas, parent, divider)
+            GenericDecorationDividerPositionVars.POSITION_START -> mDrawableDividerHelper.drawDrawableDividerPositionStart(canvas, parent, divider)
+            GenericDecorationDividerPositionVars.POSITION_END -> mDrawableDividerHelper.drawDrawableDividerPositionEnd(canvas, parent, divider)
+            GenericDecorationDividerPositionVars.POSITION_START_END -> {
                 mDrawableDividerHelper.drawDrawableDividerPositionStart(canvas, parent, divider)
                 mDrawableDividerHelper.drawDrawableDividerPositionEnd(canvas, parent, divider)
             }
-            GenericDecorationDividerPosition.POSITION_TOP_BOTTOM -> {
+            GenericDecorationDividerPositionVars.POSITION_TOP_BOTTOM -> {
                 mDrawableDividerHelper.drawDrawableDividerPositionTop(canvas, parent, divider)
                 mDrawableDividerHelper.drawDrawableDividerPositionBottom(canvas, parent, divider)
             }
-            else -> throw UnsupportedOperationException(GMLRVAConstants.Companion.getUNSUPPORTED_ERROR())
+            else -> throw UnsupportedOperationException(GMLRVAConstantsVars.UNSUPPORTED_ERROR)
         }
     }
 

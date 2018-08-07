@@ -7,14 +7,16 @@ package pt.simdea.gmlrva.sample.layouts.animation
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
-import android.animation.ObjectAnimator
 import android.view.View
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import androidx.recyclerview.widget.RecyclerView
 import pt.simdea.gmlrva.lib.IGenericRecyclerViewLayout
 import pt.simdea.gmlrva.lib.animation.GenericItemAnimator
-import pt.simdea.gmlrva.lib.utilities.GMLRVAConstants
+import pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperationVars.Companion.ADD_ANIMATION_FINISHED
+import pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperationVars.Companion.CHANGE_ANIMATION_FINISHED
+import pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperationVars.Companion.REMOVE_ANIMATION_FINISHED
+import pt.simdea.gmlrva.lib.utilities.GMLRVAConstantsVars
 import pt.simdea.gmlrva.lib.utilities.ViewUtils
 
 /**
@@ -32,7 +34,7 @@ class ViewHolderAnimationHelper
 private constructor() {
 
     init {
-        throw AssertionError(GMLRVAConstants.Companion.getASSERTION_ERROR())  // Throw an exception if this *is* ever called
+        throw AssertionError(GMLRVAConstantsVars.ASSERTION_ERROR)  // Throw an exception if this *is* ever called
     }
 
     companion object {
@@ -60,7 +62,7 @@ private constructor() {
 
                         /** {@inheritDoc}  */
                         override fun onAnimationEnd(animation: Animator) {
-                            listener.onAnimationFinished(holder, Companion.getADD_ANIMATION_FINISHED())
+                            listener.onAnimationFinished(holder, ADD_ANIMATION_FINISHED)
                         }
 
                         /** {@inheritDoc}  */
@@ -100,7 +102,7 @@ private constructor() {
 
                         /** {@inheritDoc}  */
                         override fun onAnimationEnd(animation: Animator) {
-                            listener.onAnimationFinished(holder, Companion.getREMOVE_ANIMATION_FINISHED())
+                            listener.onAnimationFinished(holder, REMOVE_ANIMATION_FINISHED)
                         }
 
                         /** {@inheritDoc}  */
@@ -126,20 +128,20 @@ private constructor() {
         fun runTestChangeAnimation(holder: RecyclerView.ViewHolder,
                                    itemView: View,
                                    listener: GenericItemAnimator): AnimatorSet {
-            val oldTextRotate = ObjectAnimator.ofFloat<View>(itemView, View.ROTATION_X, 0, 90)
-            val newTextRotate = ObjectAnimator.ofFloat<View>(itemView, View.ROTATION_X, -90, 0)
+            //val oldTextRotate = ObjectAnimator.ofFloat(itemView, View.ROTATION_X, 0, 90)
+            //val newTextRotate = ObjectAnimator.ofFloat(itemView, View.ROTATION_X, -90, 0)
             val textAnim = AnimatorSet()
 
             textAnim.addListener(object : AnimatorListenerAdapter() {
 
                 /** {@inheritDoc}  */
                 override fun onAnimationEnd(animation: Animator) {
-                    listener.onAnimationFinished(holder, Companion.getCHANGE_ANIMATION_FINISHED())
+                    listener.onAnimationFinished(holder, CHANGE_ANIMATION_FINISHED)
                 }
 
             })
 
-            textAnim.playSequentially(oldTextRotate, newTextRotate)
+            //textAnim.playSequentially(oldTextRotate, newTextRotate)
             return textAnim
         }
     }

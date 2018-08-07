@@ -14,16 +14,17 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.IntRange
 import androidx.recyclerview.widget.RecyclerView
-import lombok.AllArgsConstructor
-import lombok.Getter
 import pt.simdea.gmlrva.lib.GenericMultipleLayoutAdapter
 import pt.simdea.gmlrva.lib.IGenericRecyclerViewLayout
-import pt.simdea.gmlrva.lib.IViewHolder
+import pt.simdea.gmlrva.lib.ViewHolder
 import pt.simdea.gmlrva.lib.animation.GenericItemAnimator
-import pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation
+import pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperationVars.Companion.ADD_ANIMATION_FINISHED
+import pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperationVars.Companion.CHANGE_ANIMATION_FINISHED
+import pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperationVars.Companion.REMOVE_ANIMATION_FINISHED
 import pt.simdea.gmlrva.lib.animation.helpers.IAnimatedViewHolder
 import pt.simdea.gmlrva.lib.utilities.GMLRVAConstants
 import pt.simdea.gmlrva.sample.R
+import pt.simdea.gmlrva.sample.layouts.ViewTypes
 
 /**
  * Class representing a Carousel Item Layout meant to be used on a [GenericMultipleLayoutAdapter].
@@ -32,13 +33,11 @@ import pt.simdea.gmlrva.sample.R
  * Simdea © All Rights Reserved.
  * paulo.ribeiro@simdea.pt
  */
-@AllArgsConstructor
-class CarouselItemWithOptionLayout : IGenericRecyclerViewLayout<CarouselItemWithOptionLayout.CarouselItemWithOptionViewHolder> {
-
-    private val mTitle: String? = null
-    private val mDescription: String? = null
-    @IntRange(from = 0)
-    private val mCoverResource: Int = 0
+class CarouselItemWithOptionLayout(
+        private val mTitle: String,
+        private val mDescription: String,
+        @IntRange(from = 0) private val mCoverResource: Int
+) : IGenericRecyclerViewLayout<CarouselItemWithOptionLayout.CarouselItemWithOptionViewHolder> {
 
     /** {@inheritDoc}  */
     override val tag: Any
@@ -46,7 +45,7 @@ class CarouselItemWithOptionLayout : IGenericRecyclerViewLayout<CarouselItemWith
 
     /** {@inheritDoc}  */
     override val viewType: Int
-        get() = GenericRecyclerViewLayoutTypes.CAROUSEL_ITEM_WITH_OPTIONS
+        get() = ViewTypes.GenericRecyclerViewLayoutTypes.CAROUSEL_ITEM_WITH_OPTIONS
 
     /** {@inheritDoc}  */
     override fun createViewHolder(parent: ViewGroup): CarouselItemWithOptionViewHolder {
@@ -63,27 +62,15 @@ class CarouselItemWithOptionLayout : IGenericRecyclerViewLayout<CarouselItemWith
     }
 
     /** Class meant to define the [RecyclerView.ViewHolder] for a Carousel Item Layout instance.  */
-    internal inner class CarouselItemWithOptionViewHolder
-    /**
-     * Instantiates a new CarouselItemViewHolder.
-     * @param view this [RecyclerView.ViewHolder]'s root view.
-     */
-    (view: View) : RecyclerView.ViewHolder(view), IAnimatedViewHolder, View.OnClickListener, IViewHolder {
+    public inner class CarouselItemWithOptionViewHolder(val view: View) : ViewHolder(view), IAnimatedViewHolder, View.OnClickListener {
 
-        @Getter
-        private var mTitle: TextView? = null
-        @Getter
-        private var mDescription: TextView? = null
-        @Getter
-        private var mCover: ImageView? = null
-        @Getter
-        private var mOption: ImageView? = null
-        @Getter
-        private var mOptionSection: RelativeLayout? = null
-        @Getter
-        private var mLeftOption: View? = null
-        @Getter
-        private var mRightOption: View? = null
+        internal var mTitle: TextView? = null
+        internal var mDescription: TextView? = null
+        internal var mCover: ImageView? = null
+        internal var mOption: ImageView? = null
+        internal var mOptionSection: RelativeLayout? = null
+        internal var mLeftOption: View? = null
+        internal var mRightOption: View? = null
 
         init {
             bindViews(view)
@@ -100,17 +87,17 @@ class CarouselItemWithOptionLayout : IGenericRecyclerViewLayout<CarouselItemWith
 
         /** {@inheritDoc}  */
         override fun runAddAnimation(listener: GenericItemAnimator) {
-            listener.onAnimationFinished(this, GenericAnimationFinishedOperation.ADD_ANIMATION_FINISHED)
+            listener.onAnimationFinished(this, ADD_ANIMATION_FINISHED)
         }
 
         /** {@inheritDoc}  */
         override fun runRemoveAnimation(listener: GenericItemAnimator) {
-            listener.onAnimationFinished(this, GenericAnimationFinishedOperation.REMOVE_ANIMATION_FINISHED)
+            listener.onAnimationFinished(this, REMOVE_ANIMATION_FINISHED)
         }
 
         /** {@inheritDoc}  */
         override fun runChangeAnimation(listener: GenericItemAnimator): AnimatorSet? {
-            listener.onAnimationFinished(this, GenericAnimationFinishedOperation.CHANGE_ANIMATION_FINISHED)
+            listener.onAnimationFinished(this, CHANGE_ANIMATION_FINISHED)
             return null
         }
 

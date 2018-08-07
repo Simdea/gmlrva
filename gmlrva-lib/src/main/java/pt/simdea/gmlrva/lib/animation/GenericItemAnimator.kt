@@ -12,9 +12,12 @@ import androidx.recyclerview.widget.RecyclerView
 import pt.simdea.gmlrva.lib.IGenericRecyclerViewLayout
 import pt.simdea.gmlrva.lib.animation.helpers.GenericAnimatedViewHolderInfo
 import pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation
+import pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperationVars.Companion.ADD_ANIMATION_FINISHED
+import pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperationVars.Companion.CHANGE_ANIMATION_FINISHED
+import pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperationVars.Companion.REMOVE_ANIMATION_FINISHED
 import pt.simdea.gmlrva.lib.animation.helpers.IAnimatedViewHolder
 import pt.simdea.gmlrva.lib.animation.helpers.IAnimationFinished
-import pt.simdea.gmlrva.lib.utilities.GMLRVAConstants
+import pt.simdea.gmlrva.lib.utilities.GMLRVAConstantsVars
 
 /**
  * This class is meant to serve as a base [RecyclerView.ItemAnimator],
@@ -171,7 +174,7 @@ abstract class GenericItemAnimator : DefaultItemAnimator(), IAnimationFinished {
                     mCustomAnimationsMap.remove(holder)
                 }
             }
-            else -> throw UnsupportedOperationException(GMLRVAConstants.Companion.getUNSUPPORTED_ERROR())
+            else -> throw UnsupportedOperationException(GMLRVAConstantsVars.UNSUPPORTED_ERROR)
         }
     }
 
@@ -210,7 +213,7 @@ abstract class GenericItemAnimator : DefaultItemAnimator(), IAnimationFinished {
      */
     private fun cancelCurrentAnimationIfExists(item: RecyclerView.ViewHolder) {
         if (mCustomAnimationsMap.containsKey(item)) {
-            mCustomAnimationsMap[item].cancel()
+            mCustomAnimationsMap[item]?.cancel()
         }
     }
 

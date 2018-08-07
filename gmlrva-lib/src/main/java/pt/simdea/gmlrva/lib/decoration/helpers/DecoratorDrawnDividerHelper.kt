@@ -10,7 +10,7 @@ import android.graphics.Path
 import android.view.View
 import androidx.annotation.IntRange
 import pt.simdea.gmlrva.lib.decoration.decorators.SimpleDividerItemDecoration
-import pt.simdea.gmlrva.lib.utilities.GMLRVAConstants
+import pt.simdea.gmlrva.lib.utilities.GMLRVAConstantsVars
 
 /**
  * Auxiliary class meant to handle the drawing operation of an intended [SimpleDividerItemDecoration]'s divider,
@@ -20,7 +20,6 @@ import pt.simdea.gmlrva.lib.utilities.GMLRVAConstants
  * Simdea © All Rights Reserved.
  * paulo.ribeiro@simdea.pt
  */
-@NoArgsConstructor
 internal class DecoratorDrawnDividerHelper {
 
     private val mDrawLineDividerHelper = DecoratorDrawLineDividerHelper()
@@ -39,13 +38,13 @@ internal class DecoratorDrawnDividerHelper {
     fun drawLineDivider(canvas: Canvas, view: View, offset: Int,
                         drawnDivider: Paint, @IntRange(from = 0, to = 5) position: Int) {
         when (position) {
-            GenericDecorationDividerPosition.POSITION_TOP -> mDrawLineDividerHelper.onDrawLineDividerTop(canvas, view, offset, drawnDivider)
-            GenericDecorationDividerPosition.POSITION_BOTTOM -> mDrawLineDividerHelper.onDrawLineDividerBottom(canvas, view, offset, drawnDivider)
-            GenericDecorationDividerPosition.POSITION_START -> mDrawLineDividerHelper.onDrawLineDividerStart(canvas, view, offset, drawnDivider)
-            GenericDecorationDividerPosition.POSITION_END -> mDrawLineDividerHelper.onDrawLineDividerEnd(canvas, view, offset, drawnDivider)
-            GenericDecorationDividerPosition.POSITION_START_END -> mDrawLineDividerHelper.onDrawLineDividerStartEnd(canvas, view, offset, drawnDivider)
-            GenericDecorationDividerPosition.POSITION_TOP_BOTTOM -> mDrawLineDividerHelper.onDrawLineDividerTopBottom(canvas, view, offset, drawnDivider)
-            else -> throw UnsupportedOperationException(GMLRVAConstants.Companion.getUNSUPPORTED_ERROR())
+            GenericDecorationDividerPositionVars.POSITION_TOP -> mDrawLineDividerHelper.onDrawLineDividerTop(canvas, view, offset, drawnDivider)
+            GenericDecorationDividerPositionVars.POSITION_BOTTOM -> mDrawLineDividerHelper.onDrawLineDividerBottom(canvas, view, offset, drawnDivider)
+            GenericDecorationDividerPositionVars.POSITION_START -> mDrawLineDividerHelper.onDrawLineDividerStart(canvas, view, offset, drawnDivider)
+            GenericDecorationDividerPositionVars.POSITION_END -> mDrawLineDividerHelper.onDrawLineDividerEnd(canvas, view, offset, drawnDivider)
+            GenericDecorationDividerPositionVars.POSITION_START_END -> mDrawLineDividerHelper.onDrawLineDividerStartEnd(canvas, view, offset, drawnDivider)
+            GenericDecorationDividerPositionVars.POSITION_TOP_BOTTOM -> mDrawLineDividerHelper.onDrawLineDividerTopBottom(canvas, view, offset, drawnDivider)
+            else -> throw UnsupportedOperationException(GMLRVAConstantsVars.UNSUPPORTED_ERROR)
         }
     }
 
@@ -64,13 +63,13 @@ internal class DecoratorDrawnDividerHelper {
                           @IntRange(from = 0, to = 5) position: Int) {
         val path = Path()
         when (position) {
-            GenericDecorationDividerPosition.POSITION_TOP -> mDottedDividerHelper.onDrawDottedDividerTop(canvas, view, offset, drawnDivider, path)
-            GenericDecorationDividerPosition.POSITION_BOTTOM -> mDottedDividerHelper.onDrawDottedDividerBottom(canvas, view, offset, drawnDivider, path)
-            GenericDecorationDividerPosition.POSITION_START -> mDottedDividerHelper.onDrawDottedDividerStart(canvas, view, offset, drawnDivider, path)
-            GenericDecorationDividerPosition.POSITION_END -> mDottedDividerHelper.onDrawDottedDividerEnd(canvas, view, offset, drawnDivider, path)
-            GenericDecorationDividerPosition.POSITION_START_END -> mDottedDividerHelper.onDrawDottedDividerStartEnd(canvas, view, offset, drawnDivider, path)
-            GenericDecorationDividerPosition.POSITION_TOP_BOTTOM -> mDottedDividerHelper.onDrawDottedDividerTopBottom(canvas, view, offset, drawnDivider, path)
-            else -> throw UnsupportedOperationException(GMLRVAConstants.Companion.getUNSUPPORTED_ERROR())
+            GenericDecorationDividerPositionVars.POSITION_TOP -> mDottedDividerHelper.onDrawDottedDividerTop(canvas, view, offset, drawnDivider, path)
+            GenericDecorationDividerPositionVars.POSITION_BOTTOM -> mDottedDividerHelper.onDrawDottedDividerBottom(canvas, view, offset, drawnDivider, path)
+            GenericDecorationDividerPositionVars.POSITION_START -> mDottedDividerHelper.onDrawDottedDividerStart(canvas, view, offset, drawnDivider, path)
+            GenericDecorationDividerPositionVars.POSITION_END -> mDottedDividerHelper.onDrawDottedDividerEnd(canvas, view, offset, drawnDivider, path)
+            GenericDecorationDividerPositionVars.POSITION_START_END -> mDottedDividerHelper.onDrawDottedDividerStartEnd(canvas, view, offset, drawnDivider, path)
+            GenericDecorationDividerPositionVars.POSITION_TOP_BOTTOM -> mDottedDividerHelper.onDrawDottedDividerTopBottom(canvas, view, offset, drawnDivider, path)
+            else -> throw UnsupportedOperationException(GMLRVAConstantsVars.UNSUPPORTED_ERROR)
         }
     }
 

@@ -5,8 +5,8 @@
 package pt.simdea.gmlrva.lib.utilities
 
 import androidx.annotation.StringDef
-import pt.simdea.gmlrva.lib.utilities.Const.Companion.ASSERTION_ERROR
-import pt.simdea.gmlrva.lib.utilities.Const.Companion.UNSUPPORTED_ERROR
+import pt.simdea.gmlrva.lib.utilities.GMLRVAConstantsVars.Companion.ASSERTION_ERROR
+import pt.simdea.gmlrva.lib.utilities.GMLRVAConstantsVars.Companion.UNSUPPORTED_ERROR
 
 
 /**
@@ -20,7 +20,7 @@ import pt.simdea.gmlrva.lib.utilities.Const.Companion.UNSUPPORTED_ERROR
 @StringDef(ASSERTION_ERROR, UNSUPPORTED_ERROR)
 annotation class GMLRVAConstants
 
-class Const {
+class GMLRVAConstantsVars {
     companion object {
 
         /** Exception Messages  */
