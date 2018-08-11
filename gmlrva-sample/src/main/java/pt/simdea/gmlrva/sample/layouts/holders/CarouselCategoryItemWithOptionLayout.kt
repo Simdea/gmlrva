@@ -32,9 +32,11 @@ import pt.simdea.gmlrva.sample.layouts.ViewTypes
  * Simdea © All Rights Reserved.
  * paulo.ribeiro@simdea.pt
  */
-class CarouselCategoryItemWithOptionLayout(private val mCategoryTitle: String,
-                                           private val mCategoryData: PagedList<IGenericRecyclerViewLayout<ViewHolder>>,
-                                           private val mContext: Context) : IGenericRecyclerViewLayout<CarouselCategoryItemWithOptionLayout.CarouselCategoryViewHolder> {
+class CarouselCategoryItemWithOptionLayout(
+        private val mCategoryTitle: String,
+        private val mCategoryData: List<IGenericRecyclerViewLayout<*>>,
+        private val mContext: Context
+) : IGenericRecyclerViewLayout<CarouselCategoryItemWithOptionLayout.CarouselCategoryViewHolder> {
 
     /** {@inheritDoc}  */
     override val tag: Any
@@ -84,7 +86,7 @@ class CarouselCategoryItemWithOptionLayout(private val mCategoryTitle: String,
 
         /** {@inheritDoc}  */
         override fun recycle() {
-            mTitle!!.text = null
+            mTitle.text = null
         }
 
         /** {@inheritDoc}  */

@@ -17,12 +17,16 @@ import lombok.Getter
 import pt.simdea.gmlrva.lib.GenericMultipleLayoutAdapter
 import pt.simdea.gmlrva.lib.IGenericRecyclerViewLayout
 import pt.simdea.gmlrva.lib.IViewHolder
+import pt.simdea.gmlrva.lib.ViewHolder
 import pt.simdea.gmlrva.lib.animation.GenericItemAnimator
 import pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation
+import pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperationVars
 import pt.simdea.gmlrva.lib.animation.helpers.IAnimatedViewHolder
 import pt.simdea.gmlrva.lib.utilities.GMLRVAConstants
+import pt.simdea.gmlrva.lib.utilities.GMLRVAConstantsVars
 import pt.simdea.gmlrva.sample.R
 import pt.simdea.gmlrva.sample.data.ClickListener
+import pt.simdea.gmlrva.sample.layouts.ViewTypes
 import pt.simdea.gmlrva.sample.layouts.animation.ViewHolderAnimationHelper
 
 /**
@@ -33,11 +37,10 @@ import pt.simdea.gmlrva.sample.layouts.animation.ViewHolderAnimationHelper
  * paulo.ribeiro@simdea.pt
  */
 @AllArgsConstructor
-class SingleImageItemLayout : IGenericRecyclerViewLayout<SingleImageItemLayout.SingleImageItemViewHolder> {
+class SingleImageItemLayout(
+        @IntRange(from = 0) private val mCoverResource: Int = 0
+) : IGenericRecyclerViewLayout<SingleImageItemLayout.SingleImageItemViewHolder> {
 
-    @IntRange(from = 0)
-    private val mCoverResource: Int = 0
-    protected val mListener: ClickListener? = null
 
     /** {@inheritDoc}  */
     override val tag: Any
@@ -45,7 +48,7 @@ class SingleImageItemLayout : IGenericRecyclerViewLayout<SingleImageItemLayout.S
 
     /** {@inheritDoc}  */
     override val viewType: Int
-        get() = GenericRecyclerViewLayoutTypes.SINGLE_IMAGE_ITEM
+        get() = ViewTypes.SINGLE_IMAGE_ITEM
 
     /** {@inheritDoc}  */
     override fun createViewHolder(parent: ViewGroup): SingleImageItemViewHolder {
@@ -56,65 +59,37 @@ class SingleImageItemLayout : IGenericRecyclerViewLayout<SingleImageItemLayout.S
 
     /** {@inheritDoc}  */
     override fun setElements(holder: SingleImageItemViewHolder) {
-        holder.getCover().setImageResource(mCoverResource)
+        holder.mCover.setImageResource(mCoverResource)
     }
 
     /** Class meant to define the [RecyclerView.ViewHolder] for a Single Image Layout instance.  */
-    internal inner class SingleImageItemViewHolder
-    /**
-     * Instantiates a new SingleImageItemViewHolder.
-     * @param view this [RecyclerView.ViewHolder]'s root view.
-     */
-    (view: View) : RecyclerView.ViewHolder(view), View.OnClickListener, IAnimatedViewHolder, IViewHolder {
+    inner class SingleImageItemViewHolder(val view: View) : ViewHolder(view), IAnimatedViewHolder {
 
-        @Getter
-        private var mCover: ImageView? = null
+        internal lateinit var mCover: ImageView
 
         init {
             bindViews(view)
-            bindListeners()
         }
 
         /** {@inheritDoc}  */
         override fun recycle() {
-            mCover!!.setImageDrawable(null)
+            mCover.setImageDrawable(null)
         }
 
         /** {@inheritDoc}  */
         override fun runAddAnimation(listener: GenericItemAnimator) {
-            ViewHolderAnimationHelper.runTestAddAnimation(this, itemView, listener)
+            ViewHolderAnimationHelper.runTestAddAnimation(this, view, listener)
         }
 
         /** {@inheritDoc}  */
         override fun runRemoveAnimation(listener: GenericItemAnimator) {
-            ViewHolderAnimationHelper.runTestRemoveAnimation(this, itemView, listener)
+            ViewHolderAnimationHelper.runTestRemoveAnimation(this, view, listener)
         }
 
         /** {@inheritDoc}  */
         override fun runChangeAnimation(listener: GenericItemAnimator): AnimatorSet? {
-            listener.onAnimationFinished(this, GenericAnimationFinishedOperation.CHANGE_ANIMATION_FINISHED)
+            listener.onAnimationFinished(this, GenericAnimationFinishedOperationVars.CHANGE_ANIMATION_FINISHED)
             return null
-        }
-
-        /** {@inheritDoc}  */
-        override fun onClick(v: View) {
-            val viewId = v.id
-            if (viewId == mCover!!.id) {
-                handleCoverClick()
-            } else {
-                throw UnsupportedOperationException(GMLRVAConstants.Companion.getUNSUPPORTED_ERROR())
-            }
-        }
-
-        /** Procedure meant to handle a Single Image Layout click action.  */
-        private fun handleCoverClick() {
-            Toast.makeText(itemView.context, "Cover Click!", Toast.LENGTH_SHORT).show()
-            mListener?.onClick()
-        }
-
-        /** Procedure meant to bind this [RecyclerView.ViewHolder]'s listeners.  */
-        private fun bindListeners() {
-            mCover!!.setOnClickListener(this)
         }
 
         /**

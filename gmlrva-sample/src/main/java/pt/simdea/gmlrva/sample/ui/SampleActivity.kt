@@ -13,6 +13,9 @@ import android.util.TypedValue
 import androidx.annotation.IntRange
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import pt.simdea.gmlrva.lib.GenericMultipleLayoutAdapter
@@ -20,13 +23,16 @@ import pt.simdea.gmlrva.lib.IGenericRecyclerViewLayout
 import pt.simdea.gmlrva.lib.animation.animators.ExampleItemAnimator
 import pt.simdea.gmlrva.lib.decoration.decorators.SimpleDividerItemDecoration
 import pt.simdea.gmlrva.lib.decoration.helpers.GenericDecorationDividerPosition
+import pt.simdea.gmlrva.lib.decoration.helpers.GenericDecorationDividerPositionVars
 import pt.simdea.gmlrva.lib.decoration.specs.SimpleDividerItemDecorationSpec
 import pt.simdea.gmlrva.lib.utilities.GenericUtils
 import pt.simdea.gmlrva.sample.R
 import pt.simdea.gmlrva.sample.data.ClickListener
 import pt.simdea.gmlrva.sample.data.FakeDataObject
 import pt.simdea.gmlrva.sample.data.FakeDataProvider
+import pt.simdea.gmlrva.sample.layouts.animation.ChangeAnimationTypesVars.Companion.ROTATION_TRIGGER
 import pt.simdea.gmlrva.sample.layouts.holders.*
+import pt.simdea.gmlrva.sample.viewmodel.SampleViewModel
 import java.util.*
 
 /**
@@ -38,10 +44,8 @@ import java.util.*
  */
 class SampleActivity : AppCompatActivity(), ClickListener {
 
-    private val mDataProvider = FakeDataProvider()
-
-    private var mGenericTest: RecyclerView? = null
-    private var mCarouselItemDataWithOptions: List<CarouselItemWithOptionLayout> = ArrayList()
+    private lateinit var sampleViewModel: SampleViewModel
+    private lateinit var mGenericTest: RecyclerView
 
     /**
      * Called when SampleActivity is first created.
@@ -62,8 +66,8 @@ class SampleActivity : AppCompatActivity(), ClickListener {
     override fun onResume() {
         super.onResume()
         if (mGenericTest != null) {
-            mGenericTest!!.adapter = GenericMultipleLayoutAdapter(buildGenericListExample(), this, false)
-            mGenericTest!!.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+            mGenericTest.adapter = GenericMultipleLayoutAdapter()
+            mGenericTest.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
             val thickness = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3f, resources.displayMetrics)
             val spec = SimpleDividerItemDecorationSpec.DecorationSpecBuilder()
@@ -71,16 +75,19 @@ class SampleActivity : AppCompatActivity(), ClickListener {
                     .withBottomSpacing(25)
                     .withStartSpacing(10)
                     .withEndSpacing(10)
-                    //                    .withDrawableDivider(ContextCompat.getDrawable(this, R.drawable.gmlrva_red_line_item_divider))
-                    .withDividerPosition(GenericDecorationDividerPosition.POSITION_TOP_BOTTOM)
+                    .withDrawableDivider(ContextCompat.getDrawable(this, R.drawable.gmlrva_red_line_item_divider))
+                    .withDividerPosition(GenericDecorationDividerPositionVars.POSITION_TOP_BOTTOM)
                     .withDrawnDivider(ContextCompat.getColor(this, R.color.gmlrvaColorAccent), thickness,
                             Paint.Style.STROKE, DashPathEffect(floatArrayOf(5f, 10f), 10f))
-                    //                    .withDrawnDivider(ContextCompat.getColor(this, R.color.gmlrvaColorAccent), thickness, null, null)
+                    .withDrawnDivider(ContextCompat.getColor(this, R.color.gmlrvaColorAccent), thickness, null, null)
                     .buildDecorationSpec()
-            mGenericTest!!.addItemDecoration(SimpleDividerItemDecoration(spec))
+            mGenericTest.addItemDecoration(SimpleDividerItemDecoration(spec))
 
-            GenericUtils.setOptimalConfigurationForRecyclerView(mGenericTest!!)
-            mGenericTest!!.itemAnimator = ExampleItemAnimator()
+            GenericUtils.setOptimalConfigurationForRecyclerView(mGenericTest)
+            mGenericTest.itemAnimator = ExampleItemAnimator()
+            sampleViewModel = SampleViewModel(this)
+            val adapter = mGenericTest.adapter as GenericMultipleLayoutAdapter?
+            sampleViewModel.getArticleLiveData().observe(this,  Observer { pagedList -> adapter?.submitList(pagedList) })
         }
     }
 
@@ -88,126 +95,12 @@ class SampleActivity : AppCompatActivity(), ClickListener {
     override fun onClick() {
         if (mGenericTest != null) {
             //            rebuildGenericListExample()
-            val adapter = mGenericTest!!.adapter as GenericMultipleLayoutAdapter?
+            val adapter = mGenericTest.adapter as GenericMultipleLayoutAdapter?
             val item = adapter!![1]
             if (item != null) {
-                adapter.updateItem(item, ROTATION_TRIGGER)
+                //adapter.updateItem(item, ROTATION_TRIGGER)
             }
         }
-    }
-
-    /** Procedure meant to rebuild the existing data list.  */
-    private fun rebuildGenericListExample() {
-        val exampleHolders = ArrayList<IGenericRecyclerViewLayout<*>>()
-
-        /* Add a Single Image Item Example */
-        val singleItemLayout = SingleImageItemLayout(R.mipmap.gmlrva_ic_launcher, this)
-        exampleHolders.add(singleItemLayout)
-
-        /* Add a Carousel (Category + List with options) Item Example */
-        mCarouselItemDataWithOptions = buildCarouselItemWithOptionsData(20)
-        val carouselCategoryItemWithOptionsLayout = CarouselCategoryItemWithOptionLayout("Carousel Title With Option",
-                mCarouselItemDataWithOptions, this)
-        exampleHolders.add(carouselCategoryItemWithOptionsLayout)
-
-        /* Add a Single Text Item Example */
-        val singleTextItemLayout = SingleTextItemLayout(getString(R.string.gmlrva_app_name), this)
-        exampleHolders.add(singleTextItemLayout)
-
-        val adapter = mGenericTest!!.adapter as GenericMultipleLayoutAdapter?
-        adapter!!.updateList(exampleHolders)
-    }
-
-    /**
-     * Procedure meant to build the Sample List, showcasing multiple layout types manage by the same
-     * [RecyclerView.Adapter] instance.
-     * @return the intended Sample List.
-     */
-    private fun buildGenericListExample(): List<IGenericRecyclerViewLayout<*>> {
-        val exampleHolders = ArrayList<IGenericRecyclerViewLayout<*>>()
-
-        /* Add a Single Image Item Example */
-        val singleItemLayout = SingleImageItemLayout(R.mipmap.gmlrva_ic_launcher, this)
-        exampleHolders.add(singleItemLayout)
-
-        /* Add a Single Text Item Example */
-        val singleTextItemLayout = SingleTextItemLayout(getString(R.string.gmlrva_app_name), this)
-        exampleHolders.add(singleTextItemLayout)
-
-        /* Add a Carousel (Category + List) Item Example */
-        val mCarouselItemData = buildCarouselItemData(10)
-        val carouselCategoryItemLayout = CarouselCategoryItemLayout("Carousel Title", mCarouselItemData, this)
-        exampleHolders.add(carouselCategoryItemLayout)
-
-        /* Add a Carousel (Category + List with options) Item Example */
-        mCarouselItemDataWithOptions = buildCarouselItemWithOptionsData(10)
-        val carouselCategoryItemWithOptionsLayout = CarouselCategoryItemWithOptionLayout("Carousel Title With Option",
-                mCarouselItemDataWithOptions, this)
-        exampleHolders.add(carouselCategoryItemWithOptionsLayout)
-
-        /* Add a Single Image Item Example */
-        val singleItemLayout3 = SingleImageItemLayout(R.mipmap.gmlrva_ic_launcher, this)
-        exampleHolders.add(singleItemLayout3)
-
-        /* Add a Single Image Item Example */
-        val singleItemLayout4 = SingleImageItemLayout(R.mipmap.gmlrva_ic_launcher, this)
-        exampleHolders.add(singleItemLayout4)
-
-        /* Add a Single Image Item Example */
-        val singleItemLayout5 = SingleImageItemLayout(R.mipmap.gmlrva_ic_launcher, this)
-        exampleHolders.add(singleItemLayout5)
-
-        /* Add a Single Image Item Example */
-        val singleItemLayout6 = SingleImageItemLayout(R.mipmap.gmlrva_ic_launcher, this)
-        exampleHolders.add(singleItemLayout6)
-
-        return exampleHolders
-    }
-
-    /**
-     * Auxiliary procedure meant to build the Carousel item list sample for the Carousel example present in this
-     * activity's Sample List.
-     * @param maxItemNumber the maximum number of carousel items.
-     * @return the intended Carousel item list.
-     */
-    private fun buildCarouselItemData(@IntRange(from = 0) maxItemNumber: Int): List<IGenericRecyclerViewLayout<*>> {
-        val carouselItemData = ArrayList<IGenericRecyclerViewLayout<*>>()
-
-        var title: String
-        var description: String
-        val resource = R.mipmap.gmlrva_ic_launcher_round
-        var item: FakeDataObject
-        for (i in 0 until maxItemNumber) {
-            item = mDataProvider.provideFakeData()
-            title = item.getTitle()
-            description = item.getDescription()
-            carouselItemData.add(CarouselItemLayout(title, description, resource))
-        }
-
-        return carouselItemData
-    }
-
-    /**
-     * Auxiliary procedure meant to build the Carousel item list with options sample for the Carousel example present
-     * in this activity's Sample List.
-     * @param maxItemNumber the maximum number of carousel items.
-     * @return the intended Carousel item list.
-     */
-    private fun buildCarouselItemWithOptionsData(@IntRange(from = 0) maxItemNumber: Int): List<CarouselItemWithOptionLayout> {
-        val carouselItemData = ArrayList<CarouselItemWithOptionLayout>()
-
-        var title: String
-        var description: String
-        val resource = R.mipmap.gmlrva_ic_launcher_round
-        var item: FakeDataObject
-        for (i in 0 until maxItemNumber) {
-            item = mDataProvider.provideFakeData()
-            title = item.getTitle()
-            description = item.getDescription()
-            carouselItemData.add(CarouselItemWithOptionLayout(title, description, resource))
-        }
-
-        return carouselItemData
     }
 
     /** Procedure meant to bind this activity's views.  */

@@ -22,7 +22,7 @@ import pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperationV
 import pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperationVars.Companion.CHANGE_ANIMATION_FINISHED
 import pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperationVars.Companion.REMOVE_ANIMATION_FINISHED
 import pt.simdea.gmlrva.lib.animation.helpers.IAnimatedViewHolder
-import pt.simdea.gmlrva.lib.utilities.GMLRVAConstants
+import pt.simdea.gmlrva.lib.utilities.GMLRVAConstantsVars
 import pt.simdea.gmlrva.sample.R
 import pt.simdea.gmlrva.sample.layouts.ViewTypes
 
@@ -45,7 +45,7 @@ class CarouselItemWithOptionLayout(
 
     /** {@inheritDoc}  */
     override val viewType: Int
-        get() = ViewTypes.GenericRecyclerViewLayoutTypes.CAROUSEL_ITEM_WITH_OPTIONS
+        get() = ViewTypes.CAROUSEL_ITEM_WITH_OPTIONS
 
     /** {@inheritDoc}  */
     override fun createViewHolder(parent: ViewGroup): CarouselItemWithOptionViewHolder {
@@ -56,21 +56,21 @@ class CarouselItemWithOptionLayout(
 
     /** {@inheritDoc}  */
     override fun setElements(holder: CarouselItemWithOptionViewHolder) {
-        holder.getTitle().setText(mTitle)
-        holder.getDescription().setText(mDescription)
-        holder.getCover().setImageResource(mCoverResource)
+        holder.mTitle.text = mTitle
+        holder.mDescription.text = mDescription
+        holder.mCover.setImageResource(mCoverResource)
     }
 
     /** Class meant to define the [RecyclerView.ViewHolder] for a Carousel Item Layout instance.  */
-    public inner class CarouselItemWithOptionViewHolder(val view: View) : ViewHolder(view), IAnimatedViewHolder, View.OnClickListener {
+    inner class CarouselItemWithOptionViewHolder(val view: View) : ViewHolder(view), IAnimatedViewHolder, View.OnClickListener {
 
-        internal var mTitle: TextView? = null
-        internal var mDescription: TextView? = null
-        internal var mCover: ImageView? = null
-        internal var mOption: ImageView? = null
-        internal var mOptionSection: RelativeLayout? = null
-        internal var mLeftOption: View? = null
-        internal var mRightOption: View? = null
+        internal lateinit var mTitle: TextView
+        internal lateinit var mDescription: TextView
+        internal lateinit var mCover: ImageView
+        internal lateinit var mOption: ImageView
+        internal lateinit var mOptionSection: RelativeLayout
+        internal lateinit var mLeftOption: View
+        internal lateinit var mRightOption: View
 
         init {
             bindViews(view)
@@ -79,10 +79,10 @@ class CarouselItemWithOptionLayout(
 
         /** {@inheritDoc}  */
         override fun recycle() {
-            mTitle!!.text = null
-            mDescription!!.text = null
-            mCover!!.setImageDrawable(null)
-            mOption!!.setImageDrawable(null)
+            mTitle.text = null
+            mDescription.text = null
+            mCover.setImageDrawable(null)
+            mOption.setImageDrawable(null)
         }
 
         /** {@inheritDoc}  */
@@ -104,62 +104,56 @@ class CarouselItemWithOptionLayout(
         /** {@inheritDoc}  */
         override fun onClick(v: View) {
             val viewId = v.id
-            if (viewId == mTitle!!.id) {
-                handleTitleClick()
-            } else if (viewId == mDescription!!.id) {
-                handleDescriptionClick()
-            } else if (viewId == mCover!!.id) {
-                handleCoverClick()
-            } else if (viewId == mOption!!.id) {
-                handleOptionClick()
-            } else if (viewId == mLeftOption!!.id) {
-                handleLeftOptionClick()
-            } else if (viewId == mRightOption!!.id) {
-                handleRightOptionClick()
-            } else {
-                throw UnsupportedOperationException(GMLRVAConstants.Companion.getUNSUPPORTED_ERROR())
+            when (viewId) {
+                mTitle.id -> handleTitleClick()
+                mDescription.id -> handleDescriptionClick()
+                mCover.id -> handleCoverClick()
+                mOption.id -> handleOptionClick()
+                mLeftOption.id -> handleLeftOptionClick()
+                mRightOption.id -> handleRightOptionClick()
+                else -> throw UnsupportedOperationException(GMLRVAConstantsVars.UNSUPPORTED_ERROR)
             }
         }
 
         /** Procedure meant to handle a Left Option view Carousel Item Layout click action.  */
         private fun handleLeftOptionClick() {
-            Toast.makeText(itemView.context, "Left Option selected!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(view.context, "Left Option selected!", Toast.LENGTH_SHORT).show()
             handleOptionClick()
         }
 
         /** Procedure meant to handle a Right Option view Carousel Item Layout click action.  */
         private fun handleRightOptionClick() {
-            Toast.makeText(itemView.context, "Right Option selected!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(view.context, "Right Option selected!", Toast.LENGTH_SHORT).show()
             handleOptionClick()
         }
 
         /** Procedure meant to handle an Option view Carousel Item Layout click action.  */
         private fun handleOptionClick() {
-            if (mOptionSection!!.visibility == View.GONE) {
-                mOptionSection!!.visibility = View.VISIBLE
+            if (mOptionSection.visibility == View.GONE) {
+                mOptionSection.visibility = View.VISIBLE
             } else {
-                mOptionSection!!.visibility = View.GONE
+                mOptionSection.visibility = View.GONE
             }
         }
 
         /** Procedure meant to handle a Cover view Carousel Item Layout click action.  */
         private fun handleCoverClick() {
-            Toast.makeText(itemView.context, "Cover Click!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(view.context, "Cover Click!", Toast.LENGTH_SHORT).show()
         }
 
         /** Procedure meant to handle a Description view Carousel Item Layout click action.  */
         private fun handleDescriptionClick() {
-            Toast.makeText(itemView.context, "Description Click!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(view.context, "Description Click!", Toast.LENGTH_SHORT).show()
         }
 
         /** Procedure meant to handle a Title view Carousel Item Layout click action.  */
         private fun handleTitleClick() {
-            Toast.makeText(itemView.context, "Title Click!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(view.context, "Title Click!", Toast.LENGTH_SHORT).show()
         }
 
         /** Procedure meant to bind this [RecyclerView.ViewHolder]'s listeners.  */
         private fun bindListeners() {
-            val clickableViews = arrayOf<View>(mTitle, mCover, mDescription, mOption, mLeftOption, mRightOption)
+            val clickableViews = arrayOf(mTitle, mCover, mDescription, mOption, mLeftOption, mRightOption)
             for (view in clickableViews) {
                 view.setOnClickListener(this)
             }

@@ -11,7 +11,7 @@ package pt.simdea.gmlrva.sample.data
  * Simdea © All Rights Reserved.
  * paulo.ribeiro@simdea.pt
  */
-class FakeDataObject(private val mTitle: String, private val mDescription: String) : Comparable<FakeDataObject> {
+class FakeDataObject(internal val mTitle: String, internal val mDescription: String) : Comparable<FakeDataObject> {
 
     override fun compareTo(other: FakeDataObject): Int {
         return mTitle.compareTo(other.mTitle, true)

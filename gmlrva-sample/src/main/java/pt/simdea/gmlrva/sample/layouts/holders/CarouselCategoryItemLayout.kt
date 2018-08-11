@@ -38,7 +38,7 @@ import pt.simdea.gmlrva.sample.layouts.ViewTypes
  * paulo.ribeiro@simdea.pt
  */
 class CarouselCategoryItemLayout(private val mCategoryTitle: String,
-                                 private val mCategoryData: PagedList<IGenericRecyclerViewLayout<ViewHolder>>,
+                                 private val mCategoryData: List<IGenericRecyclerViewLayout<*>>,
                                  private val mContext: Context) : IGenericRecyclerViewLayout<CarouselCategoryItemLayout.CarouselCategoryViewHolder> {
 
     /** {@inheritDoc}  */

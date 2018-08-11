@@ -16,12 +16,16 @@ import lombok.Getter
 import pt.simdea.gmlrva.lib.GenericMultipleLayoutAdapter
 import pt.simdea.gmlrva.lib.IGenericRecyclerViewLayout
 import pt.simdea.gmlrva.lib.IViewHolder
+import pt.simdea.gmlrva.lib.ViewHolder
 import pt.simdea.gmlrva.lib.animation.GenericItemAnimator
 import pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperation
+import pt.simdea.gmlrva.lib.animation.helpers.GenericAnimationFinishedOperationVars
 import pt.simdea.gmlrva.lib.animation.helpers.IAnimatedViewHolder
 import pt.simdea.gmlrva.lib.utilities.GMLRVAConstants
+import pt.simdea.gmlrva.lib.utilities.GMLRVAConstantsVars
 import pt.simdea.gmlrva.sample.R
 import pt.simdea.gmlrva.sample.data.ClickListener
+import pt.simdea.gmlrva.sample.layouts.ViewTypes
 import pt.simdea.gmlrva.sample.layouts.animation.ViewHolderAnimationHelper
 
 /**
@@ -31,11 +35,10 @@ import pt.simdea.gmlrva.sample.layouts.animation.ViewHolderAnimationHelper
  * Simdea © All Rights Reserved.
  * paulo.ribeiro@simdea.pt
  */
-@AllArgsConstructor
-class SingleTextItemLayout : IGenericRecyclerViewLayout<SingleTextItemLayout.SingleTextItemViewHolder> {
+class SingleTextItemLayout(
+        private val mTextResource: String
+) : IGenericRecyclerViewLayout<SingleTextItemLayout.SingleTextItemViewHolder> {
 
-    private val mTextResource: String? = null
-    protected val mListener: ClickListener? = null
 
     /** {@inheritDoc}  */
     override val tag: Any
@@ -43,7 +46,7 @@ class SingleTextItemLayout : IGenericRecyclerViewLayout<SingleTextItemLayout.Sin
 
     /** {@inheritDoc}  */
     override val viewType: Int
-        get() = GenericRecyclerViewLayoutTypes.SINGLE_TEXT_ITEM
+        get() = ViewTypes.SINGLE_TEXT_ITEM
 
     /** {@inheritDoc}  */
     override fun createViewHolder(parent: ViewGroup): SingleTextItemViewHolder {
@@ -54,65 +57,37 @@ class SingleTextItemLayout : IGenericRecyclerViewLayout<SingleTextItemLayout.Sin
 
     /** {@inheritDoc}  */
     override fun setElements(holder: SingleTextItemViewHolder) {
-        holder.getTitle().setText(mTextResource)
+        holder.mTitle.text = mTextResource
     }
 
     /** Class meant to define the [RecyclerView.ViewHolder] for a Single Text Layout instance.  */
-    internal inner class SingleTextItemViewHolder
-    /**
-     * Instantiates a new SingleTextItemViewHolder.
-     * @param view this [RecyclerView.ViewHolder]'s root view.
-     */
-    (view: View) : RecyclerView.ViewHolder(view), IAnimatedViewHolder, View.OnClickListener, IViewHolder {
+    inner class SingleTextItemViewHolder(val view: View) : ViewHolder(view), IAnimatedViewHolder, IViewHolder {
 
-        @Getter
-        private var mTitle: TextView? = null
+        internal lateinit var mTitle: TextView
 
         init {
             bindViews(view)
-            bindListeners()
         }
 
         /** {@inheritDoc}  */
         override fun recycle() {
-            mTitle!!.text = null
+            mTitle.text = null
         }
 
         /** {@inheritDoc}  */
         override fun runAddAnimation(listener: GenericItemAnimator) {
-            ViewHolderAnimationHelper.runTestAddAnimation(this, itemView, listener)
+            ViewHolderAnimationHelper.runTestAddAnimation(this, view, listener)
             //            listener.onAnimationFinished(this, ADD_ANIMATION_FINISHED)
         }
 
         /** {@inheritDoc}  */
         override fun runRemoveAnimation(listener: GenericItemAnimator) {
-            listener.onAnimationFinished(this, GenericAnimationFinishedOperation.REMOVE_ANIMATION_FINISHED)
+            listener.onAnimationFinished(this, GenericAnimationFinishedOperationVars.REMOVE_ANIMATION_FINISHED)
         }
 
         /** {@inheritDoc}  */
         override fun runChangeAnimation(listener: GenericItemAnimator): AnimatorSet? {
-            return ViewHolderAnimationHelper.runTestChangeAnimation(this, mTitle!!, listener)
-        }
-
-        /** {@inheritDoc}  */
-        override fun onClick(v: View) {
-            val viewId = v.id
-            if (viewId == mTitle!!.id) {
-                handleTitleClick()
-            } else {
-                throw UnsupportedOperationException(GMLRVAConstants.Companion.getUNSUPPORTED_ERROR())
-            }
-        }
-
-        /** Procedure meant to handle a Single Text Layout click action.  */
-        private fun handleTitleClick() {
-            Toast.makeText(itemView.context, "Title Click!", Toast.LENGTH_SHORT).show()
-            mListener?.onClick()
-        }
-
-        /** Procedure meant to bind this [RecyclerView.ViewHolder]'s listeners.  */
-        private fun bindListeners() {
-            mTitle!!.setOnClickListener(this)
+            return ViewHolderAnimationHelper.runTestChangeAnimation(this, mTitle, listener)
         }
 
         /**
