@@ -10,30 +10,20 @@ import android.graphics.DashPathEffect
 import android.graphics.Paint
 import android.os.Bundle
 import android.util.TypedValue
-import androidx.annotation.IntRange
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import pt.simdea.gmlrva.lib.GenericMultipleLayoutAdapter
-import pt.simdea.gmlrva.lib.IGenericRecyclerViewLayout
 import pt.simdea.gmlrva.lib.animation.animators.ExampleItemAnimator
 import pt.simdea.gmlrva.lib.decoration.decorators.SimpleDividerItemDecoration
-import pt.simdea.gmlrva.lib.decoration.helpers.GenericDecorationDividerPosition
 import pt.simdea.gmlrva.lib.decoration.helpers.GenericDecorationDividerPositionVars
 import pt.simdea.gmlrva.lib.decoration.specs.SimpleDividerItemDecorationSpec
 import pt.simdea.gmlrva.lib.utilities.GenericUtils
 import pt.simdea.gmlrva.sample.R
 import pt.simdea.gmlrva.sample.data.ClickListener
-import pt.simdea.gmlrva.sample.data.FakeDataObject
-import pt.simdea.gmlrva.sample.data.FakeDataProvider
-import pt.simdea.gmlrva.sample.layouts.animation.ChangeAnimationTypesVars.Companion.ROTATION_TRIGGER
-import pt.simdea.gmlrva.sample.layouts.holders.*
 import pt.simdea.gmlrva.sample.viewmodel.SampleViewModel
-import java.util.*
 
 /**
  * Class responsible for the Sample Screen for the (GMLRVA) library.
@@ -94,7 +84,7 @@ class SampleActivity : AppCompatActivity(), ClickListener {
     /** {@inheritDoc}  */
     override fun onClick() {
         if (mGenericTest != null) {
-            //            rebuildGenericListExample()
+            //rebuildGenericListExample()
             val adapter = mGenericTest.adapter as GenericMultipleLayoutAdapter?
             val item = adapter!![1]
             if (item != null) {

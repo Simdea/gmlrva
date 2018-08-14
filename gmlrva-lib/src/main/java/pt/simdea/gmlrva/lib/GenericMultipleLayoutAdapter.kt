@@ -23,7 +23,7 @@ import pt.simdea.gmlrva.lib.diff.GmlrvaDiffCallback
 class GenericMultipleLayoutAdapter : PagedListAdapter<IGenericRecyclerViewLayout<ViewHolder>, ViewHolder>(GmlrvaDiffCallback()) {
 
     /* View Type Auxiliary Variable */
-    private val mViewTypes = SparseArray<IGenericRecyclerViewLayout<ViewHolder>>()
+    private val mViewTypes = SparseArray<IGenericRecyclerViewLayout<out ViewHolder>>()
 
     /** {@inheritDoc}  */
     override fun onCreateViewHolder(parent: ViewGroup, @IntRange(from = 0) viewType: Int): ViewHolder {

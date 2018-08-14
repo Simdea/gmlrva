@@ -3,29 +3,29 @@ package pt.simdea.gmlrva.sample.data
 import android.content.Context
 import androidx.annotation.IntRange
 import androidx.paging.PageKeyedDataSource
-import pt.simdea.gmlrva.lib.IGenericRecyclerViewLayout
 import androidx.recyclerview.widget.RecyclerView
+import pt.simdea.gmlrva.lib.IGenericRecyclerViewLayout
 import pt.simdea.gmlrva.lib.ViewHolder
 import pt.simdea.gmlrva.sample.R
 import pt.simdea.gmlrva.sample.layouts.holders.*
-import java.util.ArrayList
+import java.util.*
 
 
 class GenericListDataSource(
         private val context: Context
-) : PageKeyedDataSource<Any, IGenericRecyclerViewLayout<ViewHolder>>() {
+) : PageKeyedDataSource<Any, IGenericRecyclerViewLayout<out ViewHolder>>() {
 
     private val mDataProvider = FakeDataProvider()
-    private var mCarouselItemDataWithOptions: MutableList<CarouselItemWithOptionLayout> = ArrayList()
+    private var mCarouselItemDataWithOptions: List<IGenericRecyclerViewLayout<out ViewHolder>> = ArrayList()
 
-    override fun loadInitial(params: LoadInitialParams<Any>, callback: LoadInitialCallback<Any, IGenericRecyclerViewLayout<ViewHolder>>) {
+    override fun loadInitial(params: LoadInitialParams<Any>, callback: LoadInitialCallback<Any, IGenericRecyclerViewLayout<out ViewHolder>>) {
         callback.onResult(buildGenericListExample(), null, 2)
     }
 
-    override fun loadAfter(params: LoadParams<Any>, callback: LoadCallback<Any, IGenericRecyclerViewLayout<ViewHolder>>) {
+    override fun loadAfter(params: LoadParams<Any>, callback: LoadCallback<Any, IGenericRecyclerViewLayout<out ViewHolder>>) {
     }
 
-    override fun loadBefore(params: LoadParams<Any>, callback: LoadCallback<Any, IGenericRecyclerViewLayout<ViewHolder>>) {
+    override fun loadBefore(params: LoadParams<Any>, callback: LoadCallback<Any, IGenericRecyclerViewLayout<out ViewHolder>>) {
     }
 
     /** Procedure meant to rebuild the existing data list.  */
@@ -55,8 +55,8 @@ class GenericListDataSource(
      * [RecyclerView.Adapter] instance.
      * @return the intended Sample List.
      */
-    private fun buildGenericListExample(): List<IGenericRecyclerViewLayout<ViewHolder>> {
-        val exampleHolders = ArrayList<IGenericRecyclerViewLayout<ViewHolder>>()
+    private fun buildGenericListExample(): List<IGenericRecyclerViewLayout<out ViewHolder>> {
+        val exampleHolders = ArrayList<IGenericRecyclerViewLayout<out ViewHolder>>()
 
         /* Add a Single Image Item Example */
         val singleItemLayout = SingleImageItemLayout(R.mipmap.gmlrva_ic_launcher)
@@ -102,8 +102,8 @@ class GenericListDataSource(
      * @param maxItemNumber the maximum number of carousel items.
      * @return the intended Carousel item list.
      */
-    private fun buildCarouselItemData(@IntRange(from = 0) maxItemNumber: Int): List<IGenericRecyclerViewLayout<ViewHolder>> {
-        val carouselItemData = ArrayList<IGenericRecyclerViewLayout<ViewHolder>>()
+    private fun buildCarouselItemData(@IntRange(from = 0) maxItemNumber: Int): List<IGenericRecyclerViewLayout<out ViewHolder>> {
+        val carouselItemData = ArrayList<IGenericRecyclerViewLayout<CarouselItemLayout.CarouselItemViewHolder>>()
 
         var title: String
         var description: String
@@ -125,7 +125,7 @@ class GenericListDataSource(
      * @param maxItemNumber the maximum number of carousel items.
      * @return the intended Carousel item list.
      */
-    private fun buildCarouselItemWithOptionsData(@IntRange(from = 0) maxItemNumber: Int): List<CarouselItemWithOptionLayout> {
+    private fun buildCarouselItemWithOptionsData(@IntRange(from = 0) maxItemNumber: Int): List<IGenericRecyclerViewLayout<out ViewHolder>> {
         val carouselItemData = ArrayList<CarouselItemWithOptionLayout>()
 
         var title: String
