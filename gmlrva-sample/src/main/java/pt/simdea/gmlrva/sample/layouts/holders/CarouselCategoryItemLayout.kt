@@ -12,7 +12,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import pt.simdea.gmlrva.lib.GenericMultipleLayoutAdapter
@@ -73,7 +72,7 @@ class CarouselCategoryItemLayout(private val mCategoryTitle: String,
      */
     private fun loadItems(items: RecyclerView, drawable: Drawable) {
         items.adapter = GenericMultipleLayoutAdapter()
-        (items.adapter as GenericMultipleLayoutAdapter).submitList(mCategoryData)
+        //(items.adapter as GenericMultipleLayoutAdapter).submitList(mCategoryData)
         items.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
 
         val spec = SimpleDividerItemDecorationSpec.DecorationSpecBuilder()

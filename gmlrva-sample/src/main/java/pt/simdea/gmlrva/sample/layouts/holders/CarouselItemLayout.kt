@@ -75,9 +75,9 @@ class CarouselItemLayout(
 
         /** {@inheritDoc}  */
         override fun recycle() {
-            mTitle!!.text = null
-            mDescription!!.text = null
-            mCover!!.setImageDrawable(null)
+            mTitle.text = null
+            mDescription.text = null
+            mCover.setImageDrawable(null)
         }
 
         /** {@inheritDoc}  */
@@ -99,11 +99,11 @@ class CarouselItemLayout(
         /** {@inheritDoc}  */
         override fun onClick(v: View) {
             val viewId = v.id
-            if (viewId == mTitle!!.id) {
+            if (viewId == mTitle.id) {
                 handleTitleClick()
-            } else if (viewId == mDescription!!.id) {
+            } else if (viewId == mDescription.id) {
                 handleDescriptionClick()
-            } else if (viewId == mCover!!.id) {
+            } else if (viewId == mCover.id) {
                 handleCoverClick()
             } else {
                 throw UnsupportedOperationException(GMLRVAConstantsVars.UNSUPPORTED_ERROR)
@@ -127,7 +127,7 @@ class CarouselItemLayout(
 
         /** Procedure meant to bind this [RecyclerView.ViewHolder]'s listeners.  */
         private fun bindListeners() {
-            val clickableViews = arrayOf<View>(mTitle, mCover, mDescription)
+            val clickableViews = arrayOf(mTitle, mCover, mDescription)
             for (view in clickableViews) {
                 view.setOnClickListener(this)
             }

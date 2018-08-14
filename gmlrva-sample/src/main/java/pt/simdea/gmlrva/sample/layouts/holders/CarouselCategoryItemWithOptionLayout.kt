@@ -10,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import pt.simdea.gmlrva.lib.GenericMultipleLayoutAdapter
@@ -65,7 +64,7 @@ class CarouselCategoryItemWithOptionLayout(
      */
     private fun loadItems(items: RecyclerView) {
         items.adapter = GenericMultipleLayoutAdapter()
-        (items.adapter as GenericMultipleLayoutAdapter).submitList(mCategoryData)
+        //(items.adapter as GenericMultipleLayoutAdapter).submitList(mCategoryData)
         items.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
         GenericUtils.setOptimalConfigurationForRecyclerView(items)
     }
